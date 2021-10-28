@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/config/colorPallet.dart';
 import 'package:retailer_app/config/theme.dart';
 
 
@@ -27,7 +28,7 @@ class TextBanner extends StatelessWidget {
                 color: Theme.of(context).primaryColor)),
       ),
       decoration: BoxDecoration(
-          color: AppTheme.bannerBackgroundColor,
+          color: ColorPallet.bannerBackgroundColor,
           borderRadius: BorderRadius.circular(radius)),
     );
   }
