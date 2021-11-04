@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/widgets/QuantityBar.dart';
-import 'package:retailer_app/widgets/SquareCard/prodcut_card.dart';
+import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final Product? product;

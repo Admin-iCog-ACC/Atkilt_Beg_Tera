@@ -45,11 +45,14 @@ class _ProdcutCardState extends State<ProductCard> {
         });
       }
     }));
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    loadingSpinner = SpinKitFadingCircle(color: Theme.of(context).primaryColor);
+    loadingSpinner = SpinKitRipple(
+      color: Theme.of(context).primaryColor,
+    );
     return GestureDetector(
       onTap: () => print("Successul card."),
       child: Card(
@@ -62,7 +65,9 @@ class _ProdcutCardState extends State<ProductCard> {
                 SizedBox(
                     height: 150,
                     width: 150,
-                    child: Image(image: _image, fit: BoxFit.cover)),
+                    child: _imageLoaded
+                        ? Image(image: _image, fit: BoxFit.cover)
+                        : loadingSpinner),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Column(
@@ -80,7 +85,7 @@ class _ProdcutCardState extends State<ProductCard> {
                   ),
                 ),
                 MaterialButton(
-                  height: 28,
+                  height: 35,
                   minWidth: 355,
                   onPressed: () => print("Successul Btn."),
                   color: Theme.of(context).primaryColor,

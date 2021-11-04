@@ -9,49 +9,65 @@ class CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+        child: SingleChildScrollView(
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
               accountName: Text('John T.'),
-              accountEmail: Text('*********@gmail.com'),
+              accountEmail: Text('John.T@gmail.com'),
               currentAccountPicture: GestureDetector(
+                  onTap: () => print("Successul Btn."),
                   child: CircleAvatar(
                       backgroundColor: Colors.grey,
                       child: Icon(Icons.person, color: Colors.white))),
-              decoration: BoxDecoration(color: Colors.red)),
+              decoration: BoxDecoration(color: Theme.of(context).primaryColor)),
           ListTile(
-            leading: Icon(Icons.person, color: Colors.redAccent),
-            title: Text('My Home'),
+            leading: Icon(Icons.home_outlined),
+            title: Text('Home'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.person, color: Colors.redAccent),
-            title: Text('My Acount'),
+            leading: Icon(Icons.history_outlined),
+            title: Text('My Orders'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.fitness_center, color: Colors.redAccent),
-            title: Text('My Workout'),
+            leading: Icon(Icons.shopping_bag_outlined),
+            title: Text('Checkout'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.cancel, color: Colors.redAccent),
-            title: Text('My Nutrition'),
+            leading: Icon(
+              Icons.shopping_cart_outlined,
+            ),
+            title: Text('Cart'),
             onTap: () {},
           ),
-          Divider(color: Colors.red, indent: 20.0),
           ListTile(
-            leading: Icon(Icons.settings, color: Colors.blue),
+            leading: Icon(
+              Icons.hearing_outlined,
+            ),
+            title: Text('Wishlist'),
+            onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.logout_outlined),
+            title: Text('Logout'),
+            onTap: () {},
+          ),
+          Divider(color: Theme.of(context).accentColor, indent: 20.0),
+          ListTile(
+            leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.help, color: Colors.green),
+            leading: Icon(Icons.help, color: Theme.of(context).primaryColor),
             title: Text('About'),
             onTap: () {},
           ),
         ],
       ),
-    );
+    ));
   }
 }

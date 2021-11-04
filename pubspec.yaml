@@ -65,6 +65,13 @@ flutter:
    - family: Signika
      fonts:
         - asset: assets/fonts/Signika/Signika-Regular.ttf
+   - family: Lato
+     fonts:
+        - asset: assets/fonts/Lato/Lato-Black.ttf
+        - asset: assets/fonts/Lato/Lato-Bold.ttf
+   - family: Signika
+     fonts:
+        - asset: assets/fonts/OpenSans/OpenSans-Regular.ttf
 
 #     - family: Trajan Pro
 #       fonts:

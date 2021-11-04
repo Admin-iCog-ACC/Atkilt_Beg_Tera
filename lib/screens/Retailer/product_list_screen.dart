@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:retailer_app/widgets/SquareCard/prodcut_card.dart';
+import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 import 'package:retailer_app/widgets/sidebar(drawer)/CustomDrawer.dart';
 import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
 
@@ -16,7 +16,7 @@ class ProductListScreenState extends State<ProductListScreen> {
         key: Key("homePage"),
         drawer: CustomDrawer(),
         body: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(0),
           child: CustomScrollView(
             slivers: [
               CustomSliverAppBar(
@@ -27,14 +27,14 @@ class ProductListScreenState extends State<ProductListScreen> {
                   (context, index) => Column(
                     children: [
                       ProductCard(
-                          title: 'Carrots',
+                          title: 'Tomatos',
                           imageUrl:
-                              'https://www.pngfind.com/pngs/m/680-6809879_bunch-carrots-hd-png-download.png',
+                              'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
                           subtitle: 'subtitle',
                           price: 15)
                     ],
                   ),
-                  childCount: 10,
+                  childCount: 5,
                 ),
               ),
             ],

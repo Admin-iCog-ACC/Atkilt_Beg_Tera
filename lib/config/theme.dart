@@ -5,11 +5,13 @@ class CustomTheme with ChangeNotifier {
   static ThemeData get lightTheme {
     return ThemeData(
         textTheme: TextTheme(
+          headline2: TextStyle(fontSize: 18, color: Colors.black),
+          headline4: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           headline1: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
-          headline2: TextStyle(fontSize: 18, color: Colors.black),
           headline3: TextStyle(fontSize: 26, color: Colors.black),
-          // headline4: TextStyle(fontSize: 16),
+
           // headline5: TextStyle(fontSize: 18),
           // headline6: TextStyle(fontSize: 20),
         ),
@@ -20,7 +22,7 @@ class CustomTheme with ChangeNotifier {
         primaryColor: ColorPallet.maincolor,
         accentColor: ColorPallet.accentcolor,
         scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'Signika',
+        fontFamily: 'OpenSans',
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
@@ -30,10 +32,20 @@ class CustomTheme with ChangeNotifier {
 
   static ThemeData get darkTheme {
     return ThemeData(
-        primaryColor: ColorPallet.darkGrey,
-        scaffoldBackgroundColor: Colors.black,
+        primaryColor: ColorPallet.maincolor,
+        scaffoldBackgroundColor: Colors.grey,
         fontFamily: 'Signika',
-        textTheme: ThemeData.dark().textTheme,
+        textTheme: TextTheme(
+          headline2: TextStyle(fontSize: 18, color: Colors.black),
+          headline4: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+          headline1: TextStyle(
+              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+          headline3: TextStyle(fontSize: 26, color: Colors.black),
+
+          // headline5: TextStyle(fontSize: 18),
+          // headline6: TextStyle(fontSize: 20),
+        ),
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),

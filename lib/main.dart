@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/config/theme.dart';
-import 'package:retailer_app/screens/Retailer/product_details_screen.dart';
-import 'package:retailer_app/screens/Retailer/product_list_screen.dart';
-
-import 'models/Product.dart';
+import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
+import 'package:retailer_app/screens/Retailer/dashboard.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,9 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter App',
         theme: CustomTheme.lightTheme,
-        home: ProductDetailScreen(
-          product: new Product('_product_name', '_product_title',
-              '_product_description', 15, 50, '_size', true, 101, 101),
-        ));
+        home: RetailerDashboardScreen());
   }
 }
