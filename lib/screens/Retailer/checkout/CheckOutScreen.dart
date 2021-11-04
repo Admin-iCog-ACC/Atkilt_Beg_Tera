@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CheckOutScreen extends StatefulWidget {
+  const CheckOutScreen();
   @override
   CheckOutScreenState createState() => CheckOutScreenState();
 }

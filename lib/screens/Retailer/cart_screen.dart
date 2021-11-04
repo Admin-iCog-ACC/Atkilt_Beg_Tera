@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/routes/route_path.dart';
 import 'package:retailer_app/widgets/Cards/CartCard.dart';
 
 class CartScreen extends StatefulWidget {
+  const CartScreen();
   @override
   CartScreenState createState() => CartScreenState();
 }
@@ -29,43 +31,50 @@ class CartScreenState extends State<CartScreen> {
             ),
             Positioned.fill(
                 child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                margin: EdgeInsets.all(15),
-                height: 52,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(100)),
-                    color: Theme.of(context).primaryColor),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: 15),
-                      child: Text(
-                        'Checkout',
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
+                    alignment: Alignment.bottomCenter,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                            context, RoutePaths.retailer_checkut);
+                      },
+                      child: Container(
+                        margin: EdgeInsets.all(15),
+                        height: 52,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100)),
+                            color: Theme.of(context).primaryColor),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 15),
+                              child: Text(
+                                'Checkout',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(50)),
+                                  color: Colors.white),
+                              margin: EdgeInsets.all(6),
+                              padding: EdgeInsets.all(10),
+                              child: Text("Br500.00",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                      color: Theme.of(context).primaryColor)),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
-                          color: Colors.white),
-                      margin: EdgeInsets.all(6),
-                      padding: EdgeInsets.all(10),
-                      child: Text("Br500.00",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
-                              color: Theme.of(context).primaryColor)),
-                    )
-                  ],
-                ),
-              ),
-            ))
+                    )))
           ],
         ));
   }

@@ -4,6 +4,7 @@ import 'package:retailer_app/widgets/sidebar(drawer)/CustomDrawer.dart';
 import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
 
 class ProductListScreen extends StatefulWidget {
+  const ProductListScreen();
   @override
   ProductListScreenState createState() => ProductListScreenState();
 }

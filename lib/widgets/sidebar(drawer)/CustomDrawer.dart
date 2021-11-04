@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/routes/route_path.dart';
 
 class CustomDrawer extends StatefulWidget {
   @override
@@ -34,21 +35,25 @@ class CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             leading: Icon(Icons.shopping_bag_outlined),
             title: Text('Checkout'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_checkut);
+            },
           ),
           ListTile(
             leading: Icon(
               Icons.shopping_cart_outlined,
             ),
             title: Text('Cart'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_cart);
+            },
           ),
           ListTile(
-            leading: Icon(
-              Icons.hearing_outlined,
-            ),
-            title: Text('Wishlist'),
-            onTap: () {},
+            leading: Icon(Icons.list),
+            title: Text('Products'),
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_product_list);
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout_outlined),

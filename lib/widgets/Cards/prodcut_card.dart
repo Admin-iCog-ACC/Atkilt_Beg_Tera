@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:retailer_app/config/theme.dart';
+import 'package:retailer_app/models/Product.dart';
+import 'package:retailer_app/routes/route_path.dart';
 
 class ProductCard extends StatefulWidget {
   final String title;
@@ -54,7 +56,11 @@ class _ProdcutCardState extends State<ProductCard> {
       color: Theme.of(context).primaryColor,
     );
     return GestureDetector(
-      onTap: () => print("Successul card."),
+      onTap: () {
+        Navigator.pushNamed(context, RoutePaths.retailer_prodcut_detail,
+            arguments: new Product('_product_name', '_product_title',
+                '_product_description', 15, 10, '_size', true, 101, 152));
+      },
       child: Card(
         margin: EdgeInsets.all(10),
         child: Container(

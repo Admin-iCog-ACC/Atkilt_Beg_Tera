@@ -7,7 +7,7 @@ import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 class ProductDetailScreen extends StatefulWidget {
   final Product? product;
 
-  ProductDetailScreen({Key? key, @required this.product}) : super(key: key);
+  const ProductDetailScreen({Key? key, this.product}) : super(key: key);
 
   @override
   ProductDetailScreenState createState() => ProductDetailScreenState();
@@ -24,7 +24,8 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedProduct = widget.product!;
+    var selectedProduct = new Product('_product_name', '_product_title',
+        '_product_description', 15, 10, '_size', true, 101, 152);
     return Scaffold(
         body: Padding(
             padding: const EdgeInsets.all(20),

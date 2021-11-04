@@ -1,8 +1,12 @@
 class RoutePaths {
-  static const String homeRoute = "/";
+  static const String home = "/";
   static const String signin = "/signin";
   static const String register_main = "/register_main";
   static const String register_secondary = "/register_secondary";
   static const String merchant_dashboard = "/merchant_dashboard";
   static const String retailer_dashboard = "/retailer_dashboard";
+  static const String retailer_product_list = "/retailer_product_list";
+  static const String retailer_checkut = "/retailer_checkout";
+  static const String retailer_prodcut_detail = "/retailer_product_detail";
+  static const String retailer_cart = '/retailer_cart';
 }
