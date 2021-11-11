@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
-import 'package:retailer_app/widgets/sidebar(drawer)/CustomDrawer.dart';
+import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
 import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
 
 class ProductListScreen extends StatefulWidget {
@@ -21,7 +21,7 @@ class ProductListScreenState extends State<ProductListScreen> {
           child: CustomScrollView(
             slivers: [
               CustomSliverAppBar(
-                page_title: 'Passed Title',
+                page_title: 'Title',
               ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(

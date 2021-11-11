@@ -18,7 +18,10 @@ class CustomTheme with ChangeNotifier {
         appBarTheme: AppBarTheme(
             backgroundColor: Colors.white,
             elevation: 0,
-            titleTextStyle: TextStyle(color: Colors.black)),
+            titleTextStyle: TextStyle(
+                color: Colors.black,
+                fontSize: 22,
+                fontWeight: FontWeight.bold)),
         primaryColor: ColorPallet.maincolor,
         accentColor: ColorPallet.accentcolor,
         scaffoldBackgroundColor: Colors.white,

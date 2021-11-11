@@ -1,65 +1,62 @@
+import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+@JsonSerializable()
 class Product {
-  int _id, _category_id;
-  String _product_name, _product_title, _product_description;
-  double _price;
-  int _quantity;
-  String _size;
-  bool _available;
+  String id, categoryid;
+  String productname, producttitle, productdescription, image_url;
+  double price;
+  int quantity;
+  String size;
+  bool available;
 
-  Product(this._product_name, this._product_title, this._product_description,
-      this._price, this._quantity, this._size, this._available, this._category_id, this._id);
+  Product(
+      {required this.image_url,
+      required this.productname,
+      required this.producttitle,
+      required this.productdescription,
+      required this.price,
+      required this.quantity,
+      required this.size,
+      required this.available,
+      required this.categoryid,
+      required this.id});
 
-  bool get available => _available;
-
-  set available(bool value) {
-    _available = value;
+  factory Product.fromJson(Map<String, dynamic> json) {
+    return Product(
+      id: json["id"],
+      categoryid: json["categoryid"],
+      productname: json["productname"],
+      producttitle: json["producttitle"],
+      productdescription: json["productdescription"],
+      image_url: json["image_url"],
+      price: double.parse(json["price"]),
+      quantity: int.parse(json["quantity"]),
+      size: json["size"],
+      available: json["available"].toLowerCase() == 'true',
+    );
   }
 
-  String get size => _size;
-
-  set size(String value) {
-    _size = value;
+  Map<String, dynamic> toJson() {
+    return {
+      "id": this.id,
+      "categoryid": this.categoryid,
+      "productname": this.productname,
+      "producttitle": this.producttitle,
+      "productdescription": this.productdescription,
+      "image_url": this.image_url,
+      "price": this.price,
+      "quantity": this.quantity,
+      "size": this.size,
+      "available": this.available,
+    };
   }
 
-  int get quantity => _quantity;
-
-  set quantity(int value) {
-    _quantity = value;
+  @override
+  String toString() {
+    return 'Product{id: $id, categoryid: $categoryid, productname: $productname, producttitle: $producttitle, productdescription: $productdescription, image_url: $image_url, price: $price, quantity: $quantity, size: $size, available: $available}';
   }
 
-  double get price => _price;
+//
 
-  set price(double value) {
-    _price = value;
-  }
-
-  int get id => _id;
-
-  set id(int value) {
-    _id = value;
-  }
-
-  get product_description => _product_description;
-
-  set product_description(value) {
-    _product_description = value;
-  }
-
-  get product_title => _product_title;
-
-  set product_title(value) {
-    _product_title = value;
-  }
-
-  String get product_name => _product_name;
-
-  set product_name(String value) {
-    _product_name = value;
-  }
-
-  get category_id => _category_id;
-
-  set category_id(value) {
-    _category_id = value;
-  }
 }

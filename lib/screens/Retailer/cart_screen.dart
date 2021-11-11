@@ -13,18 +13,27 @@ class CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          centerTitle: true,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.close,
+              color: Colors.black,
+            ),
+          ),
           title: Text(
             'Cart',
             style: TextStyle(color: Colors.black),
           ),
+          centerTitle: true,
         ),
         body: Stack(
           children: [
             Container(
               height: MediaQuery.of(context).size.height,
               child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (BuildContext context, int index) {
                     return CartCard();
                   }),

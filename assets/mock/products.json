@@ -1,0 +1,74 @@
+[
+    {
+      "id": "61891edf91608c8be7ccccba",
+      "categoryid": "61891edff8f494eef2387cb6",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Adipisicing do sint sunt esse amet sunt culpa nostrud ea esse velit nostrud. Incididunt esse in aliqua duis fugiat proident duis nostrud nostrud fugiat voluptate incididunt tempor. In cupidatat tempor excepteur non nisi.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 25,
+      "quantity": 26,
+      "size": "",
+      "available": true
+    },
+    {
+      "id": "61891edf657b8394a7dccb69",
+      "categoryid": "61891edfeb0fa28d18f4cee7",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Consequat esse irure officia elit culpa voluptate magna sunt commodo. Excepteur laboris eiusmod do magna fugiat culpa ad. Exercitation ex culpa exercitation sit proident duis velit ipsum tempor in sint excepteur nostrud ex. Non mollit ut consectetur sint occaecat tempor id pariatur incididunt deserunt nulla nostrud aliquip. Laboris laborum laboris et deserunt.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 49,
+      "quantity": 39,
+      "size": "",
+      "available": false
+    },
+    {
+      "id": "61891edf405c71adeaba2fdf",
+      "categoryid": "61891edf3a1f4b05df39c331",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Deserunt in amet quis enim duis tempor sint veniam adipisicing reprehenderit veniam commodo. Consectetur et Lorem voluptate ea aliqua laborum exercitation cupidatat ut. Dolore laborum proident qui ut pariatur. Ullamco quis cupidatat in non deserunt excepteur fugiat cupidatat. Reprehenderit aliquip aliqua excepteur exercitation mollit ad aliqua ex aliqua proident. Nulla eu velit anim culpa. Tempor cillum in aliqua sunt id reprehenderit laboris ea elit aliquip.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 18,
+      "quantity": 33,
+      "size": "",
+      "available": true
+    },
+    {
+      "id": "61891edf7dc6b03a9d2e4605",
+      "categoryid": "61891edf0f5064417ebbd3e7",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Nostrud Lorem nostrud cillum dolor proident aliqua consectetur consequat tempor fugiat. Occaecat Lorem irure enim Lorem deserunt officia ad ut esse exercitation. Sit dolor dolore anim nostrud laboris laborum tempor et qui et ipsum sunt. Ex incididunt pariatur irure dolor dolore nostrud aliqua nisi. Tempor ex et anim sit non aliqua amet dolore consequat elit est velit magna. Non mollit nulla enim exercitation do minim tempor duis eiusmod nostrud duis.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 27,
+      "quantity": 32,
+      "size": "",
+      "available": true
+    },
+    {
+      "id": "61891edf51b50feb9926a1ee",
+      "categoryid": "61891edf5cdf274f16429625",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Qui enim amet irure sunt ipsum minim deserunt anim laboris. Velit pariatur duis ullamco duis nisi ut occaecat. Nisi aliqua ut voluptate tempor. Aute occaecat enim eu amet ea consectetur. Laboris occaecat aliqua consequat ad irure ad. Labore esse dolore ut anim deserunt proident ullamco. Elit dolor cupidatat dolor ex laborum.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 27,
+      "quantity": 34,
+      "size": "",
+      "available": false
+    },
+    {
+      "id": "61891edf5ac2c2a8d6efda1c",
+      "categoryid": "61891edf6be4913d6893307f",
+      "productname": "productname",
+      "producttitle": "producttitle",
+      "productdescription": "Culpa qui Lorem consequat magna culpa duis dolor officia sunt. Ut veniam amet fugiat sit. Anim laboris amet est irure. Ipsum culpa labore exercitation dolore esse duis sint Lorem. Elit in nostrud fugiat exercitation ipsum.\r\n",
+      "image_url": "http://placehold.it/32x32",
+      "price": 43,
+      "quantity": 35,
+      "size": "",
+      "available": true
+    }
+  ]

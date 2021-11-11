@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/config/colorPallet.dart';
+import 'package:retailer_app/routes/route_path.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -13,7 +14,8 @@ class LoginScreen extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Image.asset('assets/images/kisspng-ooty-vegetable-fruit-pea-vegflow-vegetable-png-clipart-5a74d157c8de71.5013842015176052078228.png',
+                Image.asset(
+                    'assets/images/kisspng-ooty-vegetable-fruit-pea-vegflow-vegetable-png-clipart-5a74d157c8de71.5013842015176052078228.png',
                     height: 250),
                 // Text(
                 //   'LOGIN',
@@ -28,9 +30,10 @@ class LoginScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'User Name | Email Address',
                     border: OutlineInputBorder(
-                      borderSide: BorderSide(color: Theme.of(context).accentColor,style: BorderStyle.solid),
-                      borderRadius: BorderRadius.all(Radius.circular(10.0))
-                    ),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).accentColor,
+                            style: BorderStyle.solid),
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     // prefixIcon: Icon(Icons.email),
                   ),
                 ),
@@ -45,9 +48,8 @@ class LoginScreen extends StatelessWidget {
                     focusColor: ColorPallet.accentcolor,
                     labelText: 'Password',
                     border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
                     ),
-
                     suffixIcon: Icon(Icons.remove_red_eye),
                   ),
                 ),
@@ -85,7 +87,10 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         print('Sign Up');
                       },
-                      child: Text('Register Now', style: TextStyle(color: Theme.of(context).accentColor),),
+                      child: Text(
+                        'Register Now',
+                        style: TextStyle(color: Theme.of(context).accentColor),
+                      ),
                     )
                   ],
                 ),
@@ -101,8 +106,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     height: 150,
-                    onPressed: () => print("Successul Login."),
-              color: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, RoutePaths.retailer_dashboard);
+                    },
+                    color: Theme.of(context).primaryColor,
                     child: Text(
                       'Sing In',
                       style: TextStyle(

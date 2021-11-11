@@ -1,6 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/models/Cart.dart';
+import 'package:retailer_app/models/Product.dart';
 
 class CartCard extends StatelessWidget {
+  static Product myproduct = new Product(
+      image_url: 'image_url',
+      productname: 'Tomato',
+      producttitle: 'Fresh',
+      productdescription:
+          "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
+      price: 20,
+      quantity: 50,
+      size: 'M',
+      available: true,
+      categoryid: '12',
+      id: '10');
+  Cart mycart = new Cart(
+      cartid: '11',
+      product: myproduct,
+      qunatity: 5,
+      total: myproduct.price * 5,
+      customerId: '425');
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -30,7 +51,7 @@ class CartCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tomatos',
+                    mycart.product.productname,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 20,
@@ -40,7 +61,7 @@ class CartCard extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    'Br35',
+                    mycart.product.price.toString(),
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontSize: 18,
@@ -50,7 +71,7 @@ class CartCard extends StatelessWidget {
                     height: 10,
                   ),
                   Text(
-                    '3Kg',
+                    mycart.qunatity.toString() + 'Kg',
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -66,7 +87,7 @@ class CartCard extends StatelessWidget {
             ),
             Container(
                 child: Text(
-              'Br105.0',
+              'Br' + mycart.total.toString(),
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             )),
             IconButton(onPressed: () {}, icon: Icon(Icons.close)),

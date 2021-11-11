@@ -3,6 +3,7 @@ import 'package:retailer_app/config/theme.dart';
 import 'package:retailer_app/routes/router.dart';
 import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
 import 'package:retailer_app/screens/Retailer/dashboard.dart';
+import 'package:retailer_app/screens/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,6 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: AppRouter.generateRoute,
         title: 'Flutter App',
         theme: CustomTheme.lightTheme,
-        home: RetailerDashboardScreen());
+        home: LoginScreen());
   }
 }

@@ -16,7 +16,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            print('object');
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.close,

@@ -14,8 +14,8 @@ class CustomDrawerState extends State<CustomDrawer> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-              accountName: Text('John T.'),
-              accountEmail: Text('John.T@gmail.com'),
+              accountName: Text('Test User.'),
+              accountEmail: Text('TestUser@gmail.com'),
               currentAccountPicture: GestureDetector(
                   onTap: () => print("Successul Btn."),
                   child: CircleAvatar(
@@ -25,7 +25,9 @@ class CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             leading: Icon(Icons.home_outlined),
             title: Text('Home'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
+            },
           ),
           ListTile(
             leading: Icon(Icons.history_outlined),
