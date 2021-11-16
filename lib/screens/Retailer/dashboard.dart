@@ -64,7 +64,7 @@ class RetailerDashboardScreen extends StatelessWidget {
                                         (BuildContext context, int index) {
                                       return ProductCard(
                                         imageUrl:
-                                            'https://5.imimg.com/data5/NM/II/MY-3020503/ladies-hand-bags1-500x500.jpg',
+                                            'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
                                         price: 150,
                                         title: 'Test title',
                                         subtitle: 'subtitle',

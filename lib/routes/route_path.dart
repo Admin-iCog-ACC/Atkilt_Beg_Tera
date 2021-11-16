@@ -9,4 +9,7 @@ class RoutePaths {
   static const String retailer_checkut = "/retailer_checkout";
   static const String retailer_prodcut_detail = "/retailer_product_detail";
   static const String retailer_cart = '/retailer_cart';
+  static const String inventory = '/inventory';
+  static const String inventory_entry = '/inventory_entry';
+  static const String merchant_product_detail = 'merchant_product_detail ';
 }

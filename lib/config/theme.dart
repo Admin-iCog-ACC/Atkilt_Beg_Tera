@@ -4,6 +4,12 @@ import 'colorPallet.dart';
 class CustomTheme with ChangeNotifier {
   static ThemeData get lightTheme {
     return ThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: ColorPallet.accentcolor, width: 2.0),
+          ),
+        ),
+        canvasColor: ColorPallet.maincolor,
         textTheme: TextTheme(
           headline2: TextStyle(fontSize: 18, color: Colors.black),
           headline4: TextStyle(
@@ -15,7 +21,9 @@ class CustomTheme with ChangeNotifier {
           // headline5: TextStyle(fontSize: 18),
           // headline6: TextStyle(fontSize: 20),
         ),
+        iconTheme: IconThemeData(color: Colors.black),
         appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(color: Colors.black),
             backgroundColor: Colors.white,
             elevation: 0,
             titleTextStyle: TextStyle(
