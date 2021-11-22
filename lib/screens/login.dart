@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
                     height: 150,
                     onPressed: () {
                       Navigator.pushNamed(
-                          context, RoutePaths.merchant_dashboard);
+                          context, RoutePaths.retailer_dashboard);
                     },
                     color: Theme.of(context).primaryColor,
                     child: Text(

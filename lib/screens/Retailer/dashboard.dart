@@ -1,6 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
+import 'package:retailer_app/widgets/ImageLoader/image_loader.dart';
 import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
 
 class RetailerDashboardScreen extends StatelessWidget {
@@ -14,6 +16,7 @@ class RetailerDashboardScreen extends StatelessWidget {
         //   title: Text('Home'),
         //   centerTitle: true,
         // ),
+
         body: Padding(
             padding: const EdgeInsets.only(),
             child: CustomScrollView(slivers: [
@@ -29,37 +32,32 @@ class RetailerDashboardScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            Text(
-                              'Top Salers',
-                              style: TextStyle(fontSize: 26),
-                            ),
                             SizedBox(
                               height: 10,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  child: InkWell(
-                                    child: Image.asset(
-                                        'assets/images/kisspng-ooty-vegetable-fruit-pea-vegflow-vegetable-png-clipart-5a74d157c8de71.5013842015176052078228.png'),
-                                  ),
-                                  radius: 45,
-                                  backgroundColor:
-                                      Theme.of(context).primaryColor,
-                                ),
-                              ],
+                            CarouselSlider(
+                              options: CarouselOptions(height: 200.0),
+                              items: [1, 2, 3, 4, 5].map((i) {
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Card(
+                                      child: Container(
+                                        width: 200,
+                                        child: Image.network(
+                                            'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg'),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
                             ),
-                            SizedBox(height: 25),
-                            Text(
-                              'Best Selling',
-                              style: TextStyle(fontSize: 26),
-                            ),
+                            SizedBox(height: 30),
+
                             Container(
                                 height: 300,
                                 child: ListView.builder(
                                     itemCount: 5,
-                                    scrollDirection: Axis.horizontal,
+                                    // scrollDirection: Axis.horizontal,
                                     itemBuilder:
                                         (BuildContext context, int index) {
                                       return ProductCard(
@@ -72,21 +70,21 @@ class RetailerDashboardScreen extends StatelessWidget {
                                         size: 150,
                                       );
                                     })),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Categories',
-                                  style: TextStyle(fontSize: 26),
-                                ),
-                                Text(
-                                  'View All',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Theme.of(context).primaryColor),
-                                ),
-                              ],
-                            )
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Text(
+                            //       'Categories',
+                            //       style: TextStyle(fontSize: 26),
+                            //     ),
+                            //     Text(
+                            //       'View All',
+                            //       style: TextStyle(
+                            //           fontSize: 20,
+                            //           color: Theme.of(context).primaryColor),
+                            //     ),
+                            //   ],
+                            // )
                           ],
                         ),
                       )
