@@ -14,6 +14,7 @@ class ProductDetailState extends State<ProductDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
@@ -21,7 +22,19 @@ class ProductDetailState extends State<ProductDetail> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 500,
+                // height: 500,
+                margin: EdgeInsets.all(30),
+                child: Image.network(
+                    'https://t3.ftcdn.net/jpg/01/86/34/84/240_F_186348441_aqyXOkNyY2dMaPMTH0VcXEt1GIUjY4Zy.jpg'),
+              ),
+              Divider(
+                thickness: 3,
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Divider(
+                thickness: 3,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

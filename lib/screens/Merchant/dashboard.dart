@@ -87,7 +87,9 @@ class MerchantDashboardScreen extends StatelessWidget {
                                             text: 'Order History',
                                             color:
                                                 Theme.of(context).primaryColor,
-                                            action: () => {},
+                                            action: () => Navigator.pushNamed(
+                                                context,
+                                                RoutePaths.merchant_order_list),
                                             height: 50,
                                             width: 300,
                                             textStyle: TextStyle(

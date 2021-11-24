@@ -14,22 +14,28 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Container(
         padding: EdgeInsets.only(left: 15, right: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                height: 450,
-                child: Column(children: [
-                  Container(
-                    height: 250,
-                  ),
-                  Row(children: [
-                    IconButton(
-                        onPressed: () {}, icon: Icon(Icons.camera_alt_outlined))
-                  ]),
-                ]),
+              Image.network(
+                'https://t3.ftcdn.net/jpg/01/86/34/84/240_F_186348441_aqyXOkNyY2dMaPMTH0VcXEt1GIUjY4Zy.jpg',
+                height: 250,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomButton(
+                  text: 'Add Image',
+                  color: Theme.of(context).primaryColor,
+                  action: () {},
+                  height: 40,
+                  width: 150,
+                  textStyle: TextStyle()),
+              SizedBox(
+                height: 20,
               ),
               Form(
                 key: _formKey,

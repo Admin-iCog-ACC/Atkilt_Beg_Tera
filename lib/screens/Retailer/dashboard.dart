@@ -4,6 +4,7 @@ import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
 import 'package:retailer_app/widgets/ImageLoader/image_loader.dart';
 import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
+import 'dart:math';
 
 class RetailerDashboardScreen extends StatelessWidget {
   const RetailerDashboardScreen({Key? key}) : super(key: key);
@@ -36,40 +37,73 @@ class RetailerDashboardScreen extends StatelessWidget {
                               height: 10,
                             ),
                             CarouselSlider(
-                              options: CarouselOptions(height: 200.0),
+                              options: CarouselOptions(
+                                  height: 200.0, enlargeCenterPage: true),
                               items: [1, 2, 3, 4, 5].map((i) {
-                                return Builder(
-                                  builder: (BuildContext context) {
-                                    return Card(
-                                      child: Container(
-                                        width: 200,
-                                        child: Image.network(
-                                            'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg'),
-                                      ),
+                                if (i == 2) {
+                                  return Builder(
+                                      builder: (BuildContext context) {
+                                    return Image.network(
+                                      'https://t3.ftcdn.net/jpg/03/35/74/56/240_F_335745675_MaxYxSsadrviZdThITuHB2oCohYOiwEu.jpg',
+                                      fit: BoxFit.cover,
                                     );
-                                  },
-                                );
+                                  });
+                                } else {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return Image.network(
+                                        'https://t3.ftcdn.net/jpg/02/37/13/40/240_F_237134053_mMD2IsElBsFaqYoUpZHy8HAkE2WPIcju.jpg',
+                                        fit: BoxFit.fill,
+                                      );
+                                    },
+                                  );
+                                }
                               }).toList(),
+                            ),
+                            Divider(
+                              thickness: 1,
                             ),
                             SizedBox(height: 30),
 
+                            Divider(
+                              thickness: 1,
+                            ),
+
                             Container(
-                                height: 300,
-                                child: ListView.builder(
-                                    itemCount: 5,
-                                    // scrollDirection: Axis.horizontal,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return ProductCard(
-                                        imageUrl:
-                                            'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
-                                        price: 150,
-                                        title: 'Test title',
-                                        subtitle: 'subtitle',
-                                        onTap: null,
-                                        size: 150,
-                                      );
-                                    })),
+                              height: 1000,
+                              child: ListView.builder(
+                                  itemCount: 5,
+                                  // scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return ProductCard(
+                                      imageUrl:
+                                          'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
+                                      price: 150,
+                                      title: 'Test title',
+                                      subtitle: 'subtitle',
+                                      onTap: null,
+                                      size: 150,
+                                    );
+                                  }),
+                            )
+                            // Container(
+                            //     height: 300,
+                            //     child: ListView.builder(
+                            //         itemCount: 5,
+                            //         // scrollDirection: Axis.horizontal,
+                            //         itemBuilder:
+                            //             (BuildContext context, int index) {
+                            //           return ProductCard(
+                            //             imageUrl:
+                            //                 'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
+                            //             price: 150,
+                            //             title: 'Test title',
+                            //             subtitle: 'subtitle',
+                            //             onTap: null,
+                            //             size: 150,
+                            //           );
+                            //         })),
                             // Row(
                             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             //   children: [

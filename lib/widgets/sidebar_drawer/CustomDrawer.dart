@@ -62,14 +62,16 @@ class CustomDrawerState extends State<CustomDrawer> {
             title: Text('Logout'),
             onTap: () {},
           ),
-          Divider(color: Theme.of(context).accentColor, indent: 20.0),
+          Divider(indent: 20.0),
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Settings'),
             onTap: () {},
           ),
           ListTile(
-            leading: Icon(Icons.help, color: Theme.of(context).primaryColor),
+            leading: Icon(
+              Icons.help,
+            ),
             title: Text('About'),
             onTap: () {},
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/routes/route_path.dart';
+import 'package:retailer_app/screens/Merchant/OrderDetailScreen.dart';
+import 'package:retailer_app/screens/Merchant/OrderList.dart';
 import 'package:retailer_app/screens/Merchant/ProductDetailScreen.dart';
 import 'package:retailer_app/screens/Merchant/dashboard.dart';
 import 'package:retailer_app/screens/Merchant/inventory_entry_screen.dart';
@@ -44,6 +46,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const InventoryEntryScreen());
       case RoutePaths.merchant_product_detail:
         return MaterialPageRoute(builder: (_) => const ProductDetail());
+      case RoutePaths.merchant_order_list:
+        return MaterialPageRoute(builder: (_) => const OrderListScreen());
+      case RoutePaths.merchant_order_detail:
+        return MaterialPageRoute(builder: (_) => const OrderDetailScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
