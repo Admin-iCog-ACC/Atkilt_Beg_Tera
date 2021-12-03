@@ -4,6 +4,9 @@ import 'colorPallet.dart';
 class CustomTheme with ChangeNotifier {
   static ThemeData get lightTheme {
     return ThemeData(
+        fontFamily: 'Signika',
+        cardColor: Colors.white,
+        scaffoldBackgroundColor: Color.fromARGB(0XFF, 243, 244, 246),
         inputDecorationTheme: InputDecorationTheme(
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: ColorPallet.accentcolor, width: 2.0),
@@ -17,9 +20,6 @@ class CustomTheme with ChangeNotifier {
           headline1: TextStyle(
               fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
           headline3: TextStyle(fontSize: 26, color: Colors.black),
-
-          // headline5: TextStyle(fontSize: 18),
-          // headline6: TextStyle(fontSize: 20),
         ),
         iconTheme: IconThemeData(color: Colors.black),
         appBarTheme: AppBarTheme(
@@ -32,8 +32,6 @@ class CustomTheme with ChangeNotifier {
                 fontWeight: FontWeight.bold)),
         primaryColor: ColorPallet.maincolor,
         accentColor: ColorPallet.accentcolor,
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'OpenSans',
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),

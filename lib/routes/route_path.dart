@@ -11,7 +11,9 @@ class RoutePaths {
   static const String retailer_cart = '/retailer_cart';
   static const String inventory = '/inventory';
   static const String inventory_entry = '/inventory_entry';
-  static const String merchant_product_detail = 'merchant_product_detail ';
-  static const String merchant_order_list = 'merchant_order_list';
-  static const String merchant_order_detail = 'merchant_order_detail';
+  static const String merchant_product_detail = '/merchant_product_detail ';
+  static const String merchant_order_list = '/merchant_order_list';
+  static const String merchant_order_detail = '/merchant_order_detail';
+  static const String retailer_order_list = '/order_list';
+  static const String retailer_order_detail_screen = '/order_detail';
 }

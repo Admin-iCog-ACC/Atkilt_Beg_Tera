@@ -33,9 +33,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
         ],
         title: Text(
           'Checkout',
-          style: TextStyle(color: Colors.black),
         ),
-        centerTitle: true,
       ),
       body: Padding(
           padding: EdgeInsets.all(10),
@@ -43,49 +41,51 @@ class CheckOutScreenState extends State<CheckOutScreen> {
             child: Column(
               children: [
                 Card(
-                  elevation: 8.0,
                   child: Container(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.all(15),
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                                child: Align(
-                                  child: Text(
-                                    '1',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(right: 12),
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
                                   ),
-                                  alignment: Alignment.center,
-                                )),
-                            Text(
-                              'Contact Number',
-                              style: TextStyle(
-                                fontSize: 26,
+                                  child: Align(
+                                    child: Text(
+                                      '1',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                    alignment: Alignment.center,
+                                  )),
+                              Text(
+                                'Contact Number',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Container(
+                          padding: EdgeInsets.all(16),
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
                               border: Border.all(
                                   color: Theme.of(context).primaryColor)),
-                          margin: EdgeInsets.all(15),
-                          padding: EdgeInsets.all(15),
                           alignment: Alignment.center,
                           child: Text(
                             '+251936658395',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: TextStyle(fontSize: 14),
                           ),
                         )
                       ],
@@ -94,38 +94,43 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                 ),
 
 //billing Card
+                SizedBox(
+                  height: 20,
+                ),
                 Card(
-                  margin: EdgeInsets.only(top: 15),
-                  elevation: 8.0,
                   child: Container(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.all(15),
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                                child: Align(
-                                  child: Text(
-                                    '2',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(right: 12),
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
                                   ),
-                                  alignment: Alignment.center,
-                                )),
-                            Text(
-                              'Billing Address',
-                              style: TextStyle(
-                                fontSize: 26,
+                                  child: Align(
+                                    child: Text(
+                                      '2',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                    alignment: Alignment.center,
+                                  )),
+                              Text(
+                                'Billing Address',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -133,51 +138,56 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   BorderRadius.all(Radius.circular(5)),
                               border: Border.all(
                                   color: Theme.of(context).primaryColor)),
-                          margin: EdgeInsets.all(15),
-                          padding: EdgeInsets.all(15),
+                          padding: EdgeInsets.all(16),
                           alignment: Alignment.center,
                           child: Text(
                             'Addis Ababa, Bole, Ring Road, St.1012',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: TextStyle(fontSize: 14),
                           ),
                         )
                       ],
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 //Shipping Card
                 Card(
-                  margin: EdgeInsets.only(top: 15),
-                  elevation: 8.0,
+                  // margin: EdgeInsets.only(top: 15),
                   child: Container(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.all(15),
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                                child: Align(
-                                  child: Text(
-                                    '3',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(right: 12),
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
                                   ),
-                                  alignment: Alignment.center,
-                                )),
-                            Text(
-                              'Shipping Address',
-                              style: TextStyle(
-                                fontSize: 26,
+                                  child: Align(
+                                    child: Text(
+                                      '3',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                    alignment: Alignment.center,
+                                  )),
+                              Text(
+                                'Shipping Address',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Container(
                           decoration: BoxDecoration(
@@ -185,12 +195,12 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   BorderRadius.all(Radius.circular(5)),
                               border: Border.all(
                                   color: Theme.of(context).primaryColor)),
-                          margin: EdgeInsets.all(15),
-                          padding: EdgeInsets.all(15),
+                          // margin: EdgeInsets.all(15),
+                          padding: EdgeInsets.all(16),
                           alignment: Alignment.center,
                           child: Text(
                             'Addis Ababa, Bole, Ring Road, St.1012',
-                            style: Theme.of(context).textTheme.headline2,
+                            style: TextStyle(fontSize: 14),
                           ),
                         )
                       ],
@@ -199,39 +209,44 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                 ),
 
 //Delivery Schedule Card
-
+                SizedBox(
+                  height: 20,
+                ),
                 Card(
-                  margin: EdgeInsets.only(top: 15),
-                  elevation: 8.0,
+                  // margin: EdgeInsets.only(top: 16),
                   child: Container(
+                    padding: EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        Row(
-                          children: [
-                            Container(
-                                margin: EdgeInsets.all(15),
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(50)),
-                                ),
-                                child: Align(
-                                  child: Text(
-                                    '4',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            children: [
+                              Container(
+                                  margin: EdgeInsets.only(right: 12),
+                                  height: 32,
+                                  width: 32,
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).primaryColor,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
                                   ),
-                                  alignment: Alignment.center,
-                                )),
-                            Text(
-                              'Delivery Schedule',
-                              style: TextStyle(
-                                fontSize: 26,
+                                  child: Align(
+                                    child: Text(
+                                      '4',
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 16),
+                                    ),
+                                    alignment: Alignment.center,
+                                  )),
+                              Text(
+                                'Delivery Schedule',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
@@ -253,9 +268,9 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                           BorderRadius.all(Radius.circular(5)),
                                       // border: Border.all(
                                       //     color: Theme.of(context).primaryColor),
-                                      color: Colors.grey),
-                              margin: EdgeInsets.only(
-                                  left: 15, right: 15, bottom: 15),
+                                      color:
+                                          Color.fromARGB(0XFF, 234, 244, 246)),
+                              margin: EdgeInsets.only(right: 15, bottom: 15),
                               padding: EdgeInsets.all(15),
                               alignment: Alignment.center,
                               child: Container(
@@ -265,19 +280,17 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         CrossAxisAlignment.stretch,
                                     children: [
                                       Text(
-                                        'Express',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4,
+                                        'Express Delivery',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
                                       Text(
                                         '90 min express delivery',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2,
+                                        style: TextStyle(fontSize: 14),
                                       ),
                                     ],
                                   ))),
@@ -304,9 +317,8 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         BorderRadius.all(Radius.circular(5)),
                                     // border: Border.all(
                                     //     color: Theme.of(context).primaryColor),
-                                    color: Colors.grey),
-                            margin: EdgeInsets.only(
-                                left: 15, right: 15, bottom: 15),
+                                    color: Color.fromARGB(0XFF, 234, 244, 246)),
+                            margin: EdgeInsets.only(right: 15, bottom: 15),
                             padding: EdgeInsets.all(15),
                             alignment: Alignment.center,
                             child: Container(
@@ -317,16 +329,16 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   children: [
                                     Text(
                                       'Morning',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       '2:00LT - 5:00LT',
-                                      style:
-                                          Theme.of(context).textTheme.headline2,
+                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 )),
@@ -354,9 +366,8 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         BorderRadius.all(Radius.circular(5)),
                                     // border: Border.all(
                                     //     color: Theme.of(context).primaryColor),
-                                    color: Colors.grey),
-                            margin: EdgeInsets.only(
-                                left: 15, right: 15, bottom: 15),
+                                    color: Color.fromARGB(0XFF, 234, 244, 246)),
+                            margin: EdgeInsets.only(right: 15, bottom: 15),
                             padding: EdgeInsets.all(15),
                             alignment: Alignment.center,
                             child: Container(
@@ -367,16 +378,16 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   children: [
                                     Text(
                                       'Noon',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       '5:00LT - 8:00LT',
-                                      style:
-                                          Theme.of(context).textTheme.headline2,
+                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 )),
@@ -404,9 +415,8 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         BorderRadius.all(Radius.circular(5)),
                                     // border: Border.all(
                                     //     color: Theme.of(context).primaryColor),
-                                    color: Colors.grey),
-                            margin: EdgeInsets.only(
-                                left: 15, right: 15, bottom: 15),
+                                    color: Color.fromARGB(0XFF, 234, 244, 246)),
+                            margin: EdgeInsets.only(right: 15, bottom: 15),
                             padding: EdgeInsets.all(15),
                             alignment: Alignment.center,
                             child: Container(
@@ -417,16 +427,16 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   children: [
                                     Text(
                                       'Afternoon',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       '8:00LT - 11:00LT',
-                                      style:
-                                          Theme.of(context).textTheme.headline2,
+                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 )),
@@ -452,11 +462,8 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                 : BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(5)),
-                                    // border: Border.all(
-                                    //     color: Theme.of(context).primaryColor),
-                                    color: Colors.grey),
-                            margin: EdgeInsets.only(
-                                left: 15, right: 15, bottom: 15),
+                                    color: Color.fromARGB(0XFF, 234, 244, 246)),
+                            margin: EdgeInsets.only(right: 15, bottom: 15),
                             padding: EdgeInsets.all(15),
                             alignment: Alignment.center,
                             child: Container(
@@ -467,16 +474,16 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   children: [
                                     Text(
                                       'Evening',
-                                      style:
-                                          Theme.of(context).textTheme.headline4,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
                                     ),
                                     SizedBox(
                                       height: 10,
                                     ),
                                     Text(
                                       '11:00LT - 2:00LT',
-                                      style:
-                                          Theme.of(context).textTheme.headline2,
+                                      style: TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 )),
@@ -486,99 +493,218 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                 ),
-
                 SizedBox(
-                  height: 20,
-                ),
-                Divider(
-                  thickness: 2,
-                  endIndent: 5,
-                  indent: 5,
-                ),
-                SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  margin: EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    'Your Order',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 16, right: 16),
+                  padding: EdgeInsets.only(top: 12, bottom: 12),
+                  height: 133,
+                  child: ListView.builder(
+                      itemCount: 3,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.only(top: 8, bottom: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        '1',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 8, right: 8),
+                                      child: Text(
+                                        'X',
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Color(0XFF6B7280)),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(),
+                                      child: Text(
+                                        'Apples  |  1Kg',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color(0XFF6B7280)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Text('Br15',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0XFF6B7280),
+                                  ))
+                            ],
+                          ),
+                        );
+                      }),
+                ),
+                Divider(),
+                Container(
+                  margin: EdgeInsets.only(left: 16, right: 16, top: 16),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Sub Total',
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                          Text(
-                            'Br500.00',
-                            style: Theme.of(context).textTheme.headline2,
-                          )
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(top: 8, bottom: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Sub Total',
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0XFF6B7280))),
+                            Text('Br250',
+                                style: TextStyle(
+                                    fontSize: 14, color: Color(0XFF6B7280)))
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Shipping',
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                          Text(
-                            'Br200.00',
-                            style: Theme.of(context).textTheme.headline2,
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Total',
-                            style: Theme.of(context).textTheme.headline2,
-                          ),
-                          Text(
-                            'Br700.00',
-                            style: Theme.of(context).textTheme.headline2,
-                          )
-                        ],
-                      )
+                      Padding(
+                          padding: EdgeInsets.only(top: 8, bottom: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Tax',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Color(0XFF6B7280))),
+                              Text('Calculated at Checkout',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Color(0XFF6B7280))),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(top: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('Estimated Shipping',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Color(0XFF6B7280))),
+                              Text('Calculated at Checkout',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Color(0XFF6B7280))),
+                            ],
+                          ))
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 26,
                 ),
-                Divider(
-                  thickness: 2,
-                  endIndent: 5,
-                  indent: 5,
+                Divider(),
+                Divider(),
+                Container(
+                  margin: EdgeInsets.only(top: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Total",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
+                      Text('Br500',
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600))
+                    ],
+                  ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                MaterialButton(
-                  height: 48,
-                  minWidth: 350,
-                  onPressed: () {
-                    print('object');
-                  },
-                  color: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Place Order',
-                    style: TextStyle(
+
+                Container(
+                  height: 242,
+                  width: 343,
+                  margin: EdgeInsets.only(top: 40),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
                       color: Colors.white,
-                      fontSize: 20,
+                      border:
+                          Border.all(color: Color.fromARGB(0, 229, 231, 235))),
+                  child: Column(
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            'Choose Paymnet Method',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          )),
+                      Container(
+                        // height: 56,
+                        width: 142,
+                        padding: EdgeInsets.only(top: 12, bottom: 12),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(3)),
+                            border: Border.all(
+                                color: Theme.of(context).primaryColor)),
+                        child: Text(
+                          'Cash On Delivery',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 12),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: MaterialButton(
+                    height: 48,
+                    minWidth: 343,
+                    onPressed: () {
+                      print('object');
+                    },
+                    color: Theme.of(context).primaryColor,
+                    child: Text(
+                      'Place Order',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
+
+                //  Container(
+                //   margin: EdgeInsets.only(top: 20),
+                //   child: MaterialButton(
+                //     height: 48,
+                //     minWidth: 343,
+                //     onPressed: () {
+                //       print('object');
+                //     },
+                //     color: Theme.of(context).primaryColor,
+                //     child: Text(
+                //       'Place Order',
+                //       style: TextStyle(
+                //         color: Colors.white,
+                //         fontSize: 16,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 SizedBox(
-                  height: 20,
+                  height: 40,
                 ),
               ],
             ),

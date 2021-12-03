@@ -9,6 +9,8 @@ import 'package:retailer_app/screens/Merchant/inventory_list.dart';
 import 'package:retailer_app/screens/Retailer/cart_screen.dart';
 import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
 import 'package:retailer_app/screens/Retailer/dashboard.dart';
+import 'package:retailer_app/screens/Retailer/order/order_detail_screen.dart';
+import 'package:retailer_app/screens/Retailer/order/order_screen.dart';
 import 'package:retailer_app/screens/Retailer/product_details_screen.dart';
 import 'package:retailer_app/screens/Retailer/product_list_screen.dart';
 import 'package:retailer_app/screens/login.dart';
@@ -50,6 +52,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
       case RoutePaths.merchant_order_detail:
         return MaterialPageRoute(builder: (_) => const OrderDetailScreen());
+      case RoutePaths.retailer_order_list:
+        return MaterialPageRoute(
+            builder: (_) => const RetailerOrderListScreen());
+      case RoutePaths.retailer_order_detail_screen:
+        return MaterialPageRoute(
+            builder: (_) => const RetailerOrderDetailScreen());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

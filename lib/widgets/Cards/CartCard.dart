@@ -5,7 +5,7 @@ import 'package:retailer_app/models/Product.dart';
 class CartCard extends StatelessWidget {
   static Product myproduct = new Product(
       image_url: 'image_url',
-      productname: 'Tomato',
+      productname: 'Celery Stick',
       producttitle: 'Fresh',
       productdescription:
           "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
@@ -24,73 +24,116 @@ class CartCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return GestureDetector(
-      onTap: null,
+      onTap: () {},
       child: Container(
-        height: 150,
+        padding: EdgeInsets.all(16),
+        height: 129,
         decoration: BoxDecoration(
-            // borderRadius: BorderRadius.all(Radius.circular(10)),
-            border: Border.all(color: Colors.grey)),
-        // margin: EdgeInsets.only(top: 5, bottom: 5),
+            color: Colors.white,
+            border: Border.lerp(
+                Border(
+                    top: BorderSide(
+                        width: 1.0,
+                        color: Color.fromARGB(0XFF, 229, 231, 235))),
+                Border(
+                    top: BorderSide(
+                        width: 1.0,
+                        color: Color.fromARGB(0XFF, 229, 231, 235))),
+                0)),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 15,
+            Container(
+              width: 32,
+              height: 96,
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () => print('+object'),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.add,
+                        size: 14,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '1',
+                    style: TextStyle(fontSize: 12),
+                  ),
+                  GestureDetector(
+                    onTap: () => print('-object'),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Icon(
+                        Icons.remove,
+                        size: 14,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
-            SizedBox(
-              height: 100,
-              width: 100,
+            Container(
+              // margin: EdgeInsets.all(10),
+              height: 40,
+              width: 40,
               child: Image.network(
                   'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg'),
             ),
             Container(
-              margin: EdgeInsets.only(left: 20, top: 25),
               alignment: Alignment.centerLeft,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     mycart.product.productname,
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    mycart.product.price.toString(),
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 18,
+                  Container(
+                    width: 100,
+                    padding: EdgeInsets.only(top: 10, bottom: 10),
+                    child: Text(
+                      "Br" + mycart.product.price.toString(),
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
                   Text(
-                    mycart.qunatity.toString() + 'Kg',
+                    mycart.qunatity.toString() + ' X 1Kg',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              width: 75,
-            ),
             Container(
-                child: Text(
-              'Br' + mycart.total.toString(),
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            )),
-            IconButton(onPressed: () {}, icon: Icon(Icons.close)),
+              child: Row(
+                children: [
+                  Text(
+                    'Br' + mycart.total.toString(),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.close,
+                        size: 12,
+                      )),
+                ],
+              ),
+            ),
           ],
         ),
       ),

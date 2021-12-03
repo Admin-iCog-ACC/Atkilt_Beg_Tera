@@ -13,20 +13,9 @@ class CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.close,
-              color: Colors.black,
-            ),
-          ),
           title: Text(
             'Cart',
-            style: TextStyle(color: Colors.black),
           ),
-          centerTitle: true,
         ),
         body: Stack(
           children: [
@@ -47,8 +36,9 @@ class CartScreenState extends State<CartScreen> {
                             context, RoutePaths.retailer_checkut);
                       },
                       child: Container(
-                        margin: EdgeInsets.all(15),
-                        height: 52,
+                        margin: EdgeInsets.all(20),
+                        height: 48,
+                        width: 335,
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(100)),
@@ -58,25 +48,29 @@ class CartScreenState extends State<CartScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 15),
+                              padding: EdgeInsets.only(left: 20),
                               child: Text(
                                 'Checkout',
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white),
                               ),
                             ),
                             Container(
+                              margin: EdgeInsets.only(right: 5),
+                              padding: EdgeInsets.only(left: 20, right: 20),
+                              alignment: Alignment.center,
+                              height: 40,
+                              // width: 85,
                               decoration: BoxDecoration(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(50)),
                                   color: Colors.white),
-                              margin: EdgeInsets.all(6),
-                              padding: EdgeInsets.all(10),
                               child: Text("Br500.00",
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w700,
                                       color: Theme.of(context).primaryColor)),
                             )

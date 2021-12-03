@@ -14,32 +14,38 @@ class ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: Key("homePage"),
-        drawer: CustomDrawer(),
-        body: Padding(
-          padding: const EdgeInsets.all(0),
-          child: CustomScrollView(
-            slivers: [
-              CustomSliverAppBar(
-                page_title: 'Title',
+      key: Key("homePage"),
+      // drawer: CustomDrawer(),
+      appBar: AppBar(
+        title: Text("Products"),
+      ),
+      body: CustomScrollView(
+        slivers: [
+          // CustomSliverAppBar(
+          //   page_title: 'Title',
+          // ),
+          //++++++++
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => Column(
+                children: [
+                  ProductCard(
+                      title: 'Tomatos',
+                      imageUrl:
+                          "https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/192/steak_okxpjo.jpg",
+                      subtitle: 'subtitle',
+                      price: 15),
+                  SizedBox(
+                    height: 12,
+                  )
+                ],
               ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => Column(
-                    children: [
-                      ProductCard(
-                          title: 'Tomatos',
-                          imageUrl:
-                              'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg',
-                          subtitle: 'subtitle',
-                          price: 15)
-                    ],
-                  ),
-                  childCount: 5,
-                ),
-              ),
-            ],
+              childCount: 5,
+            ),
           ),
-        ));
+          //+++++++
+        ],
+      ),
+    );
   }
 }

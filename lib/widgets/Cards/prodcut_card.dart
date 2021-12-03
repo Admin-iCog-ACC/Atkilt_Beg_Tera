@@ -55,7 +55,8 @@ class _ProdcutCardState extends State<ProductCard> {
     loadingSpinner = SpinKitRipple(
       color: Theme.of(context).primaryColor,
     );
-    return GestureDetector(
+    return Container(
+        child: GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, RoutePaths.retailer_prodcut_detail,
             arguments: new Product(
@@ -72,50 +73,114 @@ class _ProdcutCardState extends State<ProductCard> {
             ));
       },
       child: Card(
-        margin: EdgeInsets.all(10),
         child: Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(10),
+            width: 341,
+            height: 306,
+            padding: EdgeInsets.all(12),
             child: Column(
               children: [
                 SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 192,
                     child: _imageLoaded
-                        ? Image(image: _image, fit: BoxFit.cover)
+                        ? Image(image: _image, fit: BoxFit.scaleDown)
                         : loadingSpinner),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        'Br ' + widget.price.toString() + '/Kg',
-                        style: Theme.of(context).textTheme.headline1,
-                      ),
-                      Text(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 8),
+                        child: Text(
+                          'Br' + widget.price.toString(),
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                        )),
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 16),
+                      child: Text(
                         widget.title,
-                        style: Theme.of(context).textTheme.headline2,
+                        style: TextStyle(fontSize: 12, color: Colors.black38),
                       ),
-                    ],
-                  ),
-                ),
-                MaterialButton(
-                  height: 35,
-                  minWidth: 355,
-                  onPressed: () => print("Successul Btn."),
-                  color: Theme.of(context).primaryColor,
-                  child: Text(
-                    'Add to Cart',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
                     ),
-                  ),
+                    Row(
+                      children: [
+                        GestureDetector(
+                            child: Container(
+                          width: 289,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0),
+                            ),
+                            color: Colors.grey[100],
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(),
+                                child: Text(
+                                  'Add',
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.black45),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            height: 28,
+                            width: 28,
+                            child: Icon(
+                              Icons.add,
+                              size: 14,
+                            ),
+                            decoration: BoxDecoration(
+                                color: Color.fromARGB(0XFF, 229, 231, 235),
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(5.0),
+                                  bottomRight: Radius.circular(5.0),
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
+
+                // MaterialButton(
+                //     height: 28,
+                //     minWidth: 342,
+                //     onPressed: () => print("Successul Btn."),
+                //     color: Color.fromARGB(0XFF, 243, 244, 246),
+                //     child: Row(
+                //       children: [
+                //         Padding(
+                //           padding: EdgeInsets.only(),
+                //           child: Text(
+                //             'Add',
+                //             style: TextStyle(
+                //               fontSize: 12,
+                //               color: Color.fromARGB(0XFF, 229, 231, 235),
+                //             ),
+                //           ),
+                //         ),
+                //         // Material(
+                //         //   color: Colors.orange,
+                //         //   child: Icon(
+                //         //     Icons.add,
+                //         //     size: 16,
+                //         //     color: Color.fromARGB(0XFF, 229, 231, 235),
+                //         //   ),
+                //         // ),
+                //       ],
+                //     )),
               ],
             )),
       ),
-    );
+    ));
   }
 }

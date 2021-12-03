@@ -13,15 +13,20 @@ class CustomDrawerState extends State<CustomDrawer> {
         child: SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          UserAccountsDrawerHeader(
-              accountName: Text('Test User.'),
-              accountEmail: Text('TestUser@gmail.com'),
-              currentAccountPicture: GestureDetector(
-                  onTap: () => print("Successul Btn."),
-                  child: CircleAvatar(
-                      backgroundColor: Colors.grey,
-                      child: Icon(Icons.person, color: Colors.white))),
-              decoration: BoxDecoration(color: Theme.of(context).primaryColor)),
+          SizedBox(
+            height: 24,
+          ),
+          ListTile(
+            leading: Icon(
+              Icons.person,
+            ),
+            title: Text(
+              'Profile',
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
+            },
+          ),
           ListTile(
             leading: Icon(Icons.home_outlined),
             title: Text('Home'),
@@ -32,7 +37,9 @@ class CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             leading: Icon(Icons.history_outlined),
             title: Text('My Orders'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_order_list);
+            },
           ),
           ListTile(
             leading: Icon(Icons.shopping_bag_outlined),

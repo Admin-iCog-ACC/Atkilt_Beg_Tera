@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -43,6 +44,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
@@ -53,14 +55,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
               color: Colors.black,
             ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.favorite_border_outlined,
-                  color: Colors.red,
-                ))
-          ],
           title: Text(
             selectedProduct.productname,
             style: TextStyle(color: Colors.black),
@@ -74,59 +68,82 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                      margin: EdgeInsets.only(bottom: 5, top: 5),
-                      height: MediaQuery.of(context).size.height / 2,
-                      child: Image.network(
-                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
-                        fit: BoxFit.contain,
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
+                            fit: BoxFit.contain,
+                            height: 327,
+                            width: 327,
+                          ),
+                          Container(
+                            height: 82,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 3,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Container(
+                                      margin: EdgeInsets.only(left: 20),
+                                      height: 82,
+                                      width: 153,
+                                      child: Image.network(
+                                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          border:
+                                              Border.all(color: Colors.grey)));
+                                }),
+                          ),
+                        ],
                       )),
-                  Container(
-                    height: 100,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 3,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                              margin: EdgeInsets.only(left: 10),
-                              height: 100,
-                              width: 150,
-                              child: Image.network(
-                                'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
-                                fit: BoxFit.fitHeight,
-                              ),
-                              decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  border: Border.all(
-                                      color: Theme.of(context).primaryColor)));
-                        }),
-                  ),
+                  //Image container ends here
                   Padding(
                     padding: EdgeInsets.only(
-                      top: 15,
+                      top: 40,
                     ),
                     child: Text(
                       selectedProduct.productname,
                       style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  Text(
-                    'Br ' + selectedProduct.price.toString() + "/Kg",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Theme.of(context).primaryColor),
+                  Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Text(
+                      '1Kg',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: Color.fromARGB(0XFF, 107, 114, 128)),
+                    ),
                   ),
-                  // Text(
-                  //   selectedProduct.product_title,
-                  //   style:
-                  //       TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
-                  // ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 12),
+                    child: Text(
+                      selectedProduct.productdescription,
+                      softWrap: true,
+                      style: TextStyle(
+                          height: 1.7,
+                          fontSize: 14,
+                          color: Color.fromARGB(0XFF, 107, 114, 128)),
+                    ),
+                  ),
                   Container(
-                      margin: EdgeInsets.only(top: 20, bottom: 15),
-                      height: 60,
-                      // padding: EdgeInsets.only(left: 10, right: 10),
+                    margin: EdgeInsets.only(top: 20, bottom: 20),
+                    child: Text("Br15",
+                        style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context).primaryColor)),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 16),
+                      width: 335,
+                      height: 56,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                         color: Theme.of(context).primaryColor,
@@ -145,11 +162,12 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                     icon: Icon(
                                       Icons.add,
                                       color: Colors.white,
+                                      size: 14,
                                     )),
                                 Text(
                                   quan.toString(),
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
+                                      color: Colors.white, fontSize: 14),
                                 ),
                                 IconButton(
                                     padding: EdgeInsets.only(right: 10),
@@ -161,8 +179,9 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                       });
                                     },
                                     icon: Icon(
-                                      Icons.space_bar,
+                                      Icons.remove,
                                       color: Colors.white,
+                                      size: 14,
                                     ))
                               ],
                             )
@@ -176,61 +195,75 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                               minWidth: MediaQuery.of(context).size.width,
                               color: Theme.of(context).primaryColor,
                               child: Text(
-                                'Add to Cart',
+                                'Add To Shopping Cart',
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: Colors.white,
                                 ),
                               ),
                             )),
-                  Divider(
-                    // height: 20,
-                    thickness: 2,
-                    endIndent: 0,
-                    indent: 0,
-                    // color: Theme.of(context).primaryColor,
+                  Container(
+                    margin: EdgeInsets.only(top: 16),
+                    child: Divider(
+                      thickness: 1,
+                      endIndent: 0,
+                      indent: 0,
+                    ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 10),
+                    padding: EdgeInsets.only(top: 16),
                     child: Row(
                       children: [
-                        Text(
-                          'Categoty: ',
-                          style: Theme.of(context).textTheme.headline1,
+                        Padding(
+                          padding: EdgeInsets.only(right: 24),
+                          child: Text(
+                            'Categoty',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
                         ),
-                        Text(selectedProduct.categoryid.toString())
+                        Container(
+                          child: Text(selectedProduct.producttitle),
+                        ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 10, top: 10),
+                    padding: EdgeInsets.only(bottom: 16, top: 16),
                     child: Row(
                       children: [
-                        Text(
-                          'Seller: ',
-                          style: Theme.of(context).textTheme.headline1,
+                        Padding(
+                          padding: EdgeInsets.only(right: 24),
+                          child: Text(
+                            'Seller',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
                         ),
                         Text(selectedProduct.producttitle)
                       ],
                     ),
                   ),
                   Divider(
-                    // height: 20,
-                    thickness: 2,
+                    thickness: 1,
                     endIndent: 0,
                     indent: 0,
-                    // color: Theme.of(context).primaryColor,
                   ),
                   Padding(
                     padding: EdgeInsets.only(bottom: 10, top: 10),
                     child: Text(
                       'Details',
-                      style: Theme.of(context).textTheme.headline1,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ),
                   Text(
                     selectedProduct.productdescription,
                     softWrap: true,
+                    style: TextStyle(
+                        height: 1.7,
+                        fontSize: 14,
+                        color: Color.fromARGB(0XFF, 107, 114, 128)),
                   )
                 ],
               ),
