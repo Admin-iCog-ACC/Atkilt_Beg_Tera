@@ -12,7 +12,7 @@ class CustomTheme with ChangeNotifier {
             borderSide: BorderSide(color: ColorPallet.accentcolor, width: 2.0),
           ),
         ),
-        canvasColor: ColorPallet.maincolor,
+        canvasColor: Colors.white,
         textTheme: TextTheme(
           headline2: TextStyle(fontSize: 18, color: Colors.black),
           headline4: TextStyle(

@@ -95,11 +95,11 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                      myController.text == 'merchant'
+                      myController.text == 'retailer'
                           ? Navigator.pushNamed(
-                              context, RoutePaths.merchant_dashboard)
+                              context, RoutePaths.retailer_dashboard)
                           : Navigator.pushNamed(
-                              context, RoutePaths.retailer_dashboard);
+                              context, RoutePaths.merchant_dashboard);
                     },
                     color: Theme.of(context).primaryColor,
                     child: Text(

@@ -3,7 +3,7 @@ import 'package:retailer_app/routes/route_path.dart';
 import 'package:retailer_app/screens/Merchant/OrderDetailScreen.dart';
 import 'package:retailer_app/screens/Merchant/OrderList.dart';
 import 'package:retailer_app/screens/Merchant/ProductDetailScreen.dart';
-import 'package:retailer_app/screens/Merchant/dashboard.dart';
+import 'package:retailer_app/screens/Merchant/dashboard/dashboard.dart';
 import 'package:retailer_app/screens/Merchant/inventory_entry_screen.dart';
 import 'package:retailer_app/screens/Merchant/inventory_list.dart';
 import 'package:retailer_app/screens/Retailer/cart_screen.dart';
