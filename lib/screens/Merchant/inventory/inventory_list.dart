@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:retailer_app/routes/route_path.dart';
 
 import 'package:retailer_app/widgets/Cards/inventory_prodcut_card.dart';
 
@@ -21,7 +22,7 @@ class InventoryListState extends State<InventoryList> {
 
   @override
   void initState() {
-    _getNames();
+    // _getNames();
     super.initState();
   }
 
@@ -43,7 +44,8 @@ class InventoryListState extends State<InventoryList> {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () =>
+            Navigator.pushNamed(context, RoutePaths.inventory_entry),
         label: Text('Add Product'),
         icon: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
@@ -54,6 +56,7 @@ class InventoryListState extends State<InventoryList> {
             child: Column(
               children: [
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -66,28 +69,28 @@ class InventoryListState extends State<InventoryList> {
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      Container(
-                          child: Row(
-                        children: [Icon(Icons.search), TextField()],
-                      ))
+                      // Container(
+                      //     child: Row(
+                      //   children: [Icon(Icons.search), TextField()],
+                      // ))
                     ],
                   ),
                 ),
-                Container(
-                  height: 150,
-                  child: ListView.builder(
-                      itemCount: 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            InventoryProdcutCard(),
-                            SizedBox(
-                              height: 10,
-                            )
-                          ],
-                        );
-                      }),
-                ),
+                // Container(
+                //   height: 150,
+                //   child: ListView.builder(
+                //       itemCount: 10,
+                //       itemBuilder: (BuildContext context, int index) {
+                //         return Column(
+                //           children: [
+                //             InventoryProdcutCard(),
+                //             SizedBox(
+                //               height: 10,
+                //             )
+                //           ],
+                //         );
+                //       }),
+                // ),
                 Container()
               ],
             ),

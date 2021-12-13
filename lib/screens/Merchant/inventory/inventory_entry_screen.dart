@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/models/new_attribute.dart';
+import 'package:retailer_app/screens/Merchant/inventory/widget/new_attribute.dart';
 import 'package:retailer_app/widgets/buttons/buttons.dart';
 import 'package:retailer_app/widgets/popups/delete_warning.dart';
 
@@ -11,6 +13,12 @@ class InventoryEntryScreen extends StatefulWidget {
 
 class InventoryEntryScreenState extends State<InventoryEntryScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  List<Widget> litems = [];
+
+  List<Attribute> attributes = [];
+
+  double containerHeight = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -430,15 +438,60 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             ],
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: MaterialButton(
-                            color: Theme.of(context).primaryColor,
-                            child: Text('+ Add more attribute'),
-                            textColor: Colors.white,
-                            onPressed: () {},
+                        if (attributes.isNotEmpty)
+                          Align(
+                            alignment: Alignment.center,
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10, bottom: 10),
+                              padding: EdgeInsets.all(20),
+                              child: Text(
+                                "Additional Attributes",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(0XFF, 75, 85, 99)),
+                              ),
+                            ),
                           ),
-                        )
+                        Container(
+                          height: containerHeight,
+                          child: new ListView.builder(
+                              itemCount: attributes.length,
+                              itemBuilder: (BuildContext ctxt, int index) =>
+                                  NewAttribute(attributes, index)),
+                        ),
+                        // Align(
+                        //   alignment: Alignment.center,
+                        //   child: MaterialButton(
+                        //     color: Theme.of(context).primaryColor,
+                        //     child: Text('+ Add more attribute'),
+                        //     textColor: Colors.white,
+                        //     onPressed: () {
+                        //       setState(() {
+                        //         containerHeight += 98;
+                        //         attributes.add(Attribute('lable', 'value'));
+                        //       });
+                        //     },
+                        //   ),
+                        // ),
+                        // if (attributes.isNotEmpty)
+                        //   Align(
+                        //     alignment: Alignment.center,
+                        //     child: MaterialButton(
+                        //       color: Colors.grey,
+                        //       child: Text('- Remove'),
+                        //       textColor: Colors.white,
+                        //       onPressed: () {
+                        //         setState(() {
+                        //           attributes.isEmpty
+                        //               ? containerHeight = 0
+                        //               : containerHeight -= 98;
+
+                        //           attributes.removeLast();
+                        //         });
+                        //       },
+                        //     ),
+                        //   )
                       ],
                     ),
                   ),

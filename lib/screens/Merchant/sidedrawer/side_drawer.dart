@@ -16,14 +16,14 @@ class MerchantDrawer extends StatelessWidget {
             leading: Icon(Icons.dashboard),
             title: Text('Dashboard'),
             onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
+              Navigator.pushNamed(context, RoutePaths.merchant_dashboard);
             },
           ),
           ListTile(
             leading: Icon(Icons.store),
-            title: Text('My Shops'),
+            title: Text('My Shop'),
             onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_order_list);
+              Navigator.pushNamed(context, RoutePaths.myShop);
             },
           ),
           ListTile(
@@ -39,16 +39,14 @@ class MerchantDrawer extends StatelessWidget {
             ),
             title: Text('Orders'),
             onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_cart);
+              Navigator.pushNamed(context, RoutePaths.merchant_order_list);
             },
           ),
-          ListTile(
-            leading: Icon(Icons.send),
-            title: Text('Order Status'),
-            onTap: () {
-              Navigator.pushNamed(context, RoutePaths.inventory_entry);
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.send),
+          //   title: Text('Order Status'),
+          //   onTap: () {},
+          // ),
           ListTile(
             leading: Icon(Icons.local_shipping_outlined),
             title: Text('Shippings'),

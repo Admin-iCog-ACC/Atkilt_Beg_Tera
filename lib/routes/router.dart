@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/routes/route_path.dart';
-import 'package:retailer_app/screens/Merchant/OrderDetailScreen.dart';
-import 'package:retailer_app/screens/Merchant/OrderList.dart';
-import 'package:retailer_app/screens/Merchant/ProductDetailScreen.dart';
+import 'package:retailer_app/screens/Merchant/inventory/inventory_entry_screen.dart';
+import 'package:retailer_app/screens/Merchant/order/OrderDetailScreen.dart';
+import 'package:retailer_app/screens/Merchant/order/OrderList.dart';
+import 'package:retailer_app/screens/Merchant/inventory/ProductDetailScreen.dart';
 import 'package:retailer_app/screens/Merchant/dashboard/dashboard.dart';
-import 'package:retailer_app/screens/Merchant/inventory_entry_screen.dart';
-import 'package:retailer_app/screens/Merchant/inventory_list.dart';
+
+import 'package:retailer_app/screens/Merchant/inventory/inventory_list.dart';
+import 'package:retailer_app/screens/Merchant/shop/my_shop.dart';
 import 'package:retailer_app/screens/Retailer/cart_screen.dart';
 import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
 import 'package:retailer_app/screens/Retailer/dashboard.dart';
@@ -58,6 +60,8 @@ class AppRouter {
       case RoutePaths.retailer_order_detail_screen:
         return MaterialPageRoute(
             builder: (_) => const RetailerOrderDetailScreen());
+      case RoutePaths.myShop:
+        return MaterialPageRoute(builder: (_) => const MyShop());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
