@@ -20,18 +20,7 @@ class ProductDetailScreen extends StatefulWidget {
 
 class ProductDetailScreenState extends State<ProductDetailScreen> {
   ProductsMock _loadProduct = new ProductsMock();
-  Product selectedProduct = new Product(
-      image_url: 'image_url',
-      productname: 'Carrot',
-      producttitle: 'Fresh',
-      productdescription:
-          "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
-      price: 20,
-      quantity: 50,
-      size: 'M',
-      available: true,
-      categoryid: '12',
-      id: '10');
+
   @override
   void initState() {
     loadLocalProduct();
@@ -56,7 +45,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           title: Text(
-            selectedProduct.productname,
+            'Carrot',
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
@@ -106,7 +95,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       top: 40,
                     ),
                     child: Text(
-                      selectedProduct.productname,
+                      'Carrot',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
@@ -124,7 +113,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Text(
-                      selectedProduct.productdescription,
+                      "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
                       softWrap: true,
                       style: TextStyle(
                           height: 1.7,
@@ -223,7 +212,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                         Container(
-                          child: Text(selectedProduct.producttitle),
+                          child: Text('Fresh'),
                         ),
                       ],
                     ),
@@ -240,7 +229,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                 fontSize: 14, fontWeight: FontWeight.w600),
                           ),
                         ),
-                        Text(selectedProduct.producttitle)
+                        Text('Fresh Corner')
                       ],
                     ),
                   ),
@@ -258,7 +247,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   Text(
-                    selectedProduct.productdescription,
+                    "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
                     softWrap: true,
                     style: TextStyle(
                         height: 1.7,
@@ -277,8 +266,6 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
       var result = json.decode(response);
 
       print('###########' + result);
-
-      selectedProduct = Product.fromJson(result);
     } catch (e) {
       print('###########' + 'error');
       // throw Text(e.)

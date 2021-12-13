@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:retailer_app/models/new_attribute.dart';
+import 'package:retailer_app/models/intities/new_attribute.dart';
+
 import 'package:retailer_app/screens/Merchant/inventory/widget/new_attribute.dart';
-import 'package:retailer_app/widgets/buttons/buttons.dart';
+
 import 'package:retailer_app/widgets/popups/delete_warning.dart';
 
 class InventoryEntryScreen extends StatefulWidget {

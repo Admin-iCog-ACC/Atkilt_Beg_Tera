@@ -58,19 +58,10 @@ class _ProdcutCardState extends State<ProductCard> {
     return Container(
         child: GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, RoutePaths.retailer_prodcut_detail,
-            arguments: new Product(
-              id: '12',
-              categoryid: '25',
-              productname: '_product_name',
-              producttitle: '_product_title',
-              productdescription: '_product_description',
-              image_url: '',
-              price: double.parse('50'),
-              quantity: int.parse('10'),
-              size: 'M',
-              available: true,
-            ));
+        Navigator.pushNamed(
+          context,
+          RoutePaths.retailer_prodcut_detail,
+        );
       },
       child: Card(
         child: Container(

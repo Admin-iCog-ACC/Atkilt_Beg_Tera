@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:retailer_app/models/new_attribute.dart';
+
+import 'package:retailer_app/models/intities/new_attribute.dart';
 
 class NewAttribute extends StatelessWidget {
   final int index;

@@ -3,23 +3,12 @@ import 'package:retailer_app/models/Cart.dart';
 import 'package:retailer_app/models/Product.dart';
 
 class CartCard extends StatelessWidget {
-  static Product myproduct = new Product(
-      image_url: 'image_url',
-      productname: 'Celery Stick',
-      producttitle: 'Fresh',
-      productdescription:
-          "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
-      price: 20,
-      quantity: 50,
-      size: 'M',
-      available: true,
-      categoryid: '12',
-      id: '10');
+  static Product myproduct = new Product();
   Cart mycart = new Cart(
       cartid: '11',
       product: myproduct,
       qunatity: 5,
-      total: myproduct.price * 5,
+      total: 450,
       customerId: '425');
 
   @override
@@ -95,7 +84,7 @@ class CartCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    mycart.product.productname,
+                    'Tomato',
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   Container(
