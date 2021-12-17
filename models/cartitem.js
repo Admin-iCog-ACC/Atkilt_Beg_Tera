@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   CartItem.init({
-    quantity: DataTypes.STRING,
+    quantity: DataTypes.INTEGER,
     total: DataTypes.FLOAT
   }, {
     sequelize,

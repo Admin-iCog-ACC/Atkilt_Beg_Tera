@@ -30,7 +30,7 @@ app.use("/categories", categoriesRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.send({
-    "error": "api endpoint does not exist or has not been implemented"
+    "error": "endpoint endpoint does not exist or has not been implemented"
   })
   next(createError(404));
 });

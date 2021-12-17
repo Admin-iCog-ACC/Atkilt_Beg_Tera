@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Cart.hasMany(models.CartItem, {
         foreignKey: "cartId",
-        as: "products"
+        as: "cartItems"
       })
 
       Cart.belongsTo(models.Account, {

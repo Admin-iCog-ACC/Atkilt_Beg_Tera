@@ -8,7 +8,7 @@ router.get("/", controllers.getAllCarts)
 router.get("/:id", controllers.getCartbyId)
 
 
-router.post("/", controllers.createCart)
-
+// router.post("/", controllers.createCart)
+router.post("/item", controllers.addItem)
 
 module.exports = router
