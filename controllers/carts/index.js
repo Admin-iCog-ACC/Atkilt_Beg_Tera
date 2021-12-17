@@ -35,16 +35,9 @@ module.exports = {
                 }
             )
         }catch(error){
-            
                 console.log(error)
                 res.status(400).send(error)
-            
         } 
-        // .then(cart => res.status(200).send(cart))
-        // .catch(error =>{
-        //     console.log(error)
-        //     res.status(400).send(error)
-        // });
     },
 
     getCartbyId: async(req, res, next) => {
@@ -63,18 +56,18 @@ module.exports = {
     },
 
     addItem: async(req, res, next) => {
+        if(!req.body.quantity || !req.body.product || !req.body.product.id){
+            return res.status(400).send({
+                status: "Malformed request"
+            })
+        }
+
         var cart = await cartServices.createOrGetCart();
         console.log("Request: ", req.body )
         var product = await Product.findByPk(req.body.product.id,);
 
         if(product == null){
             res.status(404)
-        }
-
-        if(!req.body.quantity || !req.body.product || !req.body.product.id){
-            return res.status(400).send({
-                status: "Malformed request"
-            })
         }
 
         var cartItem = await CartItem.create({

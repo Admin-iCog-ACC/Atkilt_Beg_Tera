@@ -16,10 +16,6 @@ module.exports = {
                 all: true,
                 nested: true
             }
-            // include: {
-            //     all: true,
-            //     nested: true
-            // }
         })
     
         console.log(currentCart.id)
