@@ -1,30 +1,27 @@
-import 'package:json_annotation/json_annotation.dart';
-import 'package:retailer_app/models/Product.dart';
+import 'package:retailer_app/models/intities/Cart_Item.dart';
 
-@JsonSerializable()
 class Cart {
-  String cartid;
-  Product product;
-  int qunatity;
-  double total;
-  String customerId;
+  String? id;
+  String? total;
+  String? accountid;
+  List<CartItem>? cartItems;
 
-  Cart(
-      {required this.cartid,
-      required this.product,
-      required this.qunatity,
-      required this.total,
-      required this.customerId});
+  Cart();
 
-  factory Cart.fromJson(Map<String, dynamic> json) {
-    return Cart(
-      cartid: json["cartid"],
-      product: Product.fromJson(json["product"]),
-      qunatity: int.parse(json["qunatity"]),
-      total: double.parse(json["total"]),
-      customerId: json["customerId"],
-    );
+  Cart.fromJson(json) {
+    id = json["id"].toString();
+    cartItems = CartItem().fromJsonList(json["cartItems"]);
+    total = json['total'].toString();
+    accountid = json["accountId"] ?? '';
   }
-//
 
+  Map<String, dynamic> toJson() {
+    return {
+      'id': 'id',
+      'quantity': 15,
+      'total': 500,
+      'customerId': '58454',
+      'product': {"id": 7}
+    };
+  }
 }

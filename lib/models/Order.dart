@@ -4,7 +4,7 @@ import 'intities/address.dart';
 import 'intities/shipping_location.dart';
 import 'intities/store_delivry_date.dart';
 
-import 'Cart.dart';
+import 'intities/Cart_Item.dart';
 import 'intities/delivery_status.dart';
 import 'product_item.dart';
 
@@ -37,8 +37,6 @@ class Order {
   String? id;
   String? number;
   OrderStatus? status;
-  String?
-      orderStatus; //in opencart, order_status will be responsed based on language. so I use this property to show on the UI instead of status property if status is unknown
   DateTime? createdAt;
   DateTime? dateModified;
   double? total;
@@ -52,13 +50,12 @@ class Order {
   List<ProductItem> lineItems = [];
   Address? billing;
   Address? shipping;
-  String? statusUrl;
+
   double? subtotal;
   DeliveryStatus? deliveryStatus;
   int quantity = 0;
   UserShippingLocation? userShippingLocation;
   String? deliveryDate;
-  List<StoreDeliveryDate>? storeDeliveryDates;
 
   int get totalQuantity {
     var quantity = 0;
@@ -168,16 +165,6 @@ class Order {
               );
             }
           }
-          if (item['key'] == '_wcfmd_delvery_times') {
-            storeDeliveryDates = [];
-            final deliveryDateMap = item['value'];
-            if (deliveryDateMap is Map) {
-              deliveryDateMap.forEach((key, value) {
-                storeDeliveryDates!
-                    .add(StoreDeliveryDate(storeId: key, dateTime: value));
-              });
-            }
-          }
         }
       }
     } catch (e, trace) {
@@ -213,7 +200,7 @@ class Order {
         : null;
   }
 
-  Map<String, dynamic> toOrderJson(Cart cartModel, userId) {
+  Map<String, dynamic> toOrderJson(CartItem cartModel, userId) {
     var items = lineItems.map((index) {
       return index.toJson();
     }).toList();

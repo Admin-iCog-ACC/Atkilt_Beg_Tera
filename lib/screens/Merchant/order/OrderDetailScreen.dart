@@ -64,6 +64,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                   child: new Text(value),
                                 );
                               }).toList(),
+                              onChanged: (String? value) {},
                             ),
                             MaterialButton(
                               height: 40,

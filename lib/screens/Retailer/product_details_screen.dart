@@ -1,16 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter/services.dart';
-import 'package:retailer_app/mock_data/products_mock_services.dart';
+import 'package:retailer_app/APIs/Product_API.dart';
+import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
-import 'package:retailer_app/widgets/QuantityBar.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  final Product? product;
+  final dynamic product;
 
   const ProductDetailScreen({Key? key, this.product}) : super(key: key);
 
@@ -19,19 +18,14 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class ProductDetailScreenState extends State<ProductDetailScreen> {
-  ProductsMock _loadProduct = new ProductsMock();
-
-  @override
-  void initState() {
-    loadLocalProduct();
-    // super.initState();
-  }
-
   int quan = 1;
+
   bool isCartAdded = false;
 
   @override
   Widget build(BuildContext context) {
+    final myProduct = ModalRoute.of(context)!.settings.arguments as Product;
+
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -45,7 +39,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
             ),
           ),
           title: Text(
-            'Carrot',
+            myProduct.name!,
             style: TextStyle(color: Colors.black),
           ),
           centerTitle: true,
@@ -95,7 +89,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       top: 40,
                     ),
                     child: Text(
-                      'Carrot',
+                      myProduct.name!,
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
@@ -113,7 +107,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                   Padding(
                     padding: EdgeInsets.only(top: 12),
                     child: Text(
-                      "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
+                      myProduct.description!,
                       softWrap: true,
                       style: TextStyle(
                           height: 1.7,
@@ -123,7 +117,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20, bottom: 20),
-                    child: Text("Br15",
+                    child: Text("Br" + myProduct.price!,
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,
@@ -176,9 +170,11 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                             )
                           : MaterialButton(
                               onPressed: () {
-                                setState(() {
-                                  isCartAdded = true;
-                                });
+                                ProductApi().addToCart(
+                                    cartItem: new CartItem(product: myProduct));
+                                // setState(() {
+                                //   isCartAdded = true;
+                                // });
                               },
                               height: 60,
                               minWidth: MediaQuery.of(context).size.width,
@@ -247,7 +243,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   Text(
-                    "It is crunchy, tasty, and highly nutritious. Carrots are a particularly good source of beta carotene, fiber, vitamin K1, potassium, and antioxidants ( 1 ). They also have a number of health benefits. They're a weight-loss-friendly food and have been linked to lower cholesterol levels and improved eye health.",
+                    myProduct.description!,
                     softWrap: true,
                     style: TextStyle(
                         height: 1.7,

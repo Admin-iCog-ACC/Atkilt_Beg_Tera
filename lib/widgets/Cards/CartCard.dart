@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:retailer_app/models/Cart.dart';
+import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
 
 class CartCard extends StatelessWidget {
-  static Product myproduct = new Product();
-  Cart mycart = new Cart(
-      cartid: '11',
-      product: myproduct,
-      qunatity: 5,
-      total: 450,
-      customerId: '425');
+  final CartItem item;
+
+  CartCard({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +50,7 @@ class CartCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '1',
+                    item.quantity.toString(),
                     style: TextStyle(fontSize: 12),
                   ),
                   GestureDetector(
@@ -84,14 +80,14 @@ class CartCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Tomato',
+                    item.product!.name!,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   Container(
                     width: 100,
                     padding: EdgeInsets.only(top: 10, bottom: 10),
                     child: Text(
-                      "Br" + mycart.product.price.toString(),
+                      "Br " + item.product!.price!,
                       style: TextStyle(
                           color: Theme.of(context).primaryColor,
                           fontSize: 14,
@@ -99,7 +95,7 @@ class CartCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    mycart.qunatity.toString() + ' X 1Kg',
+                    item.quantity.toString() + ' X 1Kg',
                     style: TextStyle(
                       fontSize: 12,
                     ),
@@ -111,7 +107,7 @@ class CartCard extends StatelessWidget {
               child: Row(
                 children: [
                   Text(
-                    'Br' + mycart.total.toString(),
+                    'Br' + item.total.toString(),
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   IconButton(

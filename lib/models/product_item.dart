@@ -1,10 +1,9 @@
 import 'Product.dart';
 import 'delivery_person.dart';
-import 'store.dart';
 import 'package:intl/intl.dart';
 
 class ProductItem {
-    String? id;
+  String? id;
   String? productId;
   String? variationId;
   String? name;
@@ -15,11 +14,9 @@ class ProductItem {
   String? addonsOptions;
   List<String?> attributes = [];
   DeliveryUser? deliveryUser;
-  List<Map<String, dynamic>?> prodOptions = []; // for opencart
   String? storeId;
   String? storeName;
   Product? product;
-
 
   Map<String, dynamic> toJson() {
     return {
@@ -56,12 +53,6 @@ class ProductItem {
       if (productData != null) {
         try {
           product = Product.fromJson(productData);
-          if (productData['store'] != null) {
-          
-                product?.store = Store.fromJson(productData['store']);
-              
-          }
-          featuredImage = product!.imageFeature;
         } catch (e) {
           print('Error in product_item.dart - $name: $e');
         }
@@ -141,5 +132,4 @@ class ProductItem {
       print(trace.toString());
     }
   }
-
 }

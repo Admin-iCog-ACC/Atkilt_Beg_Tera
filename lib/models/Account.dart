@@ -17,7 +17,6 @@ class Account {
   Billing? billing;
   bool isVender = false;
   bool isDeliveryBoy = false;
-  bool? isSocial = false;
   bool? isDriverAvailable;
 
   Account();
@@ -31,9 +30,9 @@ class Account {
   Account.fromJson(Map<String, dynamic> json) {
     try {
       var user = json['user'];
-      isSocial = true;
+
       loggedIn = true;
-      id = json['wp_user_id'].toString();
+      id = json['user_id'].toString();
       name = user['displayname'];
       cookie = json['cookie'];
       username = user['username'];
@@ -41,7 +40,7 @@ class Account {
       firstName = user['firstname'];
       lastName = user['lastname'];
       email = user['email'] ?? id;
-      isSocial = true;
+
       userUrl = user['avatar'];
       var roles = user['role'] as List;
       var role = roles.firstWhere(

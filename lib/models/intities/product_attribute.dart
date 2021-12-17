@@ -5,7 +5,7 @@ class ProductAttribute {
   List? options = [];
   List optionSlugs = [];
   bool? isVisible;
-  bool? isVariation;
+
   String? get cleanSlug => slug?.replaceAll('pa_', '');
 
   ProductAttribute.fromJson(Map<String, dynamic> parsedJson) {
@@ -13,7 +13,7 @@ class ProductAttribute {
     name =
         parsedJson['label'] ?? parsedJson['name']; // name for FluxStore Manager
     slug = parsedJson['name'];
-    isVariation = parsedJson['variation'] ?? false;
+
     isVisible = parsedJson['visible'] ?? false;
 
     if (parsedJson['options'] != null) {
@@ -34,7 +34,6 @@ class ProductAttribute {
       'name': name,
       'options': options,
       'visible': isVisible,
-      'variation': isVariation
     };
   }
 

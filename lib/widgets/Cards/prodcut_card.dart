@@ -10,12 +10,13 @@ class ProductCard extends StatefulWidget {
   final String imageUrl;
   final double price;
   final String subtitle;
-
+  final Product product;
   final double size;
   final double fontSize;
   final Function? onTap;
   const ProductCard(
       {Key? key,
+      required this.product,
       required this.title,
       required this.imageUrl,
       required this.subtitle,
@@ -58,10 +59,8 @@ class _ProdcutCardState extends State<ProductCard> {
     return Container(
         child: GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          RoutePaths.retailer_prodcut_detail,
-        );
+        Navigator.pushNamed(context, RoutePaths.retailer_prodcut_detail,
+            arguments: widget.product);
       },
       child: Card(
         child: Container(

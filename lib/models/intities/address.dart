@@ -5,14 +5,8 @@ class Address {
   String? lastName;
   String? email;
   String? street;
-  String? apartment;
-  String? block;
   String? city;
-  String? state;
-  String? country;
-  String? countryId;
   String? phoneNumber;
-  String? zipCode;
   String? mapUrl;
 
   Address({
@@ -20,13 +14,8 @@ class Address {
     this.lastName,
     this.email,
     this.street,
-    this.apartment,
-    this.block,
     this.city,
-    this.state,
-    this.country,
     this.phoneNumber,
-    this.zipCode,
     this.mapUrl,
   });
 
@@ -36,27 +25,23 @@ class Address {
         email!.isNotEmpty &&
         street!.isNotEmpty &&
         city!.isNotEmpty &&
-        state!.isNotEmpty &&
-        country!.isNotEmpty &&
         phoneNumber!.isNotEmpty;
   }
 
   Address.fromJson(Map<String, dynamic> parsedJson) {
     firstName = parsedJson['first_name'] ?? '';
     lastName = parsedJson['last_name'] ?? '';
-    apartment = parsedJson['company'] ?? '';
+
     street = parsedJson['address_1'] ?? '';
-    block = parsedJson['address_2'] ?? '';
+
     city = parsedJson['city'] ?? '';
-    state = parsedJson['state'] ?? '';
-    country = parsedJson['country'] ?? '';
+
     email = parsedJson['email'] ?? '';
     // final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
     // if (alphanumeric.hasMatch(firstName!)) {
     //   phoneNumber = firstName;
     // }
     phoneNumber = parsedJson['phone'] ?? '';
-    zipCode = parsedJson['postcode'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,13 +49,8 @@ class Address {
       'first_name': firstName,
       'last_name': lastName,
       'address_1': street ?? '',
-      'address_2': block ?? '',
-      'company': apartment ?? '',
       'city': city,
-      'state': state,
-      'country': country,
       'phone': phoneNumber,
-      'postcode': zipCode,
       'mapUrl': mapUrl,
     };
     if (email != null && email!.isNotEmpty) {
@@ -84,14 +64,12 @@ class Address {
       firstName = json['first_name'];
       lastName = json['last_name'];
       street = json['address_1'];
-      block = json['address_2'];
-      apartment = json['company'];
+
       city = json['city'];
-      state = json['state'];
-      country = json['country'];
+
       email = json['email'];
       phoneNumber = json['phone'];
-      zipCode = json['postcode'];
+
       mapUrl = json['mapUrl'];
     } catch (e) {
       print(e.toString());

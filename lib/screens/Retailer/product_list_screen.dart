@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Product_API.dart';
+
+import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
-import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
-import 'package:retailer_app/widgets/CustomSliverAppBar.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen();
+  const ProductListScreen({Key? key}) : super(key: key);
   @override
   ProductListScreenState createState() => ProductListScreenState();
 }
 
 class ProductListScreenState extends State<ProductListScreen> {
+  final ProductApi _api = ProductApi();
+  List<Product> myProducts = [];
+  @override
+  void initState() {
+    // ProductApi().getProducts();
+
+    _api.getProducts().then((value) {
+      myProducts.addAll(value);
+      print('myProducts' + myProducts.length.toString());
+    });
+
+    super.initState();
+  }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -30,6 +45,7 @@ class ProductListScreenState extends State<ProductListScreen> {
               (context, index) => Column(
                 children: [
                   ProductCard(
+                      product: myProducts[index],
                       title: 'Tomatos',
                       imageUrl:
                           "https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/192/steak_okxpjo.jpg",

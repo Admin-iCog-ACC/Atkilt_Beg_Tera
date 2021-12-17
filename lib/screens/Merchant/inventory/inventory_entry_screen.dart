@@ -202,9 +202,15 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                           ),
                         ),
                         DropdownButton(
-                          items: [],
+                          items: <String>[].map((String value) {
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value),
+                            );
+                          }).toList(),
                           isExpanded: true,
                           borderRadius: BorderRadius.all(Radius.circular(5)),
+                          onChanged: (Object? value) {},
                         ),
                         //------
                         Padding(
@@ -218,9 +224,15 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                           ),
                         ),
                         DropdownButton(
-                          items: [],
+                          items: <String>[].map((String value) {
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value),
+                            );
+                          }).toList(),
                           isExpanded: true,
                           borderRadius: BorderRadius.all(Radius.circular(5)),
+                          onChanged: (value) {},
                         ),
                         //-------------\
                         Padding(
@@ -234,9 +246,15 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                           ),
                         ),
                         DropdownButton(
-                          items: [],
+                          items: <String>[].map((String value) {
+                            return new DropdownMenuItem<String>(
+                              value: value,
+                              child: new Text(value),
+                            );
+                          }).toList(),
                           isExpanded: true,
                           borderRadius: BorderRadius.all(Radius.circular(5)),
+                          onChanged: (Object? value) {},
                         ),
                       ],
                     ),
