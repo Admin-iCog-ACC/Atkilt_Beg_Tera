@@ -1,4 +1,5 @@
 const Product = require('../../models').Product;
+const ProductImage = require('../../models').ProductImage;
 const Attribute = require('../../models').Attribute;
 
 module.exports = {
@@ -8,6 +9,9 @@ module.exports = {
             include: [{
                 model: Attribute,
                 as: "attributes"
+            },{
+                model: ProductImage,
+                as: "images"
             }]
         })
         .then(products => res.status(200).send(products))
@@ -22,6 +26,9 @@ module.exports = {
             include: [{
                 model: Attribute,
                 as: "attributes"
+            },{
+                model: ProductImage,
+                as: "images"
             }]
         })
         .then(products => {
