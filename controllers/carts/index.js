@@ -103,6 +103,34 @@ module.exports = {
 
         return cartItem.destroy()
         .then(cartItem => res.status(200).send(cartItem))
-        .catch(error => res.status(400).send(error));f
+        .catch(error => res.status(400).send(error));
+    },
+    
+    updateItem: async(req, res, next) => {
+        if(!req.body.quantity || req.body.quantity < 1){
+            res.status(400).send({
+                "error": "Request body is not formatted correctly"
+            })
+        }
+
+        var cartItemId = req.params.id;
+        var cart = await cartServices.createOrGetCart();
+        console.log("Request: ", req.body )
+        var cartItem = await CartItem.findOne({
+            where: {
+                id: cartItemId,
+                cartId: cart.id
+            }
+        });
+
+        if(cartItem == null){
+            return res.status(404)
+        }
+
+        cartItem.quantity = req.body.quantity;
+
+        return cartItem.save()
+        .then(cartItem => res.status(200).send(cartItem))
+        .catch(error => res.status(400).send(error));   
     }
 }
