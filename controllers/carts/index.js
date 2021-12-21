@@ -80,5 +80,25 @@ module.exports = {
         return cartItem.save()
         .then(cartItem => res.status(200).send(cartItem))
         .catch(error => res.status(400).send(error));
+    },
+
+    removeItem: async(req, res, next) => {
+        var cartItemId = req.params.id;
+        var cart = await cartServices.createOrGetCart();
+        console.log("Request: ", req.body )
+        var cartItem = await CartItem.findOne({
+            where: {
+                id: cartItemId,
+                cartId: cart.id
+            }
+        });
+
+        if(cartItem == null){
+            res.status(404)
+        }
+
+        return cartItem.destroy()
+        .then(cartItem => res.status(200).send(cartItem))
+        .catch(error => res.status(400).send(error));f
     }
 }

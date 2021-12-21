@@ -11,4 +11,7 @@ router.get("/:id", controllers.getCartbyId)
 // router.post("/", controllers.createCart)
 router.post("/item", controllers.addItem)
 
+router.delete("/item/:id", controllers.removeItem)
+
+
 module.exports = router
