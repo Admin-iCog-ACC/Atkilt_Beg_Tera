@@ -12,6 +12,7 @@ router.get("/:id", controllers.getCartbyId)
 router.post("/item", controllers.addItem)
 
 router.delete("/item/:id", controllers.removeItem)
+router.put("/item/:id", controllers.updateItem)
 
 
 module.exports = router
