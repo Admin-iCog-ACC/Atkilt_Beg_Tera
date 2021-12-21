@@ -93,8 +93,12 @@ module.exports = {
             }
         });
 
+	console.log("This is the product found", cartItem)
+
         if(cartItem == null){
-            res.status(404)
+            return res.status(404).send({
+		"status": "The item was not found in the cart"
+	    })
         }
 
         return cartItem.destroy()
