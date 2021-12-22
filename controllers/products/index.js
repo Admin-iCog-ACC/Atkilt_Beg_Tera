@@ -15,11 +15,11 @@ module.exports = {
             }]
         })
         .then(products => {
-            products.forEach(element => {
-                for(var i = 0; i < element.images.length; i++){
-                    element.images[i] = element.images[i].resourceUrl
-                }
-            });
+            //products.forEach(element => {
+            //    for(var i = 0; i < element.images.length; i++){
+            //        element.images[i] = element.images[i].resourceUrl
+            //    }
+            //});
             res.status(200).send(products)
         
         })
