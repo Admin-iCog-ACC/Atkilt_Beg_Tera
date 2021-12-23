@@ -15,7 +15,9 @@ module.exports = {
             include: {
                 model: CartItem,
                 as: "cartItems",
-                nested: true
+                include: {
+                    model: Product,
+                }
             }
         })
 
