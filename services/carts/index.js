@@ -1,7 +1,7 @@
 const Cart = require('../../models').Cart;
 const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
-
+const lodash = require("lodash")
 
 
 
@@ -28,5 +28,15 @@ module.exports = {
             await currentCart.save()
         }
         return currentCart
-    }
+    },
+
+    getCartSubtotal: async(cartId) => {
+        var cartItems = await CartItem.findAll({
+            where: {
+                cartId: cartId
+            }
+        })
+        console.log("CartItems: ",cartItems.dataValues)
+        return lodash.sum(cartItems.map(item => item.total))
+    },
 }

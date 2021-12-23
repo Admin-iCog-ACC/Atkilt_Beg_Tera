@@ -4,6 +4,7 @@ const Product = require('../../models').Product;
 const Order = require('../../models').Order;
 
 const cartServices = require('../../services/carts')
+const orderServices = require('../../services/orders')
 
 createOrGetCart: async() => {
     var currentCart = await Cart.findAll({
@@ -137,31 +138,30 @@ module.exports = {
     checkout: async(req, res, next) => {
         var cart = await cartServices.createOrGetCart();
         console.log("Request: ", req.body )
-        if(cartItem == null){
-            return res.status(404).send
-        }
 
         cart.checkedOut = true;
-        var cartSubtotal = cartServices.getCartSubtotal(cart.id)
-        var totalTax = orderServices.getTax(cartSubtotal)
-        var totalShipping = orderServices.getShippingPrice()
-        var total = totalTax + totalShipping + subTotal
+        var cartSubtotal = await cartServices.getCartSubtotal(cart.id)
+        var totalTax = await orderServices.getTax(cartSubtotal)
+        var totalShipping =  await orderServices.getShippingPrice()
+        var total = totalTax + totalShipping + cartSubtotal
         var shippingAddress = req.body.shippingAddress
         var billingAddress = req.body.billingAddress
 
-        cart.save().then(cart => {
-            var order = Order.create({
+        cart.save().then(async(cart) => {
+            var orderObj = {
                 status: "Order Received",
                 total: total,
                 subTotal: cartSubtotal,
                 totalTax: totalTax,
                 totalShipping: totalShipping,
                 paymentMethod: "Cash On Delivery",
-                customerNote: req.body.customerNote,
-                billingAddress: billingAddress,
-                shippingAddress: shippingAddress,
                 cartId: cart.id
-            })
+            }
+
+            console.log(orderObj)
+            var order = await Order.create(orderObj)
+
+            console.log("ORDER CREATED")
 
             order.save()
             .then(order => res.status(201).send({

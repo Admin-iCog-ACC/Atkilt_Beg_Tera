@@ -11,14 +11,6 @@ module.exports = {
         return subtotal * 0.15
     },
 
-    getCartSubtotal: async(cartId) => {
-        var cartItems = await CartItem.findAll({
-            where: {
-                cartId: cartId
-            }
-        })
-        return lodash.sum(cartItems.map(item => item.total))
-    },
 
     getShippingPrice: () => {
         return 150
