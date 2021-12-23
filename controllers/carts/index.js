@@ -155,6 +155,8 @@ module.exports = {
                 totalTax: totalTax,
                 totalShipping: totalShipping,
                 paymentMethod: "Cash On Delivery",
+                shippingAddress,
+                billingAddress,
                 cartId: cart.id
             }
 
