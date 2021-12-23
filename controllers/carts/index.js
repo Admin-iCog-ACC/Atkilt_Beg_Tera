@@ -146,6 +146,8 @@ module.exports = {
         var total = totalTax + totalShipping + cartSubtotal
         var shippingAddress = req.body.shippingAddress
         var billingAddress = req.body.billingAddress
+        var shippingLatitude = req.body.shippingLatitude
+        var shippingLongitude = req.body.shippingLongitude
 
         cart.save().then(async(cart) => {
             var orderObj = {
@@ -156,6 +158,8 @@ module.exports = {
                 totalShipping: totalShipping,
                 paymentMethod: "Cash On Delivery",
                 shippingAddress,
+                shippingLatitude,
+                shippingLongitude,
                 billingAddress,
                 cartId: cart.id
             }

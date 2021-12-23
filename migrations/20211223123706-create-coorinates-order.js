@@ -9,14 +9,12 @@ module.exports = {
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
     return Promise.all([
-      queryInterface.removeColumn(
-        'Orders',
-        'shippingMethodTitle'
-      ),
-      queryInterface.removeColumn(
-        'Orders',
-        'paymentMethodTitle'
-      )
+      queryInterface.addColumn('Orders', 'shippingLatitude',  {
+        type: Sequelize.FLOAT
+      }),
+      queryInterface.addColumn('Orders', 'shippingLongitude',  {
+        type: Sequelize.FLOAT
+      })
     ])
   },
 
@@ -27,14 +25,15 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-
-    return Promise.all[
-      queryInterface.addColumn('Orders', 'billingAddress',  {
-       type: Sequelize.STRING
-     }),
-     queryInterface.addColumn('Orders', 'shippingAdress',  {
-       type: Sequelize.STRING
-     })
-    ]
+     return Promise.all([
+      queryInterface.removeColumn(
+        'Orders',
+        'shippingLatitude'
+      ),
+      queryInterface.removeColumn(
+        'Orders',
+        'shippingLongitude'
+      )
+    ])
   }
 };

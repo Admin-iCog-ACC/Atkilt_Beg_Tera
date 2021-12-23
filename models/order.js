@@ -32,6 +32,8 @@ module.exports = (sequelize, DataTypes) => {
     customerNote: DataTypes.STRING,
     deliveryStatus: DataTypes.STRING,
     shippingAddress: DataTypes.STRING,
+    shippingLatitude: DataTypes.FLOAT,
+    shippingLongitude: DataTypes.FLOAT,
     billingAddress: DataTypes.STRING
   }, {
     sequelize,
