@@ -1,6 +1,7 @@
 const Cart = require('../../models').Cart;
 const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
+const Order = require('../../models').Order;
 
 const cartServices = require('../../services/carts')
 
@@ -24,7 +25,7 @@ module.exports = {
     getAllCarts: async(req, res, next)=>{
         try{
             var cart = await cartServices.createOrGetCart();
-            
+            console.log("[X] GOT HERE" ,cart)
             var subTotals = cart.cartItems.map(cartItem => cartItem.total)
             console.log(subTotals)
             var total = subTotals.reduce((partial_sum, a) => partial_sum + a, 0);
@@ -128,9 +129,52 @@ module.exports = {
         }
 
         cartItem.quantity = req.body.quantity;
-
         return cartItem.save()
         .then(cartItem => res.status(200).send(cartItem))
         .catch(error => res.status(400).send(error));   
+    },
+
+    checkout: async(req, res, next) => {
+        var cart = await cartServices.createOrGetCart();
+        console.log("Request: ", req.body )
+        if(cartItem == null){
+            return res.status(404).send
+        }
+
+        cart.checkedOut = true;
+        var cartSubtotal = cartServices.getCartSubtotal(cart.id)
+        var totalTax = orderServices.getTax(cartSubtotal)
+        var totalShipping = orderServices.getShippingPrice()
+        var total = totalTax + totalShipping + subTotal
+        var shippingAddress = req.body.shippingAddress
+        var billingAddress = req.body.billingAddress
+
+        cart.save().then(cart => {
+            var order = Order.create({
+                status: "Order Received",
+                total: total,
+                subTotal: cartSubtotal,
+                totalTax: totalTax,
+                totalShipping: totalShipping,
+                paymentMethod: "Cash On Delivery",
+                customerNote: req.body.customerNote,
+                billingAddress: billingAddress,
+                shippingAddress: shippingAddress,
+                cartId: cart.id
+            })
+
+            order.save()
+            .then(order => res.status(201).send({
+                status: "Cart Checked Out",
+                order: order
+            }))
+            .catch(error => res.status(500).send(error))
+        })
+        .catch(error => res.status(500).send(error))
+
+
+        // return cartItem.save()
+        // .then(cartItem => res.status(200).send(cartItem))
+        // .catch(error => res.status(400).send(error));   
     }
 }

@@ -13,14 +13,13 @@ module.exports = {
             },
 
             include: {
-                all: true,
+                model: CartItem,
+                as: "cartItems",
                 nested: true
             }
         })
-    
-        console.log(currentCart.id)
 
-        if(currentCart.id == null){
+        if(currentCart == null){
             console.log("--> Creating new cart")
             currentCart = await Cart.create({
                 accountId: null,

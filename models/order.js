@@ -14,16 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Order.hasMany(models.OrderedItem, {
         foreignKey: "orderId",
         as: "products"
-      }),
-
-      Order.belongsTo(models.Address, {
-        foreignKey: "shippingAddress",
-        onDelete: "SET NULL"
       })
 
-
-      Order.belongsTo(models.Address, {
-        foreignKey: "billingAddress",
+      Order.belongsTo(models.Cart, {
+        foreignKey: "cartId",
         onDelete: "SET NULL"
       })
     }
@@ -31,14 +25,14 @@ module.exports = (sequelize, DataTypes) => {
   Order.init({
     status: DataTypes.STRING,
     total: DataTypes.FLOAT,
+    subTotal: DataTypes.FLOAT,
     totalTax: DataTypes.FLOAT,
     totalShipping: DataTypes.FLOAT,
-    paymentMethodTitle: DataTypes.STRING,
     paymentMethod: DataTypes.STRING,
-    shippingMethodTitle: DataTypes.STRING,
     customerNote: DataTypes.STRING,
-    subTotal: DataTypes.FLOAT,
-    deliveryStatus: DataTypes.STRING
+    deliveryStatus: DataTypes.STRING,
+    shippingAddress: DataTypes.STRING,
+    billingAddress: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Order',
