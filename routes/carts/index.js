@@ -13,6 +13,6 @@ router.post("/item", controllers.addItem)
 router.delete("/item/:id", controllers.removeItem)
 router.put("/item/:id", controllers.updateItem)
 
-// router.post("/checkout", controllers.checkout);
+router.post("/checkout", controllers.checkout);
 
 module.exports = router
