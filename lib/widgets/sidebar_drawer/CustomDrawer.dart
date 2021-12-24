@@ -67,7 +67,10 @@ class CustomDrawerState extends State<CustomDrawer> {
           ListTile(
             leading: Icon(Icons.logout_outlined),
             title: Text('Logout'),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  RoutePaths.signin, (Route<dynamic> route) => false);
+            },
           ),
           Divider(indent: 20.0),
           ListTile(

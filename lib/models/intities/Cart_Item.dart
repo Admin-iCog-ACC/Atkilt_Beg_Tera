@@ -3,6 +3,7 @@ import 'package:retailer_app/models/Product.dart';
 
 @JsonSerializable()
 class CartItem {
+  String? id;
   String? cartid;
   Product? product;
   int? quantity;
@@ -10,24 +11,36 @@ class CartItem {
   String? customerId;
 
   CartItem(
-      {this.cartid, this.customerId, this.product, this.quantity, this.total});
+      {this.id,
+      this.cartid,
+      this.customerId,
+      this.product,
+      this.quantity,
+      this.total});
 
   CartItem.fromJson(json) {
-    cartid = json["cartid"];
-    product = Product.fromJson(json["Product"]) ?? new Product();
-    quantity = json["quantity"];
+    id = json['id'].toString();
+    cartid = json["cartId"].toString();
+    product = Product.fromJson(json["Product"] ?? {});
+    quantity = int.parse(json["quantity"].toString());
     total = double.parse(json["total"].toString());
     customerId = json["customerId"];
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'cartid': 'cartid',
-      'quantity': 15,
-      'total': 500,
-      'customerId': '58454',
-      'product': {"id": 7}
+      'id': id,
+      'cartid': cartid,
+      'quantity': '$quantity',
+      'total': total,
+      'customerId': cartid,
+      'product': product!.toJson()
     };
+  }
+
+  @override
+  String toString() {
+    return 'CartItem{id: $id, cartid: $cartid, product: $product, quantity: $quantity, total: $total, customerId: $customerId}';
   }
 
   List<CartItem> fromJsonList(jsonlist) {

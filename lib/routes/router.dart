@@ -47,7 +47,9 @@ class AppRouter {
       case RoutePaths.retailer_product_list:
         return MaterialPageRoute(builder: (_) => const ProductListScreen());
       case RoutePaths.retailer_checkut:
-        return MaterialPageRoute(builder: (_) => const CheckOutScreen());
+        var arg = settings.arguments;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => CheckOutScreen(cart: arg));
       case RoutePaths.inventory:
         return MaterialPageRoute(builder: (_) => const InventoryList());
       case RoutePaths.inventory_entry:

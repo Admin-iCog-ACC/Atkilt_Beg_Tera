@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Cart_API.dart';
 import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
 
 class CartCard extends StatelessWidget {
   final CartItem item;
+  final onDelete;
+  final onUpdate;
 
-  CartCard({Key? key, required this.item}) : super(key: key);
+  CartCard({Key? key, required this.item, this.onDelete, this.onUpdate})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +44,19 @@ class CartCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   GestureDetector(
-                    onTap: () => print('+object'),
+                    onTap: () => {
+                      item.quantity = item.quantity! + 1,
+                      CartApi().updateCartItem(cartItem: item).then((value) {
+                        item.quantity = value.quantity;
+                      }).catchError((error) {
+                        print(error);
+                      }).whenComplete(() => onUpdate())
+                    },
                     child: Container(
                       padding: EdgeInsets.all(8),
                       child: Icon(
                         Icons.add,
-                        size: 14,
+                        size: 18,
                       ),
                     ),
                   ),
@@ -54,12 +65,19 @@ class CartCard extends StatelessWidget {
                     style: TextStyle(fontSize: 12),
                   ),
                   GestureDetector(
-                    onTap: () => print('-object'),
+                    onTap: () => {
+                      item.quantity = item.quantity! - 1,
+                      CartApi().updateCartItem(cartItem: item).then((value) {
+                        item.quantity = value.quantity;
+                      }).catchError((error) {
+                        print(error);
+                      }).whenComplete(() => onUpdate())
+                    },
                     child: Container(
                       padding: EdgeInsets.all(8),
                       child: Icon(
                         Icons.remove,
-                        size: 14,
+                        size: 18,
                       ),
                     ),
                   )
@@ -70,8 +88,7 @@ class CartCard extends StatelessWidget {
               // margin: EdgeInsets.all(10),
               height: 40,
               width: 40,
-              child: Image.network(
-                  'https://www.jiomart.com/images/product/420x420/590003517/tomato-per-kg-0-20200710.jpg'),
+              child: Image.network(item.product!.images.first),
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -111,10 +128,14 @@ class CartCard extends StatelessWidget {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        CartApi().deleteCartItem(cartItem: item).then((value) {
+                          onDelete();
+                        });
+                      },
                       icon: Icon(
                         Icons.close,
-                        size: 12,
+                        size: 20,
                       )),
                 ],
               ),

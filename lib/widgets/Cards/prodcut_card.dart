@@ -6,10 +6,6 @@ import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/routes/route_path.dart';
 
 class ProductCard extends StatefulWidget {
-  final String title;
-  final String imageUrl;
-  final double price;
-  final String subtitle;
   final Product product;
   final double size;
   final double fontSize;
@@ -17,10 +13,6 @@ class ProductCard extends StatefulWidget {
   const ProductCard(
       {Key? key,
       required this.product,
-      required this.title,
-      required this.imageUrl,
-      required this.subtitle,
-      required this.price,
       this.size = 150,
       this.fontSize = 20,
       this.onTap})
@@ -37,7 +29,7 @@ class _ProdcutCardState extends State<ProductCard> {
 
   @override
   void initState() {
-    _image = NetworkImage(widget.imageUrl);
+    _image = NetworkImage(widget.product.images[0]);
 
     _image
         .resolve(ImageConfiguration())
@@ -80,14 +72,14 @@ class _ProdcutCardState extends State<ProductCard> {
                     Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: Text(
-                          'Br' + widget.price.toString(),
+                          'Br' + widget.product.price.toString(),
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w600),
                         )),
                     Padding(
                       padding: EdgeInsets.only(bottom: 16),
                       child: Text(
-                        widget.title,
+                        widget.product.name!,
                         style: TextStyle(fontSize: 12, color: Colors.black38),
                       ),
                     ),

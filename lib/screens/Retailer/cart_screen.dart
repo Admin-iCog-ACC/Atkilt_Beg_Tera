@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Cart_API.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
 import 'package:retailer_app/models/Cart.dart';
 import 'package:retailer_app/models/intities/Cart_Item.dart';
@@ -12,21 +13,24 @@ class CartScreen extends StatefulWidget {
 }
 
 class CartScreenState extends State<CartScreen> {
-  final ProductApi _api = ProductApi();
+  final ProductApi _apiProduct = ProductApi();
+  final CartApi _apiCart = CartApi();
   List<CartItem> myCarts = [];
-  Cart cart = new Cart();
+  Cart? cart;
   @override
   void initState() {
-    _api.getCart().then((value) {
+    getCartItems();
+    super.initState();
+  }
+
+  void getCartItems() {
+    _apiCart.getCart().then((value) {
       setState(() {
         cart = value;
         myCarts.addAll(value.cartItems!);
       });
-
       print('MYCARTS ' + myCarts.length.toString());
     });
-
-    super.initState();
   }
 
   @override
@@ -46,8 +50,15 @@ class CartScreenState extends State<CartScreen> {
                         itemCount: myCarts.length,
                         itemBuilder: (BuildContext context, int index) {
                           return CartCard(
-                            item: myCarts[index],
-                          );
+                              item: myCarts[index],
+                              onUpdate: () {
+                                setState(() {});
+                              },
+                              onDelete: () {
+                                setState(() {
+                                  myCarts.removeAt(index);
+                                });
+                              });
                         }),
                   ),
                   Positioned.fill(
@@ -56,7 +67,8 @@ class CartScreenState extends State<CartScreen> {
                           child: GestureDetector(
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, RoutePaths.retailer_checkut);
+                                  context, RoutePaths.retailer_checkut,
+                                  arguments: cart);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
@@ -92,7 +104,7 @@ class CartScreenState extends State<CartScreen> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(50)),
                                         color: Colors.white),
-                                    child: Text("Br " + cart.total!,
+                                    child: Text("Br " + cart!.totalPrice!,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 14,

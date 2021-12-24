@@ -13,55 +13,55 @@ class ProductListScreen extends StatefulWidget {
 class ProductListScreenState extends State<ProductListScreen> {
   final ProductApi _api = ProductApi();
   List<Product> myProducts = [];
+
   @override
   void initState() {
-    // ProductApi().getProducts();
-
     _api.getProducts().then((value) {
-      myProducts.addAll(value);
-      print('myProducts' + myProducts.length.toString());
+      setState(() {
+        myProducts.addAll(value);
+      });
     });
-
     super.initState();
   }
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  // var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    setState(() {});
     return Scaffold(
       key: Key("homePage"),
       // drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text("Products"),
       ),
-      body: CustomScrollView(
-        slivers: [
-          // CustomSliverAppBar(
-          //   page_title: 'Title',
-          // ),
-          //++++++++
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) => Column(
-                children: [
-                  ProductCard(
-                      product: myProducts[index],
-                      title: 'Tomatos',
-                      imageUrl:
-                          "https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/192/steak_okxpjo.jpg",
-                      subtitle: 'subtitle',
-                      price: 15),
-                  SizedBox(
-                    height: 12,
-                  )
-                ],
-              ),
-              childCount: 5,
+      body: myProducts != null
+          ? CustomScrollView(
+              slivers: [
+                // CustomSliverAppBar(
+                //   page_title: 'Title',
+                // ),
+                //++++++++
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => Column(
+                      children: [
+                        ProductCard(
+                          product: myProducts[index],
+                        ),
+                        SizedBox(
+                          height: 12,
+                        )
+                      ],
+                    ),
+                    childCount: myProducts.length,
+                  ),
+                ),
+                //+++++++
+              ],
+            )
+          : Center(
+              child: CircularProgressIndicator(),
             ),
-          ),
-          //+++++++
-        ],
-      ),
     );
   }
 }

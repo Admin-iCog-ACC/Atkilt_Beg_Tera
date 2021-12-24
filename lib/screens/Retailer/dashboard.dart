@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
 import 'package:retailer_app/models/Product.dart';
+import 'package:retailer_app/repo/product_repo.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 import 'package:retailer_app/widgets/appbar/transsion_appbar.dart';
 import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
@@ -23,13 +25,22 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
       setState(() {
         myProducts.addAll(value);
       });
-      print('myProducts' + myProducts.length.toString());
     });
-
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
+    // ProductRepository provider =
+    //     Provider.of<ProductRepository>(context, listen: false);
+
+    // provider.getAllProducts().then((products) {
+    //   setState(() {
+    //     myProducts = products;
+    //   });
+    //   print('*************************$myProducts');
+    // });
+
     return Scaffold(
       key: Key('dashboard'),
       drawer: CustomDrawer(),
@@ -96,13 +107,6 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
                     children: [
                       ProductCard(
                         product: myProducts[index],
-                        imageUrl:
-                            'https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/192/steak_okxpjo.jpg',
-                        price: double.parse(myProducts[index].price!),
-                        title: myProducts[index].name!,
-                        subtitle: 'subtitle',
-                        onTap: null,
-                        size: 150,
                       ),
                       SizedBox(
                         height: 12,

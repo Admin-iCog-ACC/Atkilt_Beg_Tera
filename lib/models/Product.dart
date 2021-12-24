@@ -104,13 +104,12 @@ class Product {
       var list = <String>[];
       if (parsedJson['images'] != null) {
         for (var item in parsedJson['images']) {
-          /// If item is String => Use for Vendor Admin.
           var image = '';
           if (item is String) {
             image = item;
           }
           if (item is Map) {
-            image = item['src'];
+            image = item['resourceUrl'];
           }
           if (!list.contains(image)) {
             list.add(image);
@@ -179,7 +178,7 @@ class Product {
       'price': price ?? '',
       'inStock': inStock ?? '',
       'total_sales': totalSales ?? '',
-      'images': images ?? [],
+      'images': images,
       'attributes': attributes?.map((e) => e.toJson()).toList() ?? '',
       'categoryId': categoryId ?? '',
       'stock_quantity': stockQuantity ?? '',

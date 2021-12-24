@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:retailer_app/APIs/Cart_API.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
 import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
@@ -18,14 +19,13 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 class ProductDetailScreenState extends State<ProductDetailScreen> {
-  int quan = 1;
-
   bool isCartAdded = false;
+  CartItem? myCartItem = CartItem();
 
   @override
   Widget build(BuildContext context) {
     final myProduct = ModalRoute.of(context)!.settings.arguments as Product;
-
+    myCartItem!.product = myProduct;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -55,7 +55,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       child: Column(
                         children: [
                           Image.network(
-                            'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
+                            myProduct.images.first,
                             fit: BoxFit.contain,
                             height: 327,
                             width: 327,
@@ -71,7 +71,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                       height: 82,
                                       width: 153,
                                       child: Image.network(
-                                        'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/220px-Vegetable-Carrot-Bundle-wStalks.jpg',
+                                        myProduct.images.first,
                                         fit: BoxFit.fitHeight,
                                       ),
                                       decoration: BoxDecoration(
@@ -139,7 +139,24 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                     padding: EdgeInsets.only(left: 10),
                                     onPressed: () {
                                       setState(() {
-                                        quan++;
+                                        if (myCartItem != null) {
+                                          myCartItem!.quantity =
+                                              myCartItem!.quantity! + 1;
+
+                                          print(
+                                              ':: myCartItem.tostring() :::: ' +
+                                                  myCartItem.toString());
+
+                                          CartApi()
+                                              .updateCartItem(
+                                                  cartItem: myCartItem!)
+                                              .then((value) {
+                                            print('UPDATE: $value');
+                                          }).catchError((error) {
+                                            print('UPDATE ERROR: $error');
+                                          });
+                                        }
+                                        setState(() {});
                                       });
                                     },
                                     icon: Icon(
@@ -148,18 +165,28 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                                       size: 14,
                                     )),
                                 Text(
-                                  quan.toString(),
+                                  myCartItem!.quantity.toString(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 14),
                                 ),
                                 IconButton(
                                     padding: EdgeInsets.only(right: 10),
                                     onPressed: () {
-                                      setState(() {
-                                        quan - 1 <= 0
-                                            ? isCartAdded = false
-                                            : quan--;
-                                      });
+                                      if (myCartItem != null) {
+                                        if (myCartItem!.quantity! > 1) {
+                                          myCartItem!.quantity =
+                                              myCartItem!.quantity! - 1;
+                                        }
+                                        print(':: myCartItem.tostring() :::: ' +
+                                            myCartItem.toString());
+                                        CartApi()
+                                            .updateCartItem(
+                                                cartItem: myCartItem!)
+                                            .then((value) {
+                                          print('UPDATE: $value');
+                                        });
+                                      }
+                                      setState(() {});
                                     },
                                     icon: Icon(
                                       Icons.remove,
@@ -170,11 +197,20 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                             )
                           : MaterialButton(
                               onPressed: () {
-                                ProductApi().addToCart(
-                                    cartItem: new CartItem(product: myProduct));
-                                // setState(() {
-                                //   isCartAdded = true;
-                                // });
+                                myCartItem!.quantity = 1;
+                                CartApi()
+                                    .addToCart(cartItem: myCartItem!)
+                                    .then((cartitem) {
+                                  print('object: ${cartitem.id}');
+
+                                  myCartItem!.id = cartitem.id;
+                                  myCartItem!.cartid = cartitem.cartid;
+                                  setState(() {
+                                    isCartAdded = true;
+                                  });
+                                }).catchError((error) {
+                                  print(error.toString());
+                                });
                               },
                               height: 60,
                               minWidth: MediaQuery.of(context).size.width,
