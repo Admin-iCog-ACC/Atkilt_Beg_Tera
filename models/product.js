@@ -16,19 +16,29 @@ module.exports = (sequelize, DataTypes) => {
         as: "orders"
       })
       
-      Product.belongsTo(models.Category, {
-        foreignKey: "categoryId",
+      // Product.belongsTo(models.Category, {
+      //   foreignKey: "categoryId",
+      //   onDelete: "CASCADE"
+      // })
+
+      Product.belongsTo(models.ProductType, {
+        foreignKey: "productTypeId",
         onDelete: "CASCADE"
       })
 
-      Product.hasMany(models.Attribute, {
-        foreignKey: "productId",
-        as: "attributes"
-      })
+      // Product.hasMany(models.Attribute, {
+      //   foreignKey: "productId",
+      //   as: "attributes"
+      // })
 
       Product.hasMany(models.ProductImage, {
         foreignKey: "productId",
         as: "images"
+      })
+
+      Product.hasMany(models.ProductItemAttribute, {
+        foreignKey: "productItemAttributes",
+        as: "attributes"
       })
     }
   };

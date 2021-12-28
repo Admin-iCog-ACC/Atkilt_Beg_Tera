@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Attribute extends Model {
+  class AttributeOption extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +11,17 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-
+      AttributeOption.belongsTo(models.ProductTypeAttribute, {
+        foreignKey: "productTypeAttributeId",
+        onDelete: "CASCADE"
+      })
     }
   };
-  Attribute.init({
-    name: DataTypes.STRING,
-    type: DataTypes.STRING,
+  AttributeOption.init({
+    value: DataTypes.STRING
   }, {
     sequelize,
-    modelName: 'Attribute',
+    modelName: 'AttributeOption',
   });
-  return Attribute;
+  return AttributeOption;
 };
