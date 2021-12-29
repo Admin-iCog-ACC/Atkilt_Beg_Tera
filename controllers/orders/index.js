@@ -20,7 +20,18 @@ module.exports = {
             //         }
             //     }
             // })
-            return Order.findAll()
+            return Order.findAll({
+                include: {
+                    model: Cart,
+                    include: {
+                        model: CartItem,
+                        as: "cartItems",
+                        include: {
+                            model: Product,
+                        }
+                    }
+                }
+            })
             .then(orders => res.status(200).send(orders))
             .catch(error => res.status(400).send(error))
         
@@ -44,6 +55,12 @@ module.exports = {
     createOrder: async(req, res, next) => {
         res.send({
             "status": "Created a new cart"
+        })
+    },
+
+    progressOrder: async(req, res, next) => {
+        res.send({
+            "status": "progressing Order"
         })
     }
 }
