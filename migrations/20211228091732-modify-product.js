@@ -17,7 +17,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         onDelete: 'SET NULL',
         references: {
-          model: 'Products',
+          model: 'ProductTypes',
           key: 'id',
           as: 'productTypeId',
       }})

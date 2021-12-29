@@ -21,7 +21,7 @@ module.exports = {
             //     }
             // })
             return Order.findAll()
-            .then(orders => res.status(300).send(orders))
+            .then(orders => res.status(200).send(orders))
             .catch(error => res.status(400).send(error))
         
         }

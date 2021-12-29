@@ -8,6 +8,7 @@ var cartsRouter = require("./routes/carts")
 var ordersRouter = require("./routes/orders")
 var indexRouter = require('./routes/index');
 var productsRouter = require('./routes/products');
+var productTypesRouter = require('./routes/productTypes');
 var accountsRouter = require('./routes/accounts');
 var categoriesRouter = require('./routes/categories')
 var attributesRouter = require('./routes/attributes')
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use("/carts", cartsRouter);
 app.use("/orders", ordersRouter);
 app.use("/products", productsRouter);
+app.use("/productTypes", productTypesRouter);
 app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)
 app.use("/attributes", attributesRouter)

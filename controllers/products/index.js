@@ -6,10 +6,12 @@ module.exports = {
     getAllProducts: async(req, res, next)=>{
         return Product
         .findAll({
-            include: [{
-                model: Attribute,
-                as: "attributes"
-            },{
+            include: [
+            //     {
+            //     model: Attribute,
+            //     as: "attributes"
+            // },
+            {
                 model: ProductImage,
                 as: "images"
             }]
