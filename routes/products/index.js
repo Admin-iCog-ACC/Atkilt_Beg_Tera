@@ -8,7 +8,7 @@ router.get("/", controllers.getAllProducts)
 router.get("/:id", controllers.getProductById)
 
 
-router.post("/", controllers.createProduct)
+// router.post("/", controllers.createProduct)
 
 
 module.exports = router

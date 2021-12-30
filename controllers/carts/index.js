@@ -139,6 +139,12 @@ module.exports = {
         var cart = await cartServices.createOrGetCart();
         console.log("Request: ", req.body )
 
+        if(!(cart.cartItems && cart.cartItems.length)){
+            return res.status(400).send({
+                description: "Cart Is Empty"
+            })
+        }
+        
         cart.checkedOut = true;
         var cartSubtotal = await cartServices.getCartSubtotal(cart.id)
         var totalTax = await orderServices.getTax(cartSubtotal)
