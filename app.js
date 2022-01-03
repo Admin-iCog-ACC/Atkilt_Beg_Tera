@@ -12,10 +12,12 @@ var productTypesRouter = require('./routes/productTypes');
 var accountsRouter = require('./routes/accounts');
 var categoriesRouter = require('./routes/categories')
 var attributesRouter = require('./routes/attributes')
+var uploadsRouter = require('./routes/upload')
 var app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use('/public', express.static(__dirname + '/public'))
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
@@ -30,7 +32,7 @@ app.use("/productTypes", productTypesRouter);
 app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)
 app.use("/attributes", attributesRouter)
-
+app.use("/upload", uploadsRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.send({
