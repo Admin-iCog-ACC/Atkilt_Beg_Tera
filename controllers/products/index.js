@@ -12,7 +12,13 @@ module.exports = {
             include: [
                 {
                 model: ProductItemAttribute,
-                as: "attributes"
+                as: "attributes",
+                include: {
+                    model: ProductTypeAttribute,
+                    include: {
+                        model: Attribute
+                    }
+                }
             },
             {
                 model: ProductImage,
@@ -89,7 +95,7 @@ module.exports = {
             var productImages  = req.body.images;
             var images = await ProductImage.bulkCreate(
                 productImages.map(attr => {
-                    return {
+                     return {
                         resourceUrl: attr,
                         productId: productModel.id
                     };
