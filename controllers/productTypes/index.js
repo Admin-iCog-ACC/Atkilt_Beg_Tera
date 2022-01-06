@@ -53,16 +53,30 @@ module.exports = {
                 where: {
                     productTypeId: productId
                 },
-                include: {
+                include: [{
                     model: AttributeOption,
                     as: "options"
-                }
+                },{
+                    model: Attribute,
+                    // as: ""
+                }]
             })
+            .then(attributes => {
+                const flattendAttributes = [];
+                attributes.forEach(element => {
+                    flattendAttributes.push({
+                        ...element.dataValues,
+                        name: element.dataValues.Attribute.name,
+                        type: element.dataValues.Attribute.type,
+                        Attribute: undefined,
+                    })
+                })
+                console.log("ATTRIBUTES: ", attributes)
+                res.status(200).send({
+                    ...products.dataValues,
+                    attributes: flattendAttributes
+                })
 
-            console.log("ATTRIBUTES: ", attributes)
-            res.status(200).send({
-                ...products.dataValues,
-                attributes
             })
         })
         .catch(error => res.status(400).send(error));
