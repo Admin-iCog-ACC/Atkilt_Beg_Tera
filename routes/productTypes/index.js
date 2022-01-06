@@ -15,4 +15,5 @@ router.delete("/:id", ProductTypecontrollers.deleteProductType)
 router.post("/:productTypeId/products/", productItemController.createProduct)
 
 router.post("/:id/attributes", attributeControllers.assignAttributes)
+router.get("/:id/attributes", attributeControllers.getAttributes)
 module.exports = router

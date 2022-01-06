@@ -4,9 +4,48 @@ const Category = require('../../models').Category;
 const ProductImage = require('../../models').ProductImage;
 const ProductTypeAttribute = require('../../models').ProductTypeAttribute;
 const AttributeOption = require('../../models').AttributeOption;
+const Attribute = require('../../models').Attribute;
 const sequelize = require("../../models").sequelize
 
 module.exports = {
+    getAttributes: async(req, res, next)=>{
+        // return Attribute.findAll({
+
+        // })
+        // .then(result => res.status(200).send(result))
+        // .catch(error => res.status(400).send(error));
+        const productId = req.params.id
+        const attributes = await ProductTypeAttribute.findAll({
+            where: {
+                productTypeId: productId
+            },
+            include: [{
+                model: AttributeOption,
+                as: "options"
+            },{
+                model: Attribute,
+                // as: ""
+            }]
+        })
+        .then(attributes => {
+            console.log("Attributes before flatening: ", attributes)
+            const flattendAttributes = [];
+            attributes.forEach(element => {
+                flattendAttributes.push({
+                    ...element.dataValues,
+                    name: element.dataValues.Attribute.name,
+                    type: element.dataValues.Attribute.type,
+                    Attribute: undefined,
+                })
+            })
+            console.log("ATTRIBUTES: ", attributes)
+            res.status(200).send(
+                flattendAttributes
+            )
+
+        })
+    },
+
     assignAttributes: async(req, res, next) => {
         var attributes = req.body.attributes;
         attributes = attributes.map(element => {return {...element, productTypeId: parseInt(req.params.id)}})
