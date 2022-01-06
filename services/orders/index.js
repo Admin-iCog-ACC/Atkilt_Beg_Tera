@@ -14,5 +14,14 @@ module.exports = {
 
     getShippingPrice: () => {
         return 150
+    },
+
+    getNextStatus: (currentStatus) => {
+        switch(currentStatus.toLowerCase()){
+            case 'order received':
+                return 'Order Processed';
+            default:
+                return currentStatus;    
+        }
     }
 }

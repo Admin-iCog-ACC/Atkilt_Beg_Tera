@@ -1,8 +1,10 @@
 const Product = require('../../models').Product;
 const ProductType = require('../../models').ProductType;
+const ProductTypeAttribute = require('../../models').ProductTypeAttribute;
 const Category = require('../../models').Category;
 const ProductImage = require('../../models').ProductImage;
 const Attribute = require('../../models').Attribute;
+const AttributeOption = require('../../models').AttributeOption;
 
 module.exports = {
     getAllProductTypes: async(req, res, next)=>{
@@ -28,23 +30,40 @@ module.exports = {
     },
 
     getProductTypeById: async(req, res, next) => {
+        var productId = req.params.id;
         return ProductType
         .findByPk(
-            req.params.id,
+            productId,
             {
-            include: [{
-                model: Product,
-                as: "products"
-            }]
+            // include: ProductTypeAttribute
+            // [{
+                // model: ProductTypeAttribute,
+                // as: "productTypeAttributes"
+            // }]
         })
-        .then(products => {
+        .then(async products => {
+            
             console.log("THIS IS THE PRODUCT, ", products)
             if(products == null){
                 res.status(404).send({
                     status: "Item not found"
                 })
             }
-            res.status(200).send(products)
+            const attributes = await ProductTypeAttribute.findAll({
+                where: {
+                    productTypeId: productId
+                },
+                include: {
+                    model: AttributeOption,
+                    as: "options"
+                }
+            })
+
+            console.log("ATTRIBUTES: ", attributes)
+            res.status(200).send({
+                ...products.dataValues,
+                attributes
+            })
         })
         .catch(error => res.status(400).send(error));
     },
