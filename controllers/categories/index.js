@@ -12,7 +12,7 @@ module.exports = {
             // }]
             include: {
                 all: true,
-                nested: true
+                nested: false
             }
             // include: ProductType
         })
