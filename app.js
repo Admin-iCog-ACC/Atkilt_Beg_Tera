@@ -13,6 +13,10 @@ var accountsRouter = require('./routes/accounts');
 var categoriesRouter = require('./routes/categories')
 var attributesRouter = require('./routes/attributes')
 var uploadsRouter = require('./routes/upload')
+var authRouter = require("./routes/auth")
+
+
+var authMiddleware = require("./middlewares/authMiddleware")
 var app = express();
 
 app.use(logger('dev'));
@@ -26,8 +30,9 @@ app.use(cookieParser());
 //Defining routes: all middleware should go in the definition logic of these routes
 app.use('/', indexRouter);
 app.use("/carts", cartsRouter);
+app.use("/auth", authRouter)
 app.use("/orders", ordersRouter);
-app.use("/products", productsRouter);
+app.use("/products", authMiddleware.verifyToken, productsRouter);
 app.use("/productTypes", productTypesRouter);
 app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)
