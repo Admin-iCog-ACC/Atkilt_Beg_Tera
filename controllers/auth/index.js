@@ -1,20 +1,30 @@
 const jwt = require('jsonwebtoken')
 const authConfig = require("../../config/auth")
 const RefreshToken = require('../../models').RefreshToken
+const Account = require("../../models").Account;
 const BlacklistedToken = require('../../models').BlacklistedToken
 const { getTokenFromRequest, parseTokenDetails } =  require("../../middlewares/authMiddleware")
 const { v4: uuidV4 } = require("uuid")
 const Sequelize = require("../../models").sequelize
-
+var bcrypt = require("bcrypt")
 
 module.exports = {
     login: async(req, res, next) => {
+        var { email, password } = req.body;
+        var account = await Account.findOne({ where: { email: email.toLowerCase() }})
+      
+        if(!(await bcrypt.compare(password, account.password))){
+            return res.status(401).send({
+                status: "Incorrect Credentials"
+            })
+        }
+        
         var tokenId = uuidV4();
-        var token = jwt.sign({email: "mike@gmail.com", tokenId}, authConfig.authSecret, {
+        var token = jwt.sign({accountId: account.id, tokenId}, authConfig.authSecret, {
             expiresIn: authConfig.accessTokenDuration // 24 hours
         });
         
-        var refreshToken = await RefreshToken.createToken({accountId: 3}, tokenId)
+        var refreshToken = await RefreshToken.createToken({accountId: account.id}, tokenId)
         
         res.status(200).send({
             status: token,
@@ -23,8 +33,44 @@ module.exports = {
     },
     
     signup: async(req, res, next) => {
-        res.status(200).send({
-            status: "you have signed up successfully"
+        var {
+            email,
+            password,
+            firstName,
+            lastName,
+            username,
+            isVendor,
+            isDelivery
+        } = req.body;
+        email = email.toLowerCase();
+        var account = await Account.findOne({ where: { email }})
+
+        if(account){
+            return res.status(403).send({
+                status: "Email is registered to an existing account"
+            })
+        }
+
+        var salt = await bcrypt.genSalt(authConfig.saltRounds)
+        var hash = await bcrypt.hash(password, salt)
+
+        return Account.create({
+            email,
+            password: hash,
+            firstName,
+            lastName,
+            username,
+            isVendor,
+            isDelivery
+        })
+        .then(newAccount => res.status(200).send({
+            status: "Signed up successfully"
+        }))
+        .catch(error => {
+            console.log(error)
+            res.status(401).send({
+                status: "Error creating account"
+            })
         })
     },
     
