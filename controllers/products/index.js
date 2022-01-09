@@ -84,8 +84,12 @@ module.exports = {
             // console.log("HERE IS THE MAP: ", map)
             var attributes = await ProductItemAttribute.bulkCreate(
                 attrs.map(attr => {
-                    attr.productId = productModel.id
-                    return attr;
+                    // attr.productId = productModel.id
+                    return {
+                        productId: productModel.id,
+                        productTypeAttributeId: attr.productTypeAttributeId,
+                        value: attr.value
+                    };
                 })
             , {transaction})
             // await attributes.save()
