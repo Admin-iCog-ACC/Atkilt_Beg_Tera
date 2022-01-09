@@ -108,7 +108,25 @@ module.exports = {
         }
 
         return transaction.commit()
-        .then(product => res.status(200).send(product))
+        .then(product => {
+            return Product.findByPk(productModel.id, {
+            include: [
+                {
+                model: ProductItemAttribute,
+                as: "attributes",
+                include: {
+                    model: ProductTypeAttribute,
+                    include: {
+                        model: Attribute
+                    }
+                }
+            },
+            {
+                model: ProductImage,
+                as: "images"
+            }]
+        }).then(product => res.status(200).send(product))
+        })
         .catch(error => res.status(400).send(error));
     }
 }
