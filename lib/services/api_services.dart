@@ -19,6 +19,14 @@ class APIService {
         var responseJson = json.decode(response.body);
         print('APIservice' + responseJson.toString());
         return responseJson;
+      case 201:
+        var responseJson = json.decode(response.body);
+        print('APIservice' + responseJson.toString());
+        return responseJson;
+      case 204:
+        var responseJson = json.decode(response.body);
+        print('APIservice' + responseJson.toString());
+        return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:

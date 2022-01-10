@@ -1,5 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Order_API.dart';
+import 'package:retailer_app/models/Order.dart';
 import 'package:retailer_app/routes/route_path.dart';
 
 class OrderListScreen extends StatefulWidget {
@@ -9,6 +11,23 @@ class OrderListScreen extends StatefulWidget {
 }
 
 class OrderListScreenState extends State<OrderListScreen> {
+  final OrderAPI _apiOrder = OrderAPI();
+  List<Order> _orders = [];
+  @override
+  void initState() {
+    getOrderItems();
+    super.initState();
+  }
+
+  void getOrderItems() {
+    _apiOrder.getOrder().then((value) {
+      setState(() {
+        _orders.addAll(value);
+      });
+      print('Orders: ' + _orders.length.toString());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -83,12 +102,17 @@ class OrderListScreenState extends State<OrderListScreen> {
                           10,
                           (index) => DataRow(cells: [
                                 DataCell(
-                                  Text("VF2S3VS45V"),
-                                  onTap: () => Navigator.pushNamed(context,
-                                      RoutePaths.merchant_order_detail),
+                                  Text(
+                                    _orders[index].id.toString(),
+                                  ),
+                                  onTap: () => Navigator.pushNamed(
+                                      context, RoutePaths.merchant_order_detail,
+                                      arguments: _orders[index]),
                                 ),
-                                DataCell(Text(DateTime.now().toString())),
-                                DataCell(Text('Order Received')),
+                                DataCell(Text(
+                                    _orders[index].dateModified.toString())),
+                                DataCell(
+                                    Text(_orders[index].status.toString())),
                                 DataCell(Icon(Icons.delete_outline)),
                               ]))),
                 ),

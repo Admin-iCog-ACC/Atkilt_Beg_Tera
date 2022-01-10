@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:retailer_app/models/intities/new_attribute.dart';
-
 class NewAttribute extends StatelessWidget {
   final int index;
-  final List<Attribute> attributes;
-  NewAttribute(this.attributes, this.index);
+  NewAttribute(this.index);
 
   @override
   Widget build(BuildContext context) {
-    Attribute attribute = attributes[index];
-
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
@@ -19,7 +14,8 @@ class NewAttribute extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: Text(
-              attribute.lable + index.toString(),
+              'Lable',
+              // attribute.lable + index.toString(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,

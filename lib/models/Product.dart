@@ -1,9 +1,10 @@
 import 'Category.dart';
+import 'ProductType.dart';
 import 'intities/product_attribute.dart';
 import 'store.dart';
 
 class Product {
-  String? id;
+  int? id;
   String? sku;
   String? name;
   String? status;
@@ -18,8 +19,8 @@ class Product {
   int? categoryId;
   int? stockQuantity;
   int? minQuantity;
-  List<Category> categories = [];
-  List<String> categoryIds = [];
+  int? productTypeId;
+  ProductType? productType;
 
   Product.empty(this.id) {
     name = '';
@@ -30,10 +31,6 @@ class Product {
     return name == '' && price == '0.0';
   }
 
-  bool isTopUpProduct() {
-    return status != null && status == 'private' && name == 'Wallet Topup';
-  }
-
   Product();
 
   Product.copyWith(Product p) {
@@ -41,7 +38,7 @@ class Product {
     sku = p.sku;
     name = p.name;
     description = p.description;
-
+    productTypeId = p.productTypeId;
     price = p.price;
 
     inStock = p.inStock;
@@ -62,11 +59,11 @@ class Product {
 
   Product.fromJson(parsedJson) {
     try {
-      id = parsedJson['id'].toString();
+      id = parsedJson['id'];
       sku = parsedJson['sku'];
       status = parsedJson['status'];
       name = parsedJson['name'];
-
+      productTypeId = parsedJson['productTypeId'];
       description = parsedJson['description'] ?? '';
       shortDescription = parsedJson['short_description'];
 
@@ -88,16 +85,10 @@ class Product {
           ? parsedJson['categories'][0]['id']
           : 0;
 
-      // add stock limit
-      if (parsedJson['manage_stock'] == true) {
-        stockQuantity = parsedJson['stock_quantity'];
-      }
+      stockQuantity = parsedJson['stockQuantity'];
 
-      //minQuantity = parsedJson['meta_data']['']
-
-      /// For Vendor Manager
-
-      var attributeList = <ProductAttribute>[];
+      var attributeList =
+          ProductAttribute().fromJsonList(parsedJson['attributes']);
 
       attributes = attributeList.toList();
 
@@ -119,34 +110,21 @@ class Product {
 
       images = list;
 
-      try {
-        final _categories = parsedJson['categories'];
-        if (_categories != null &&
-            _categories is List &&
-            _categories.isNotEmpty) {
-          for (var category in _categories) {
-            if (category['slug'] != 'uncategorized') {
-              categories.add(Category.fromJson(category));
-            }
-          }
-        }
-      } catch (_) {
-        // ignore
-      }
+      productType = parsedJson['productType'];
 
-      ///------For Merchant Admin------///
+      // ///------For Merchant Admin------///
 
-      if (parsedJson['category_ids'] != null) {
-        if (parsedJson['category_ids'] is Map) {
-          parsedJson['category_ids']
-              .forEach((k, v) => categoryIds.add(v.toString()));
-        }
-        if (parsedJson['category_ids'] is List) {
-          for (var item in parsedJson['category_ids']) {
-            categoryIds.add(item.toString());
-          }
-        }
-      }
+      // if (parsedJson['category_ids'] != null) {
+      //   if (parsedJson['category_ids'] is Map) {
+      //     parsedJson['category_ids']
+      //         .forEach((k, v) => categoryIds.add(v.toString()));
+      //   }
+      //   if (parsedJson['category_ids'] is List) {
+      //     for (var item in parsedJson['category_ids']) {
+      //       categoryIds.add(item.toString());
+      //     }
+      //   }
+      // }
 
       ///------For Vendor Admin------///
       var groupedProductList = <int>[];
@@ -171,23 +149,23 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': id ?? '',
+      // 'id': id ?? '',
       'sku': sku ?? '',
       'name': name ?? '',
       'description': description ?? '',
       'price': price ?? '',
-      'inStock': inStock ?? '',
-      'total_sales': totalSales ?? '',
+      'inStock': inStock ?? false,
+      'total_sales': totalSales ?? 0,
       'images': images,
       'attributes': attributes?.map((e) => e.toJson()).toList() ?? '',
       'categoryId': categoryId ?? '',
-      'stock_quantity': stockQuantity ?? '',
+      'stockQuantity': stockQuantity ?? '',
     };
   }
 
   Product.fromLocalJson(Map<String, dynamic> json) {
     try {
-      id = json['id'].toString();
+      id = json['id'];
       sku = json['sku'];
       name = json['name'];
       description = json['description'];
@@ -209,18 +187,23 @@ class Product {
 
       var attrs = <ProductAttribute>[];
 
-      if (json['attributes'] != null) {
-        for (var item in json['attributes']) {
-          attrs.add(ProductAttribute.fromLocalJson(item));
-        }
-      }
+      // if (json['attributes'] != null) {
+      //   for (var item in json['attributes']) {
+      //     attrs.add(ProductAttribute.fromLocalJson(item));
+      //   }
+      // }
 
       attributes = attrs;
       categoryId = json['categoryId'];
-      stockQuantity = json['stock_quantity'];
+      stockQuantity = json['stockQuantity'];
     } catch (e, trace) {
       print(e.toString());
       print(trace.toString());
     }
+  }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, sku: $sku, name: $name, description: $description, price: $price, inStock: $inStock, totalSales: $totalSales, images: $images, attributes: $attributes, categoryId: $categoryId, stockQuantity: $stockQuantity}';
   }
 }

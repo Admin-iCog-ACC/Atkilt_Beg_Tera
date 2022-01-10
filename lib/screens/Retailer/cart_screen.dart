@@ -17,6 +17,7 @@ class CartScreenState extends State<CartScreen> {
   final CartApi _apiCart = CartApi();
   List<CartItem> myCarts = [];
   Cart? cart;
+  bool isLoading = true;
   @override
   void initState() {
     getCartItems();
@@ -29,6 +30,7 @@ class CartScreenState extends State<CartScreen> {
         cart = value;
         myCarts.addAll(value.cartItems!);
       });
+      isLoading = false;
       print('MYCARTS ' + myCarts.length.toString());
     });
   }
@@ -41,7 +43,7 @@ class CartScreenState extends State<CartScreen> {
             'Cart',
           ),
         ),
-        body: myCarts.isNotEmpty
+        body: !isLoading
             ? Stack(
                 children: [
                   Container(
@@ -64,20 +66,25 @@ class CartScreenState extends State<CartScreen> {
                   Positioned.fill(
                       child: Align(
                           alignment: Alignment.bottomCenter,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                  context, RoutePaths.retailer_checkut,
-                                  arguments: cart);
+                          child: MaterialButton(
+                            onPressed: () {
+                              myCarts.isEmpty
+                                  ? null
+                                  : Navigator.pushNamed(
+                                      context, RoutePaths.retailer_checkut,
+                                      arguments: cart);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
                               height: 48,
                               width: 335,
                               decoration: BoxDecoration(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(100)),
-                                  color: Theme.of(context).primaryColor),
+                                color: myCarts.isEmpty
+                                    ? Colors.grey[400]
+                                    : Theme.of(context).primaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(100)),
+                              ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:

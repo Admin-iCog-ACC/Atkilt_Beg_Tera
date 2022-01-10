@@ -99,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                           ? Navigator.pushNamed(
                               context, RoutePaths.retailer_dashboard)
                           : Navigator.pushNamed(
-                              context, RoutePaths.retailer_dashboard);
+                              context, RoutePaths.merchant_dashboard);
                     },
                     color: Theme.of(context).primaryColor,
                     child: Text(

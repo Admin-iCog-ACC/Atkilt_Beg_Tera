@@ -1,99 +1,50 @@
+import 'ProductTypeAttribute.dart';
+
 class ProductAttribute {
-  String? id;
-  String? name;
-  String? slug;
-  List? options = [];
-  List optionSlugs = [];
-  bool? isVisible;
-
-  String? get cleanSlug => slug?.replaceAll('pa_', '');
-
-  ProductAttribute.fromJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson['id'].toString();
-    name =
-        parsedJson['label'] ?? parsedJson['name']; // name for FluxStore Manager
-    slug = parsedJson['name'];
-
-    isVisible = parsedJson['visible'] ?? false;
-
-    if (parsedJson['options'] != null) {
-      for (var item in parsedJson['options']) {
-        options!.add(item);
-      }
-    }
-    if (parsedJson['slugs'] != null) {
-      for (var item in parsedJson['slugs']) {
-        optionSlugs.add(item);
-      }
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'options': options,
-      'visible': isVisible,
-    };
-  }
-
-  ProductAttribute.fromLocalJson(Map<String, dynamic> json) {
-    try {
-      id = json['id']?.toString();
-      name = json['name'];
-      options = json['options'];
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-}
-
-class Attribute {
   int? id;
-  String? name;
-  String? option;
-  Attribute({
+  String? value;
+  int? productID;
+  int? productTypeAttributeID;
+  ProductTypeAttribute? productTypeAttribute;
+
+  ProductAttribute({
     this.id,
-    this.name,
-    this.option,
+    this.value,
+    this.productID,
+    this.productTypeAttributeID,
+    this.productTypeAttribute,
   });
 
-  Attribute.fromJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson['id'];
-    name = parsedJson['name'];
-    option = parsedJson['option'];
+  ProductAttribute.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    value = json['value'];
+    productID = json['productId'];
+    productTypeAttributeID = json['productTypeAttributeId'];
+    productTypeAttribute = json['ProductTypeAttribute'] != null
+        ? new ProductTypeAttribute.fromJson(json['ProductTypeAttribute'])
+        : null;
   }
 
-  Attribute.fromMagentoJson(Map<String, dynamic> parsedJson) {
-    id = int.parse(parsedJson['value']);
-    name = parsedJson['attribute_code'];
-    option = parsedJson['value'];
-  }
-
-  Attribute.fromLocalJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson['id'];
-    name = parsedJson['name'];
-    option = parsedJson['option'];
-  }
-
-  Attribute.fromShopifyJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson['id'];
-    name = parsedJson['name'];
-    option = parsedJson['value'];
-  }
-
-  Attribute.fromPrestaJson(Map<String, dynamic> parsedJson) {
-    id = parsedJson['id'];
-    name = parsedJson['name'];
-    option = parsedJson['option'];
+  List<ProductAttribute> fromJsonList(jsonlist) {
+    var json = jsonlist ?? [];
+    return List<ProductAttribute>.from(
+        json.map((item) => ProductAttribute.fromJson(item)));
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'name': name, 'option': option};
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['value'] = this.value;
+    data['productID'] = this.productID;
+    data['productTypeAttributeId'] = this.productTypeAttributeID;
+    if (this.productTypeAttribute != null) {
+      data['productTypeAttribute'] = this.productTypeAttribute!.toJson();
+    }
+    return data;
   }
 
   @override
   String toString() {
-    return '${name ?? ""}${option ?? ""}';
+    return 'ProductAttribute{id: $id, value: $value, productID: $productID, productTypeAttributeID: $productTypeAttributeID, productTypeAttribute: $productTypeAttribute}';
   }
 }

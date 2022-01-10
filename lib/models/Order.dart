@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:retailer_app/models/Cart.dart';
 import 'intities/address.dart';
 import 'intities/shipping_location.dart';
 import 'intities/store_delivry_date.dart';
@@ -36,7 +37,7 @@ enum OrderStatus {
 class Order {
   String? id;
   String? number;
-  OrderStatus? status;
+  String? status;
   DateTime? createdAt;
   DateTime? dateModified;
   double? total;
@@ -50,6 +51,7 @@ class Order {
   List<ProductItem> lineItems = [];
   Address? billing;
   Address? shipping;
+  Cart? cart;
 
   double? subtotal;
   DeliveryStatus? deliveryStatus;
@@ -75,52 +77,51 @@ class Order {
     );
   }
 
-  OrderStatus parseOrderStatus(String? status) {
-    final newStatus = status?.toLowerCase();
-    switch (newStatus) {
-      case 'on-hold':
-      case 'holded':
-        return OrderStatus.onHold;
-      case 'canceled reversal':
-        return OrderStatus.canceledReversal;
-      case 'complete':
-        return OrderStatus.completed;
-      case 'driver-assigned':
-        return OrderStatus.driverAssigned;
-      case 'out-for-delivery':
-        return OrderStatus.outForDelivery;
-      case 'order-returned':
-        return OrderStatus.orderReturned;
-      case 'refund-req':
-        return OrderStatus.refundRequested;
-      default:
-        return OrderStatus.values.firstWhere(
-          (element) => true,
-          orElse: () => OrderStatus.unknown,
-        );
-    }
-  }
+  // OrderStatus parseOrderStatus(String? status) {
+  //   final newStatus = status?.toLowerCase();
+  //   switch (newStatus) {
+  //     case 'on-hold':
+  //     case 'holded':
+  //       return OrderStatus.onHold;
+  //     case 'canceled reversal':
+  //       return OrderStatus.canceledReversal;
+  //     case 'complete':
+  //       return OrderStatus.completed;
+  //     case 'driver-assigned':
+  //       return OrderStatus.driverAssigned;
+  //     case 'out-for-delivery':
+  //       return OrderStatus.outForDelivery;
+  //     case 'order-returned':
+  //       return OrderStatus.orderReturned;
+  //     case 'refund-req':
+  //       return OrderStatus.refundRequested;
+  //     default:
+  //       return OrderStatus.values.firstWhere(
+  //         (element) => true,
+  //         orElse: () => OrderStatus.unknown,
+  //       );
+  //   }
+  // }
 
   Order.fromJson(Map<String, dynamic> parsedJson) {
     try {
       id = parsedJson['id'].toString();
+      subtotal = double.parse(parsedJson['subTotal'].toString());
       customerNote = parsedJson['customer_note'];
+      cart = Cart.fromJson(parsedJson['Cart']);
       number = parsedJson['number'];
-      status = parseOrderStatus(parsedJson['status']);
-      createdAt = parsedJson['date_created'] != null
-          ? DateTime.parse(parsedJson['date_created'])
+      status = parsedJson['status'];
+      createdAt = parsedJson['createdAt'] != null
+          ? DateTime.parse(parsedJson['createdAt'])
           : DateTime.now();
-      dateModified = parsedJson['date_modified'] != null
-          ? DateTime.parse(parsedJson['date_modified'])
+      dateModified = parsedJson['updatedAt'] != null
+          ? DateTime.parse(parsedJson['updatedAt'])
           : DateTime.now();
-      total =
-          parsedJson['total'] != null ? double.parse(parsedJson['total']) : 0.0;
-      totalTax = parsedJson['total_tax'] != null
-          ? double.parse(parsedJson['total_tax'])
+      total = parsedJson['total'] != null
+          ? double.parse(parsedJson['total'].toString())
           : 0.0;
-      totalShipping = parsedJson['shipping_total'] != null
-          ? double.parse(parsedJson['shipping_total'])
-          : 0.0;
+      totalTax = double.parse(parsedJson['totalTax'].toString());
+      totalShipping = double.parse(parsedJson['totalShipping'].toString());
       paymentMethodTitle = parsedJson['payment_method_title'];
       paymentMethod = parsedJson['payment_method'];
 
@@ -129,8 +130,10 @@ class Order {
         quantity += int.parse("${item["quantity"]}");
       });
 
-      billing = Address.fromJson(parsedJson['billing']);
-      shipping = Address.fromJson(parsedJson['shipping']);
+      // billing =
+      //     Address.fromJson(parsedJson['billingAddress'] );
+      // shipping =
+      //     Address.fromJson(parsedJson['shippingAddress']);
       shippingMethodTitle = parsedJson['shipping_lines'] != null &&
               parsedJson['shipping_lines'].length > 0
           ? parsedJson['shipping_lines'][0]['method_title']
@@ -176,7 +179,7 @@ class Order {
   Order.fromLocalJson(Map<String, dynamic> parsedJson) {
     id = parsedJson['id'];
     number = parsedJson['number'];
-    status = parseOrderStatus(parsedJson['status']);
+    status = parsedJson['status'];
     createdAt = parsedJson['date_created'] != null
         ? DateTime.parse(parsedJson['date_created'])
         : DateTime.now();
@@ -206,7 +209,7 @@ class Order {
     }).toList();
 
     return {
-      'status': status!.content,
+      'status': status,
       'total': total.toString(),
       'totalTax': totalTax.toString(),
       'shipping_lines': [
@@ -220,6 +223,11 @@ class Order {
       'date_created': createdAt.toString(),
       'payment_method_title': paymentMethodTitle
     };
+  }
+
+  List<Order> fromJsonList(jsonlist) {
+    var json = jsonlist ?? [];
+    return List<Order>.from(json.map((item) => Order.fromJson(item)));
   }
 }
 

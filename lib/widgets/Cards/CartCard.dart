@@ -88,7 +88,9 @@ class CartCard extends StatelessWidget {
               // margin: EdgeInsets.all(10),
               height: 40,
               width: 40,
-              child: Image.network(item.product!.images.first),
+              child: Image.network(item.product!.images.length > 0
+                  ? item.product!.images.first
+                  : ""),
             ),
             Container(
               alignment: Alignment.centerLeft,

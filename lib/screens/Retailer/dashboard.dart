@@ -113,11 +113,19 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
                       )
                     ],
                   ),
-                  childCount: myProducts.length,
+                  childCount: myProducts.length - 1,
                 ),
               ),
             ])
           : Center(child: CircularProgressIndicator()),
     );
+  }
+
+  void filterByCategory(int category) {
+    setState(() {
+      myProducts = myProducts
+          .where((product) => product.productType!.categoryId == category)
+          .toList();
+    });
   }
 }

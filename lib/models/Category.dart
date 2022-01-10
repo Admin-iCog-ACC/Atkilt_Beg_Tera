@@ -1,7 +1,7 @@
 import 'Product.dart';
 
 class Category {
-  String? id;
+  int? id;
   String? sku;
   String? name;
   String? image;
@@ -15,7 +15,7 @@ class Category {
     }
 
     try {
-      id = parsedJson['id'].toString();
+      id = parsedJson['id'];
       name = parsedJson['name'].toString();
 
       totalProduct = parsedJson['count'];

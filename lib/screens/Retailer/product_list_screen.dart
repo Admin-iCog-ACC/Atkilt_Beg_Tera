@@ -37,10 +37,6 @@ class ProductListScreenState extends State<ProductListScreen> {
       body: myProducts != null
           ? CustomScrollView(
               slivers: [
-                // CustomSliverAppBar(
-                //   page_title: 'Title',
-                // ),
-                //++++++++
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) => Column(
@@ -53,7 +49,7 @@ class ProductListScreenState extends State<ProductListScreen> {
                         )
                       ],
                     ),
-                    childCount: myProducts.length,
+                    childCount: myProducts.length - 1,
                   ),
                 ),
                 //+++++++

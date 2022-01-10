@@ -17,23 +17,20 @@ class CustomDrawerState extends State<CustomDrawer> {
             height: 24,
           ),
           ListTile(
-            leading: Icon(
-              Icons.person,
-            ),
-            title: Text(
-              'Profile',
-            ),
-            onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.home_outlined),
             title: Text('Home'),
             onTap: () {
               Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
             },
           ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Products'),
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_product_list);
+            },
+          ),
+          Divider(indent: 20.0),
           ListTile(
             leading: Icon(Icons.history_outlined),
             title: Text('My Orders'),
@@ -57,12 +54,22 @@ class CustomDrawerState extends State<CustomDrawer> {
               Navigator.pushNamed(context, RoutePaths.retailer_cart);
             },
           ),
+          Divider(indent: 20.0),
           ListTile(
-            leading: Icon(Icons.list),
-            title: Text('Products'),
+            leading: Icon(
+              Icons.person,
+            ),
+            title: Text(
+              'Profile',
+            ),
             onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_product_list);
+              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Settings'),
+            onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.logout_outlined),
@@ -71,12 +78,6 @@ class CustomDrawerState extends State<CustomDrawer> {
               Navigator.of(context).pushNamedAndRemoveUntil(
                   RoutePaths.signin, (Route<dynamic> route) => false);
             },
-          ),
-          Divider(indent: 20.0),
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Settings'),
-            onTap: () {},
           ),
           ListTile(
             leading: Icon(

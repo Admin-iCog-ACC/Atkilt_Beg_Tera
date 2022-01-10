@@ -59,13 +59,17 @@ class AppRouter {
       case RoutePaths.merchant_order_list:
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
       case RoutePaths.merchant_order_detail:
-        return MaterialPageRoute(builder: (_) => const OrderDetailScreen());
+        var arg = settings.arguments;
+        return MaterialPageRoute(
+            settings: settings, builder: (_) => OrderDetailScreen(order: arg));
       case RoutePaths.retailer_order_list:
         return MaterialPageRoute(
             builder: (_) => const RetailerOrderListScreen());
       case RoutePaths.retailer_order_detail_screen:
+        var arg = settings.arguments;
         return MaterialPageRoute(
-            builder: (_) => const RetailerOrderDetailScreen());
+            settings: settings,
+            builder: (_) => RetailerOrderDetailScreen(order: arg));
       case RoutePaths.myShop:
         return MaterialPageRoute(builder: (_) => const MyShop());
       default:

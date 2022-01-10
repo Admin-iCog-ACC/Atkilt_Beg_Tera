@@ -1,7 +1,7 @@
 import 'package:retailer_app/models/intities/Cart_Item.dart';
 
 class Cart {
-  String? id;
+  int? id;
   String? totalPrice;
   String? accountid;
   List<CartItem>? cartItems;
@@ -9,7 +9,7 @@ class Cart {
   Cart();
 
   Cart.fromJson(json) {
-    id = json["id"].toString();
+    id = json["id"];
     cartItems = CartItem().fromJsonList(json["cartItems"]);
     totalPrice = json['total'].toString();
     accountid = json["accountId"] ?? '';

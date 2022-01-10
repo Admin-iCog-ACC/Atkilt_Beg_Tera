@@ -1,11 +1,13 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:retailer_app/models/Order.dart';
 import 'package:retailer_app/routes/route_path.dart';
 import 'package:retailer_app/widgets/Cards/inventory_prodcut_card.dart';
 import 'package:retailer_app/widgets/buttons/buttons.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-  const OrderDetailScreen({Key? key}) : super(key: key);
+  final order;
+  const OrderDetailScreen({Key? key, required this.order}) : super(key: key);
 
   @override
   OrderDetailScreenState createState() => OrderDetailScreenState();
@@ -13,12 +15,20 @@ class OrderDetailScreen extends StatefulWidget {
 
 class OrderDetailScreenState extends State<OrderDetailScreen> {
   final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+  Order myOrder = Order();
+  @override
+  void initState() {
+    myOrder = widget.order;
+    print(widget.order);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double prodcutContainerHeight = MediaQuery.of(context).size.height / 2;
     return Scaffold(
         appBar: AppBar(
-          title: Text('VF2S3VS45V'),
+          title: Text(myOrder.id.toString()),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -41,7 +51,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                           child: Container(
                             margin: EdgeInsets.only(bottom: 32),
                             child: Text(
-                              'Order ID: VF2S3VS45V',
+                              'Order ID: ${myOrder.id.toString()}',
                               style: TextStyle(
                                   fontSize: 24, fontWeight: FontWeight.w700),
                             ),
@@ -54,10 +64,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                             DropdownButton(
                               hint: Text('Order Status'),
                               items: <String>[
-                                'Messaging',
-                                'Chating',
-                                'No Longer Interested',
-                                'Document Request'
+                                'processed',
                               ].map((String value) {
                                 return new DropdownMenuItem<String>(
                                   value: value,
@@ -100,6 +107,13 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                 ),
                                 size: ColumnSize.L,
                               ),
+                              DataColumn2(
+                                label: Text(
+                                  'Quantity',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                size: ColumnSize.L,
+                              ),
                               DataColumn(
                                 label: Text('Total',
                                     style:
@@ -107,12 +121,16 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                               ),
                             ],
                             rows: List<DataRow>.generate(
-                                5,
+                                myOrder.cart!.cartItems!.length,
                                 (index) => DataRow(cells: [
-                                      DataCell(Container(
-                                        height: 50,
-                                      )),
-                                      DataCell(Text('Br50')),
+                                      DataCell(Text(myOrder.cart!
+                                          .cartItems![index].product!.name!)),
+                                      DataCell(Text(myOrder
+                                          .cart!.cartItems![index].quantity!
+                                          .toString())),
+                                      DataCell(Text(myOrder
+                                          .cart!.cartItems![index].total
+                                          .toString())),
                                     ]))),
                       ),
                       Container(
@@ -138,7 +156,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                           fontSize: 14,
                                           color: Color.fromARGB(
                                               0XFF, 107, 114, 128))),
-                                  Text('Br450',
+                                  Text('Br' + myOrder.subtotal.toString(),
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Color.fromARGB(
@@ -146,25 +164,25 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                 ],
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 12),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Discount',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Color.fromARGB(
-                                              0XFF, 107, 114, 128))),
-                                  Text('Br50',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          color: Color.fromARGB(
-                                              0XFF, 107, 114, 128)))
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: EdgeInsets.only(bottom: 12),
+                            //   child: Row(
+                            //     mainAxisAlignment:
+                            //         MainAxisAlignment.spaceBetween,
+                            //     children: [
+                            //       Text('Discount',
+                            //           style: TextStyle(
+                            //               fontSize: 14,
+                            //               color: Color.fromARGB(
+                            //                   0XFF, 107, 114, 128))),
+                            //       Text('Br50',
+                            //           style: TextStyle(
+                            //               fontSize: 14,
+                            //               color: Color.fromARGB(
+                            //                   0XFF, 107, 114, 128)))
+                            //     ],
+                            //   ),
+                            // ),
                             Padding(
                               padding: EdgeInsets.only(bottom: 12),
                               child: Row(
@@ -176,7 +194,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                           fontSize: 14,
                                           color: Color.fromARGB(
                                               0XFF, 107, 114, 128))),
-                                  Text('Br100',
+                                  Text('Br' + myOrder.totalShipping.toString(),
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Color.fromARGB(
@@ -195,7 +213,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                           fontSize: 14,
                                           color: Color.fromARGB(
                                               0XFF, 107, 114, 128))),
-                                  Text('Br50',
+                                  Text('Br' + myOrder.totalTax.toString(),
                                       style: TextStyle(
                                           fontSize: 14,
                                           color: Color.fromARGB(
@@ -216,7 +234,7 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                                         fontWeight: FontWeight.w700),
                                   ),
                                   Text(
-                                    'Br550',
+                                    'Br' + myOrder.total.toString(),
                                     style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w700),

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:retailer_app/models/Order.dart';
 import 'package:retailer_app/routes/route_path.dart';
 
 class OrderCard extends StatelessWidget {
+  Order order;
+  OrderCard({required this.order});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, RoutePaths.retailer_order_detail_screen),
+      onTap: () => Navigator.pushNamed(
+          context, RoutePaths.retailer_order_detail_screen,
+          arguments: order),
       child: Container(
         margin: EdgeInsets.only(bottom: 16),
         decoration: BoxDecoration(
@@ -23,7 +28,7 @@ class OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Order#21',
+                    'Order#' + order.id.toString(),
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
                   ),
                   Container(
@@ -33,7 +38,7 @@ class OrderCard extends StatelessWidget {
                         color: Color.fromARGB(0Xff, 219, 234, 254),
                         borderRadius: BorderRadius.all(Radius.circular(3))),
                     child: Text(
-                      'Order Received',
+                      order.status ?? 'Status Unknown',
                       style:
                           TextStyle(color: Color.fromARGB(0XFF, 59, 130, 246)),
                     ),
@@ -50,7 +55,10 @@ class OrderCard extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 16),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text('Order Date'), Text('August 26, 2021')],
+                      children: [
+                        Text('Order Date'),
+                        Text(order.createdAt.toString())
+                      ],
                     ),
                   ),
                   Padding(
@@ -73,7 +81,7 @@ class OrderCard extends StatelessWidget {
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'Br450',
+                            'Br' + (order.total).toString(),
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           )
@@ -90,7 +98,7 @@ class OrderCard extends StatelessWidget {
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           ),
                           Text(
-                            'Br100',
+                            'Br' + order.total.toString(),
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.w700),
                           )

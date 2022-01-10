@@ -29,7 +29,7 @@ class _ProdcutCardState extends State<ProductCard> {
 
   @override
   void initState() {
-    _image = NetworkImage(widget.product.images[0]);
+    _image = NetworkImage(widget.product.images.last);
 
     _image
         .resolve(ImageConfiguration())

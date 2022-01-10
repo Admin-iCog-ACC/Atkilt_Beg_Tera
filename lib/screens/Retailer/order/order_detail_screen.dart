@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:im_stepper/stepper.dart';
+import 'package:retailer_app/models/Order.dart';
 
 class RetailerOrderDetailScreen extends StatefulWidget {
-  const RetailerOrderDetailScreen({Key? key}) : super(key: key);
+  final order;
+  const RetailerOrderDetailScreen({Key? key, required this.order})
+      : super(key: key);
   @override
   RetailerOrderDetailScreenState createState() =>
       RetailerOrderDetailScreenState();
@@ -29,10 +32,16 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
   }
 
   @override
+  void initState() {
+    print('Order is here' + widget.order.toString());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order#21'),
+        title: Text('Order#' + widget.order.id.toString()),
       ),
       body: Padding(
         padding: EdgeInsets.only(left: 20, right: 20),
@@ -51,7 +60,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Order Details - KAVDS2316dJH',
+                        'Order Details',
                         style: TextStyle(fontWeight: FontWeight.w600),
                       )
                     ],
@@ -123,7 +132,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                     fontSize: 14,
                                     color:
                                         Color.fromARGB(0XFF, 107, 114, 128))),
-                            Text('Br450',
+                            Text(widget.order.subtotal.toString(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(0XFF, 107, 114, 128)))
@@ -140,7 +149,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                     fontSize: 14,
                                     color:
                                         Color.fromARGB(0XFF, 107, 114, 128))),
-                            Text('Br50',
+                            Text('Br0.0',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(0XFF, 107, 114, 128)))
@@ -157,7 +166,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                     fontSize: 14,
                                     color:
                                         Color.fromARGB(0XFF, 107, 114, 128))),
-                            Text('Br100',
+                            Text(widget.order.totalShipping.toString(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(0XFF, 107, 114, 128)))
@@ -174,7 +183,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                     fontSize: 14,
                                     color:
                                         Color.fromARGB(0XFF, 107, 114, 128))),
-                            Text('Br50',
+                            Text(widget.order.totalTax.toString(),
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Color.fromARGB(0XFF, 107, 114, 128)))
@@ -192,7 +201,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                   fontSize: 14, fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              'Br550',
+                              widget.order.total.toString(),
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w700),
                             )

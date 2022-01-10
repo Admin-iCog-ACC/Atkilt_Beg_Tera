@@ -7,6 +7,7 @@ import 'package:retailer_app/APIs/Cart_API.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
 import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
+import 'package:retailer_app/models/intities/product_attribute.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     final myProduct = ModalRoute.of(context)!.settings.arguments as Product;
     myCartItem!.product = myProduct;
+    print(myProduct);
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -244,7 +246,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                         ),
                         Container(
-                          child: Text('Fresh'),
+                          child: Text('Vegetables'),
                         ),
                       ],
                     ),
@@ -265,6 +267,43 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                       ],
                     ),
                   ),
+                  Divider(
+                    thickness: 1,
+                    endIndent: 0,
+                    indent: 0,
+                  ),
+
+                  Container(
+                    height: myProduct.attributes!.length *
+                        (50 - myProduct.attributes!.length * 2),
+                    child: ListView.custom(
+                      childrenDelegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: 16),
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(right: 24),
+                                child: Text(
+                                  myProduct.attributes![index]
+                                      .productTypeAttribute!.attribute!.name!,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Container(
+                                child:
+                                    Text(myProduct.attributes![index].value!),
+                              ),
+                            ],
+                          ),
+                        );
+                      }, childCount: myProduct.attributes!.length),
+                    ),
+                  ),
+
                   Divider(
                     thickness: 1,
                     endIndent: 0,
