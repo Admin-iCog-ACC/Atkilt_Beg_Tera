@@ -36,7 +36,7 @@ module.exports = {
             status: token,
             refreshToken,
             expiresIn: authConfig.accessTokenDuration,
-            account
+            account: {...account.dataValues, password: undefined}
         })
     },
     
