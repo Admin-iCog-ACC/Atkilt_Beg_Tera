@@ -1,4 +1,5 @@
 const Product = require('../../models').Product;
+const ProductType = require('../../models').ProductType;
 const ProductImage = require('../../models').ProductImage;
 const ProductItemAttribute = require('../../models').ProductItemAttribute;
 const ProductTypeAttribute = require('../../models').ProductTypeAttribute;
@@ -9,8 +10,7 @@ module.exports = {
     getAllProducts: async(req, res, next)=>{
         return Product
         .findAll({
-            include: [
-                {
+            include: [{
                 model: ProductItemAttribute,
                 as: "attributes",
                 include: {
@@ -19,6 +19,9 @@ module.exports = {
                         model: Attribute
                     }
                 }
+            },{
+                model: ProductType,
+                // as: "productType",
             },
             {
                 model: ProductImage,
@@ -28,12 +31,20 @@ module.exports = {
        
             
         .then(products => {
-            //products.forEach(element => {
+            var productsResponse = [];
+            products.forEach(element => {
             //    for(var i = 0; i < element.images.length; i++){
             //        element.images[i] = element.images[i].resourceUrl
             //    }
-            //});
-            res.status(200).send(products)    
+                var dataValue = element.dataValues;
+                console.log("THIS IS THE SINGLE PRODUCT: ", dataValue)
+                if(dataValue.ProductType && dataValue.ProductType.categoryId){
+                    dataValue.categoryId = dataValue.ProductType.categoryId
+                    dataValue.ProductType = undefined
+                    productsResponse.push(dataValue)
+                }
+            });
+            res.status(200).send(productsResponse)    
         })
         .catch(error => res.status(400).send(error));
     },
@@ -60,7 +71,10 @@ module.exports = {
             }
             res.status(200).send(products)
         })
-        .catch(error => res.status(400).send(error));
+        .catch(error => {
+            console.log(error)
+            res.status(400).send(error)
+        });
     },
 
     createProduct: async(req, res, next) => {
