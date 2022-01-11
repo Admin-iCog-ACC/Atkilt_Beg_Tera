@@ -13,6 +13,12 @@ module.exports = {
         var { email, password } = req.body;
         var account = await Account.findOne({ where: { email: email.toLowerCase() }})
       
+        if(account == null){
+            return res.status(403).send({
+                status: "Account does not exist"
+            })
+        }
+
         if(!(await bcrypt.compare(password, account.password))){
             return res.status(401).send({
                 status: "Incorrect Credentials"
@@ -28,7 +34,9 @@ module.exports = {
         
         res.status(200).send({
             status: token,
-            refreshToken
+            refreshToken,
+            expiresIn: authConfig.accessTokenDuration,
+            account
         })
     },
     
