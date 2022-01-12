@@ -129,7 +129,7 @@ module.exports = {
         var refreshTokenEntry = refreshTokenEntries[0]
         var { accountId } = refreshTokenEntry;
         await refreshTokenEntry.destroy()
-
+        
         var newTokenId = uuidV4();
         var account = await Account.findByPk(accountId)
         var token = jwt.sign({email: account.email, tokenId: newTokenId}, authConfig.authSecret, {
