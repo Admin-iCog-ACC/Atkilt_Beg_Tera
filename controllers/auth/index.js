@@ -37,7 +37,7 @@ module.exports = {
 	    token,
             refreshToken,
             expiresIn: authConfig.accessTokenDuration,
-            account
+            account: {...account.dataValues, password: undefined}
         })
     },
     
@@ -130,9 +130,10 @@ module.exports = {
         var refreshTokenEntry = refreshTokenEntries[0]
         var { accountId } = refreshTokenEntry;
         await refreshTokenEntry.destroy()
-
+        
         var newTokenId = uuidV4();
-        var token = jwt.sign({email: "mike@gmail.com", newTokenId}, authConfig.authSecret, {
+        var account = await Account.findByPk(accountId)
+        var token = jwt.sign({email: account.email, tokenId: newTokenId}, authConfig.authSecret, {
             expiresIn: authConfig.accessTokenDuration // 24 hours
         });
 
