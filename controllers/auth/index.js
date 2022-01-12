@@ -131,7 +131,8 @@ module.exports = {
         await refreshTokenEntry.destroy()
 
         var newTokenId = uuidV4();
-        var token = jwt.sign({email: "mike@gmail.com", newTokenId}, authConfig.authSecret, {
+        var account = await Account.findByPk(accountId)
+        var token = jwt.sign({email: account.email, tokenId: newTokenId}, authConfig.authSecret, {
             expiresIn: authConfig.accessTokenDuration // 24 hours
         });
 
