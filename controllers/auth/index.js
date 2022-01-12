@@ -33,7 +33,8 @@ module.exports = {
         var refreshToken = await RefreshToken.createToken({accountId: account.id}, tokenId)
         
         res.status(200).send({
-            status: token,
+            status: "Logged In",
+	    token,
             refreshToken,
             expiresIn: authConfig.accessTokenDuration,
             account
