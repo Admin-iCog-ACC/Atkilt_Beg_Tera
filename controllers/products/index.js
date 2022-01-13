@@ -82,6 +82,12 @@ module.exports = {
         var productTypeId = req.params.productTypeId;
         var transaction =  await sequelize.transaction();
 
+        if(!req.userDetails.isVendor){
+            return res.status(401).send({
+                "status": "unauthorized"
+            })
+        }
+
         var productTypeAttributes = await ProductTypeAttribute.findAll({
             where: {
                 productTypeId: productTypeId
@@ -90,7 +96,8 @@ module.exports = {
         
         var productModel = await Product.create({
             ...req.body,
-            productTypeId: productTypeId
+            productTypeId: productTypeId,
+            vendorId: req.userDetails.id
         }, {transaction})
 
         if(req.body.attributes){

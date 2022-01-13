@@ -37,10 +37,10 @@ module.exports = {
             .then(orders => res.status(200).send(orders))
             .catch(error => res.status(400).send(error))
         
-        }
-        ).then(orders =>  {
-            console.log("ORDERS: ", orders)
-            res.status(200).send(orders)})
+        })
+        // ).then(orders =>  {
+        //     console.log("ORDERS: ", orders)
+        //     res.status(200).send(orders)})
         .catch(error => {
             console.log(error)
             res.status(500).send(error)
