@@ -27,7 +27,7 @@ async function verifyToken(req, res, next){
         console.log(decoded)
         var accounts = await Account.findAll({
             where: {
-                email: decoded.email
+               id: decoded.accountId
             }
         })
     
