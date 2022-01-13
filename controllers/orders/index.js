@@ -5,6 +5,8 @@ const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
 const Order = require('../../models').Order;
 const Sequelize =  require("sequelize")
+const orderWebsocket = require("../../websockets/listeners/order")
+
 module.exports = {
     getAllOrders: async(req, res, next)=>{
         // res.send({"status": "All Orders"})
@@ -71,7 +73,14 @@ module.exports = {
         }
 
         order.status = orderServices.getNextStatus(order.status)
-        
+
+        if(order.status == 'Order Processed'){
+            orderWebsocket.server.clients.forEach(client => {
+                client.emit("order-delivery-request", {
+                    order: order.dataValues
+                })
+            })
+        }
         return order.save()
         .then( order => res.status(200).send(order))
         .catch(error => res.status(500).send(error))

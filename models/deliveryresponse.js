@@ -28,5 +28,31 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'DeliveryResponse',
   });
+
+
+  DeliveryResponse.rejectDeliveryRequest = async (orderId, driverId) => {
+    return await DeliveryResponse.create({
+      orderId,
+      driverId,
+      response: "REJECTED"
+    })
+  }
+
+  DeliveryResponse.acceptDeliveryRequest = async (orderId, driverId) => {
+    return await DeliveryResponse.create({
+      orderId,
+      driverId,
+      response: "ACCEPTED"
+    })
+  }
+
+  DeliveryResponse.isRejected = (deliveryResponse) => {
+    return deliveryResponse.response == "REJECTED"
+  }
+
+  DeliveryResponse.isAccepted = (deliveryResponse) => {
+    return deliveryResponse.response == "ACCEPTED"
+  }
+
   return DeliveryResponse;
 };

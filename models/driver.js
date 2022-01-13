@@ -21,14 +21,17 @@ module.exports = (sequelize, DataTypes) => {
         as: "deliveryResponses"
       })
     }
+
+
   };
   Driver.init({
     longitudePosition: DataTypes.FLOAT,
-    laitudePosition: DataTypes.FLOAT,
+    latitudePosition: DataTypes.FLOAT,
     isAvailable: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Driver',
   });
+
   return Driver;
 };

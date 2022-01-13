@@ -11,7 +11,7 @@ module.exports = {
       longitudePosition: {
         type: Sequelize.FLOAT
       },
-      laitudePosition: {
+      latitudePosition: {
         type: Sequelize.FLOAT
       },
       isAvailable: {
