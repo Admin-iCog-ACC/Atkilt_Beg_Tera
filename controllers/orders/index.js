@@ -4,6 +4,8 @@ const Cart = require('../../models').Cart;
 const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
 const Order = require('../../models').Order;
+const requestServices = require('../../services/request')
+
 const Sequelize =  require("sequelize")
 module.exports = {
     getAllOrders: async(req, res, next)=>{
@@ -11,7 +13,7 @@ module.exports = {
         var userId = 1
         Cart.findAll({
             where: {
-                accountId: userId
+                accountId: requestServices.getUserId(req)
             }
         }).then(carts => {
             // Uncomment once auth is implemented
@@ -31,6 +33,11 @@ module.exports = {
                         include: {
                             model: Product,
                         }
+                    }
+                },
+                    where: {
+                    cartId: {
+                        [Sequelize.Op.in]: carts.map(cart => cart.id)
                     }
                 }
             })

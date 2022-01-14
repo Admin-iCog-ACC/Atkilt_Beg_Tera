@@ -5,6 +5,7 @@ const Order = require('../../models').Order;
 
 const cartServices = require('../../services/carts')
 const orderServices = require('../../services/orders')
+const requestServices = require("../../services/request")
 
 createOrGetCart: async() => {
     var currentCart = await Cart.findAll({
@@ -25,7 +26,7 @@ createOrGetCart: async() => {
 module.exports = {
     getAllCarts: async(req, res, next)=>{
         try{
-            var cart = await cartServices.createOrGetCart();
+            var cart = await cartServices.createOrGetCart(requestServices.getUserId(req));
             console.log("[X] GOT HERE" ,cart)
             var subTotals = cart.cartItems.map(cartItem => cartItem.total)
             console.log(subTotals)
@@ -43,7 +44,7 @@ module.exports = {
     },
 
     getCartbyId: async(req, res, next) => {
-        cartServices.createOrGetCart()
+        cartServices.createOrGetCart(requestServices.getUserId(req))
         .then(cart => res.status(200).send(cart))
         .catch(error =>{
             console.log(error)
@@ -52,7 +53,7 @@ module.exports = {
     },
 
     createCart: async(req, res, next) => {
-        cartServices.createOrGetCart()
+        cartServices.createOrGetCart(requestServices.getUserId(req))
         .then(cart => res.status(200).send(cart))
         .catch(error => res.status(400).send(error));
     },
@@ -64,7 +65,7 @@ module.exports = {
             })
         }
 
-        var cart = await cartServices.createOrGetCart();
+        var cart = await cartServices.createOrGetCart(requestServices.getUserId(req));
         console.log("Request: ", req.body )
         var product = await Product.findByPk(req.body.product.id,);
 
@@ -86,7 +87,7 @@ module.exports = {
 
     removeItem: async(req, res, next) => {
         var cartItemId = req.params.id;
-        var cart = await cartServices.createOrGetCart();
+        var cart = await cartServices.createOrGetCart(requestServices.getUserId(req));
         console.log("Request: ", req.body )
         var cartItem = await CartItem.findOne({
             where: {
@@ -116,7 +117,7 @@ module.exports = {
         }
 
         var cartItemId = req.params.id;
-        var cart = await cartServices.createOrGetCart();
+        var cart = await cartServices.createOrGetCart(requestServices.getUserId(req));
         console.log("Request: ", req.body )
         var cartItem = await CartItem.findOne({
             where: {
@@ -136,7 +137,7 @@ module.exports = {
     },
 
     checkout: async(req, res, next) => {
-        var cart = await cartServices.createOrGetCart();
+        var cart = await cartServices.createOrGetCart(requestServices.getUserId(req));
         console.log("Request: ", req.body )
 
         if(!(cart.cartItems && cart.cartItems.length)){

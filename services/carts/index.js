@@ -6,10 +6,11 @@ const lodash = require("lodash")
 
 
 module.exports = {
-    createOrGetCart: async() => {
+    createOrGetCart: async(accountId) => {
         var currentCart = await Cart.findOne({
             where: {
-                checkedOut: false
+                checkedOut: false,
+                accountId
             },
 
             include: {
@@ -24,7 +25,7 @@ module.exports = {
         if(currentCart == null){
             console.log("--> Creating new cart")
             currentCart = await Cart.create({
-                accountId: null,
+                accountId: accountId,
                 checkedOut: false
             })
             await currentCart.save()

@@ -29,9 +29,9 @@ app.use(cookieParser());
 
 //Defining routes: all middleware should go in the definition logic of these routes
 app.use('/', indexRouter);
-app.use("/carts", cartsRouter);
+app.use("/carts", authMiddleware.verifyToken, cartsRouter);
 app.use("/auth", authRouter)
-app.use("/orders", ordersRouter);
+app.use("/orders", authMiddleware.verifyToken, ordersRouter);
 app.use("/products", authMiddleware.verifyToken, productsRouter);
 app.use("/productTypes", productTypesRouter);
 app.use("/accounts", accountsRouter);
