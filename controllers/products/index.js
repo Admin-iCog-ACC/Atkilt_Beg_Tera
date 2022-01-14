@@ -79,7 +79,7 @@ module.exports = {
 
     createProduct: async(req, res, next) => {
         console.log("CREATE REQUEST: ", req)
-        var product = await Product.create({...req.body, id: undefined})
+        // var product = await Product.create({...req.body, id: undefined})
         var productTypeId = req.params.productTypeId;
         var transaction =  await sequelize.transaction();
 
@@ -97,6 +97,7 @@ module.exports = {
         
         var productModel = await Product.create({
             ...req.body,
+            id: undefined,
             productTypeId: productTypeId,
             vendorId: req.userDetails.id
         }, {transaction})
