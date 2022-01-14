@@ -149,5 +149,99 @@ module.exports = {
         }).then(product => res.status(200).send(product))
         })
         .catch(error => res.status(400).send(error));
+    },
+
+    updateProduct: async(req, res, next) => {
+        // var { productId } = req.body;
+        var transaction = await sequelize.transaction();
+        
+        var {productTypeId, productId } = req.params
+        productTypeId = parseInt(productTypeId)
+        productId = parseInt(productId)
+
+        var savedProduct = await Product.findByPk(productId)
+
+        if(savedProduct.vendorId != req.userDetails.id){
+            return req.status(401).send({
+                status: "Unauthorized"
+            })
+        }
+
+        savedProduct = {
+            ...savedProduct.dataValues,
+            ...req.body,
+            productTypeId: productTypeId,
+            vendorId: req.userDetails.id
+        }
+
+        var productModel = await Product.update(
+            savedProduct,
+            {
+            where: {
+                id: productId
+            }
+        }, {transaction})
+
+        var deleteAttributes = await ProductItemAttribute.destroy({
+            where: {
+                 productId: productId
+            }
+        }, {transaction});
+
+        var deleteImages = await ProductImage.destroy({
+            where: {
+                productId: productId
+            }
+        }, {transaction})
+
+        if(req.body.attributes){
+            var attrs = req.body.attributes
+            // console.log("HERE IS THE MAP: ", map)
+            var attributes = await ProductItemAttribute.bulkCreate(
+                attrs.map(attr => {
+                    // attr.productId = productModel.id
+                    return {
+                        productId: productModel.id,
+                        productTypeAttributeId: attr.productTypeAttributeId,
+                        value: attr.value
+                    };
+                })
+            , {transaction})
+            // await attributes.save()
+        }
+
+        if(req.body.images){
+            var productImages  = req.body.images;
+            var images = await ProductImage.bulkCreate(
+                productImages.map(attr => {
+                     return {
+                        resourceUrl: attr,
+                        productId: productId
+                    };
+                })
+            , {transaction})
+        }
+
+        return transaction.commit()
+        .then(product => {
+            return Product.findByPk(productId, {
+            include: [
+                {
+                model: ProductItemAttribute,
+                as: "attributes",
+                include: {
+                    model: ProductTypeAttribute,
+                    include: {
+                        model: Attribute
+                    }
+                }
+            },
+            {
+                model: ProductImage,
+                as: "images"
+            }]
+        }).then(product => res.status(200).send(product))
+        })
+        .catch(error => res.status(400).send(error));
     }
 }

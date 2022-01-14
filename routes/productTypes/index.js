@@ -14,6 +14,7 @@ router.post("/", ProductTypecontrollers.createProductType)
 router.delete("/:id", ProductTypecontrollers.deleteProductType)
 
 router.post("/:productTypeId/products/", authMiddleware.verifyToken, productItemController.createProduct)
+router.post("/:productTypeId/products/:productId", authMiddleware.verifyToken, productItemController.updateProduct)
 
 router.post("/:id/attributes", attributeControllers.assignAttributes)
 router.get("/:id/attributes", attributeControllers.getAttributes)
