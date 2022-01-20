@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE"
       })
 
+      Product.belongsTo(models.Account, {
+        foreignKey: "vendorId",
+        onDelete: "CASCADE"
+      })
+
       // Product.hasMany(models.Attribute, {
       //   foreignKey: "productId",
       //   as: "attributes"

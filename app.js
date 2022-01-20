@@ -14,7 +14,7 @@ var categoriesRouter = require('./routes/categories')
 var attributesRouter = require('./routes/attributes')
 var uploadsRouter = require('./routes/upload')
 var authRouter = require("./routes/auth")
-
+var surveyRouter = require("./routes/survey")
 
 var authMiddleware = require("./middlewares/authMiddleware")
 var app = express();
@@ -38,6 +38,7 @@ app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)
 app.use("/attributes", attributesRouter)
 app.use("/upload", uploadsRouter)
+app.use("/survey", surveyRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.send({
