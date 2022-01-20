@@ -9,6 +9,8 @@ import 'package:retailer_app/models/intities/Cart_Item.dart';
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/models/intities/product_attribute.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
+import 'package:retailer_app/widgets/FAB/cart_fab.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   final dynamic product;
@@ -22,13 +24,27 @@ class ProductDetailScreen extends StatefulWidget {
 class ProductDetailScreenState extends State<ProductDetailScreen> {
   bool isCartAdded = false;
   CartItem? myCartItem = CartItem();
+  late SharedPreferences logindata;
+  String? userId;
+  Future<void> getUserId() async {
+    logindata = await SharedPreferences.getInstance();
+    var userId = logindata.getString('userId');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserId();
+  }
 
   @override
   Widget build(BuildContext context) {
     final myProduct = ModalRoute.of(context)!.settings.arguments as Product;
     myCartItem!.product = myProduct;
+    myCartItem!.customerId = userId;
     print(myProduct);
     return Scaffold(
+        floatingActionButton: CartFAB(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
@@ -118,6 +134,43 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                     ),
                   ),
                   Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Column(
+                        children: [
+                          ...myProduct.attributes!.map((attribut) {
+                            return Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      attribut.productTypeAttribute!.attribute!
+                                          .name!,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                  RadioListTile(
+                                      selected: attribut.id == 4,
+                                      value: attribut.id!,
+                                      groupValue: attribut.productTypeAttribute!
+                                          .attribute!.name!,
+                                      title: Text(attribut.value!),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          //  = value;
+                                        });
+                                      })
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                        ],
+                      )),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(top: 20, bottom: 20),
                     child: Text("Br" + myProduct.price!,
                         style: TextStyle(

@@ -33,7 +33,7 @@ class CartItem {
       'cartid': cartid,
       'quantity': '$quantity',
       'total': total,
-      'customerId': cartid,
+      'customerId': customerId,
       'product': product!.toJson()
     };
   }

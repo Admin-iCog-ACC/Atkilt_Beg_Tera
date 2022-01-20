@@ -15,60 +15,37 @@ class Account {
   String? jwtToken;
   Shipping? shipping;
   Billing? billing;
-  bool isVender = false;
-  bool isDeliveryBoy = false;
+  String? token;
+  bool isVendor = false;
+  bool isDelivery = false;
   bool? isDriverAvailable;
 
   Account();
-
   String get fullName =>
       name ?? [firstName ?? '', lastName ?? ''].join(' ').trim();
 
-  ///FluxListing
-  String? role;
-
   Account.fromJson(Map<String, dynamic> json) {
     try {
-      var user = json['user'];
-
+      token = json['token'];
       loggedIn = true;
-      id = json['user_id'].toString();
-      name = user['displayname'];
-      cookie = json['cookie'];
-      username = user['username'];
-      nicename = user['nicename'];
-      firstName = user['firstname'];
-      lastName = user['lastname'];
-      email = user['email'] ?? id;
+      id = json['id'].toString();
+      username = json['username'];
+      firstName = json['firstName'];
+      lastName = json['lastName'];
+      email = json['email'] ?? id;
 
-      userUrl = user['avatar'];
-      var roles = user['role'] as List;
-      var role = roles.firstWhere(
-          (item) => ((item == 'seller') || (item == 'vendor')),
-          orElse: () => null);
-      if (role != null) {
-        isVender = true;
-      } else {
-        isVender = false;
-      }
-      if (user['dokan_enable_selling'] != null &&
-          user['dokan_enable_selling'].toString().isNotEmpty) {
-        isVender = user['dokan_enable_selling'] == 'yes';
-      }
-      role = roles.firstWhere(
-          (item) => ((['delivery_boy', 'driver'].contains(item))),
-          orElse: () => null);
-      if (role != null) {
-        isDeliveryBoy = true;
-      }
+      userUrl = json['avatar'];
+      isDelivery = json['isDelivery'] ?? false;
+      isVendor = json['isVendor'] ?? false;
+
       if (json['shipping'] != null) {
         shipping = Shipping.fromJson(json['shipping']);
       }
       if (json['billing'] != null) {
         billing = Billing.fromJson(json['billing']);
       }
-      if (user['is_driver_available'] != null) {
-        isDriverAvailable = user['is_driver_available'] == 'on';
+      if (json['isDriverAvailable'] != null) {
+        isDriverAvailable = json['isDriverAvailable'] == 'on';
       }
     } catch (e) {
       print(e.toString());
@@ -88,7 +65,7 @@ class Account {
       picture = json['picture'];
       nicename = json['nicename'];
       userUrl = json['url'];
-      isVender = json['isVender'];
+      isVendor = json['isVender'];
       jwtToken = json['jwtToken'];
       if (json['billing'] != null) {
         billing = Billing.fromJson(json['billing']);
@@ -96,5 +73,10 @@ class Account {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  String toString() {
+    return 'Account{id: $id, loggedIn: $loggedIn, name: $name, firstName: $firstName, lastName: $lastName, username: $username, email: $email, nicename: $nicename, userUrl: $userUrl, picture: $picture, cookie: $cookie, jwtToken: $jwtToken, shipping: $shipping, billing: $billing, token: $token, isVendor: $isVendor, isDelivery: $isDelivery, isDriverAvailable: $isDriverAvailable}';
   }
 }

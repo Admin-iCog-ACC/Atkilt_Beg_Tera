@@ -65,20 +65,15 @@ class Product {
       name = parsedJson['name'];
       productTypeId = parsedJson['productTypeId'];
       description = parsedJson['description'] ?? '';
-      shortDescription = parsedJson['short_description'];
+      shortDescription = parsedJson['shortDescription'];
 
       price = parsedJson['price'].toString();
 
       inStock =
-          parsedJson['in_stock'] ?? parsedJson['stock_status'] == 'instock';
-      if (inStock == true) {
-        if (parsedJson['manage_stock'] == true) {
-          inStock = parsedJson['stock_quantity'] > 0;
-        }
-      }
+          parsedJson['inStock'] ?? parsedJson['stock_status'] == 'instock';
 
       totalSales =
-          int.tryParse((parsedJson['total_sales'] ?? 0).toString()) ?? 0;
+          int.tryParse((parsedJson['totalSales'] ?? 0).toString()) ?? 0;
 
       categoryId = parsedJson['categories'] != null &&
               parsedJson['categories'].length > 0
@@ -149,11 +144,11 @@ class Product {
 
   Map<String, dynamic> toJson() {
     return {
-      // 'id': id ?? '',
+      'id': id ?? '',
       'sku': sku ?? '',
       'name': name ?? '',
       'description': description ?? '',
-      'price': price ?? '',
+      'price': double.parse(price!) ?? '',
       'inStock': inStock ?? false,
       'total_sales': totalSales ?? 0,
       'images': images,

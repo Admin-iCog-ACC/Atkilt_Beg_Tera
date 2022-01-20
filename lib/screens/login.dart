@@ -1,8 +1,58 @@
-import 'package:flutter/material.dart';
-import 'package:retailer_app/routes/route_path.dart';
+import 'dart:convert';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Account_API.dart';
+import 'package:retailer_app/constants/Constants.dart';
+import 'package:retailer_app/models/Account.dart';
+import 'package:retailer_app/routes/route_path.dart';
+import 'package:retailer_app/services/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  LoginScreenState createState() => LoginScreenState();
+}
+
+class LoginScreenState extends State<LoginScreen> {
+  final username_controller = TextEditingController();
+  final password_controller = TextEditingController();
+
+  Account currentUser = new Account();
+
+  AccountAPI _accountAPI = AccountAPI();
+
+  late SharedPreferences logindata;
+  late bool newuser;
+
+  ConstVals _constVals = ConstVals();
+  @override
+  void initState() {
+    super.initState();
+    check_if_already_login();
+  }
+
+  void check_if_already_login() async {
+    logindata = await SharedPreferences.getInstance();
+    newuser = (logindata.getBool('login') ?? true);
+    print(newuser);
+    // newuser = true;
+    if (newuser == false) {
+      logindata.getBool('isVendor')!
+          ? Navigator.pushReplacementNamed(
+              context, RoutePaths.merchant_dashboard)
+          : Navigator.pushReplacementNamed(
+              context, RoutePaths.retailer_dashboard);
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    username_controller.dispose();
+    password_controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final myController = TextEditingController();
@@ -41,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
-                        controller: myController,
+                        controller: username_controller,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -71,6 +121,7 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ]),
                       TextFormField(
+                        controller: password_controller,
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         decoration: const InputDecoration(
@@ -95,11 +146,30 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: MaterialButton(
                     onPressed: () {
-                      myController.text == 'retailer'
-                          ? Navigator.pushNamed(
-                              context, RoutePaths.retailer_dashboard)
-                          : Navigator.pushNamed(
-                              context, RoutePaths.merchant_dashboard);
+                      String username = username_controller.text;
+                      String password = password_controller.text;
+                      if (username != '' && password != '') {
+                        _accountAPI.login(username, password).then((value) {
+                          print(value);
+                          print('Successfull');
+                          logindata.setBool('login', false);
+                          logindata.setString('username', username);
+                          logindata.setString('token', value['token']!);
+                          logindata.setString(
+                              'refreshToken', value['refreshToken']!);
+
+                          currentUser = Account.fromJson(value['account']);
+                          logindata.setBool('isVendor', currentUser.isVendor);
+                          logindata.setString('userId', currentUser.id!);
+                          currentUser.isVendor
+                              ? Navigator.pushReplacementNamed(
+                                  context, RoutePaths.merchant_dashboard)
+                              : Navigator.pushReplacementNamed(
+                                  context, RoutePaths.retailer_dashboard);
+                        });
+                        // Navigator.pushNamed(
+                        //     context, RoutePaths.retailer_dashboard);
+                      }
                     },
                     color: Theme.of(context).primaryColor,
                     child: Text(
@@ -124,7 +194,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        print('Register');
+                        Navigator.pushNamed(context, RoutePaths.register_main);
                       },
                       child: Text(
                         'Register',

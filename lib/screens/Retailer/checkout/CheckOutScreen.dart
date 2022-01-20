@@ -640,7 +640,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         ),
                                       ),
                                       Text(
-                                          'Br1' +
+                                          'Br' +
                                               cart!.cartItems![index].product!
                                                   .price!
                                                   .toString(),
@@ -668,7 +668,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                         style: TextStyle(
                                             fontSize: 14,
                                             color: Color(0XFF6B7280))),
-                                    Text('Br250',
+                                    Text('Br' + cart!.totalPrice!.toString(),
                                         style: TextStyle(
                                             fontSize: 14,
                                             color: Color(0XFF6B7280)))

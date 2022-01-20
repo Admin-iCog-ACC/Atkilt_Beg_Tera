@@ -36,6 +36,11 @@ class ProductItem {
     featuredImage = parsedJson['featuredImage'];
   }
 
+//fromJsonList
+  static List<ProductItem> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((item) => ProductItem.fromLocalJson(item)).toList();
+  }
+
   ProductItem.fromJson(Map<String, dynamic> parsedJson) {
     try {
       productId = parsedJson['product_id'].toString();
@@ -58,71 +63,6 @@ class ProductItem {
         }
       }
 
-      featuredImage ??= 'kDefaultImage';
-
-      final metaData = parsedJson['meta_data'];
-      if (metaData is List) {
-        if (parsedJson['product_data'] != null &&
-            parsedJson['product_data']['type'] == 'appointment') {
-          final Map<String, dynamic>? day = metaData.firstWhere(
-              (element) =>
-                  element['key'] == 'wc_appointments_field_start_date_day',
-              orElse: () => null);
-          final Map<String, dynamic>? month = metaData.firstWhere(
-              (element) =>
-                  element['key'] == 'wc_appointments_field_start_date_month',
-              orElse: () => null);
-          final Map<String, dynamic>? year = metaData.firstWhere(
-              (element) =>
-                  element['key'] == 'wc_appointments_field_start_date_year',
-              orElse: () => null);
-          final Map<String, dynamic>? time = metaData.firstWhere(
-              (element) =>
-                  element['key'] == 'wc_appointments_field_start_date_time',
-              orElse: () => null);
-          if (day != null && month != null && year != null && time != null) {
-            final dateTime = DateTime.parse(
-                "${year['value']}-${month['value']}-${day['value']} ${time['value']}");
-            final formatter = DateFormat.yMd().add_jm();
-            addonsOptions = formatter.format(dateTime);
-          }
-        } else {
-          addonsOptions = metaData.map((e) => e['value']).join(', ');
-        }
-
-        for (var attr in metaData) {
-          if (attr['key'] == '_vendor_id') {
-            storeId = attr['value'];
-            storeName = attr['display_value'];
-          }
-        }
-      }
-
-      /// Custom meta_data. Refer to ticket https://support.inspireui.com/mailbox/tickets/9593
-      // if (metaData is List) {
-      //   addonsOptions = '';
-      //   for (var item in metaData) {
-      //     if (['attribute_pa_color'].contains(item['key'])) {
-      //       if (addonsOptions!.isEmpty) {
-      //         addonsOptions = '${item['value']}';
-      //       } else {
-      //         addonsOptions = '$addonsOptions,${item['value']}';
-      //       }
-      //     }
-      //   }
-      // }
-
-      /// For FluxStore Manager
-      if (parsedJson['meta'] != null) {
-        addonsOptions = parsedJson['meta'].map((e) => e['value']).join(', ');
-        parsedJson['meta'].forEach((attr) {
-          for (var val in ['pa_color', 'pa_size']) {
-            if (attr['key'].contains(val)) {
-              attributes.add(attr['value']);
-            }
-          }
-        });
-      }
       id = parsedJson['id'].toString();
       if (parsedJson['delivery_user'] != null) {
         deliveryUser = DeliveryUser.fromJson(parsedJson['delivery_user']);

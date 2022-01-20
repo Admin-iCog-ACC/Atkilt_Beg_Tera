@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/routes/route_path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MerchantDrawer extends StatelessWidget {
+  late SharedPreferences logindata;
+
+  void logout(context) async {
+    logindata = await SharedPreferences.getInstance();
+    logindata.clear();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        RoutePaths.signin, (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -64,6 +74,13 @@ class MerchantDrawer extends StatelessWidget {
             ),
             title: Text('About'),
             onTap: () {},
+          ),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout'),
+            onTap: () {
+              logout(context);
+            },
           ),
         ],
       ),

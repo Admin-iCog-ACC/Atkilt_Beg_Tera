@@ -1,13 +1,17 @@
+import 'dart:convert';
+
+import 'package:retailer_app/models/ProductType.dart';
+
 import 'Product.dart';
 
 class Category {
   int? id;
   String? sku;
   String? name;
-  String? image;
-
   int? totalProduct;
-  List<Product>? products;
+  List<ProductType>? productTypes;
+
+  Category();
 
   Category.fromJson(Map<String, dynamic> parsedJson) {
     if (parsedJson['slug'] == 'uncategorized') {
@@ -17,15 +21,8 @@ class Category {
     try {
       id = parsedJson['id'];
       name = parsedJson['name'].toString();
-
-      totalProduct = parsedJson['count'];
-
-      final image = parsedJson['image'];
-      if (image != null) {
-        this.image = image['src'].toString();
-      } else {
-        this.image = 'kDefaultImage';
-      }
+      productTypes = ProductType().fromJsonList(parsedJson['productTypes']);
+      totalProduct = parsedJson['totalProducts'];
     } catch (e, trace) {
       print(e.toString());
       print(trace.toString());
@@ -34,8 +31,12 @@ class Category {
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'image': {'src': image}
       };
+
+  List<Category> fromJsonList(jsonList) {
+    var json = jsonList ?? [];
+    return List<Category>.from(json.map((e) => Category.fromJson(e)).toList());
+  }
 
   @override
   String toString() => 'Category { id: $id  name: $name}';

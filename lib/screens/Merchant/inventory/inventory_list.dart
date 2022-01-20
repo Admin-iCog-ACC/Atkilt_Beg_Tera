@@ -58,120 +58,125 @@ class InventoryListState extends State<InventoryList> {
         icon: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
       ),
-      body: SingleChildScrollView(
-          child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Container(
-                child: Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      padding: EdgeInsets.all(20),
-                      margin: EdgeInsets.only(bottom: 32),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Products',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.w600),
-                          ),
-                          // Container(
-                          //     child: Row(
-                          //   children: [Icon(Icons.search), TextField()],
-                          // ))
-                        ],
-                      ),
-                    ),
-                    // Container(
-                    //   height: 150,
-                    //   child: ListView.builder(
-                    //       itemCount: 10,
-                    //       itemBuilder: (BuildContext context, int index) {
-                    //         return Column(
-                    //           children: [
-                    //             InventoryProdcutCard(),
-                    //             SizedBox(
-                    //               height: 10,
-                    //             )
-                    //           ],
-                    //         );
-                    //       }),
-                    // ),
-                    Container(
-                      child: DataTable2(
-                          headingRowColor: MaterialStateProperty.all<Color>(
-                              Color(0XFFf7f8f9)),
-                          dataRowColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          columnSpacing: 10,
-                          horizontalMargin: 10,
-                          minWidth: 600,
-                          columns: [
-                            DataColumn2(
-                              label: Text(
-                                'Image',
-                                style: TextStyle(fontWeight: FontWeight.w600),
+      body: myProducts.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5))),
+                          padding: EdgeInsets.all(20),
+                          margin: EdgeInsets.only(bottom: 32),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Products',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.w600),
                               ),
-                              size: ColumnSize.L,
-                            ),
-                            DataColumn(
-                              label: Text('Name',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                            DataColumn(
-                              label: Text('Price/Unit',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                            DataColumn(
-                              label: Text('Quantity',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                            // DataColumn(
-                            //   label: Text('Status',
-                            //       style:
-                            //           TextStyle(fontWeight: FontWeight.w600)),
-                            // ),
-                            DataColumn(
-                              label: Text('Actions',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.w600)),
-                            ),
-                          ],
-                          rows: List<DataRow>.generate(
-                              myProducts.length,
-                              (index) => DataRow(cells: [
-                                    DataCell(
-                                      Text("VF2S3VS45V"),
-                                      onTap: () => Navigator.pushNamed(
-                                          context, RoutePaths.inventory_entry),
-                                    ),
-                                    DataCell(Text(myProducts[index].name!)),
-                                    DataCell(Text(myProducts[index].price!)),
-                                    DataCell(Text(myProducts[index]
-                                            .stockQuantity
-                                            .toString() ??
-                                        '0')),
-                                    // DataCell(Text(myProducts[index].status!)),
-                                    DataCell(Row(
-                                      children: [
-                                        Icon(Icons.delete_outline),
-                                        SizedBox(
-                                          width: 5,
+                              // Container(
+                              //     child: Row(
+                              //   children: [Icon(Icons.search), TextField()],
+                              // ))
+                            ],
+                          ),
+                        ),
+                        // Container(
+                        //   height: 150,
+                        //   child: ListView.builder(
+                        //       itemCount: 10,
+                        //       itemBuilder: (BuildContext context, int index) {
+                        //         return Column(
+                        //           children: [
+                        //             InventoryProdcutCard(),
+                        //             SizedBox(
+                        //               height: 10,
+                        //             )
+                        //           ],
+                        //         );
+                        //       }),
+                        // ),
+                        Container(
+                          child: DataTable2(
+                              headingRowColor: MaterialStateProperty.all<Color>(
+                                  Color(0XFFf7f8f9)),
+                              dataRowColor: MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                              columnSpacing: 10,
+                              horizontalMargin: 10,
+                              minWidth: 600,
+                              columns: [
+                                DataColumn2(
+                                  label: Text(
+                                    'Image',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  size: ColumnSize.L,
+                                ),
+                                DataColumn(
+                                  label: Text('Name',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                DataColumn(
+                                  label: Text('Price/Unit',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                DataColumn(
+                                  label: Text('Quantity',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                // DataColumn(
+                                //   label: Text('Status',
+                                //       style:
+                                //           TextStyle(fontWeight: FontWeight.w600)),
+                                // ),
+                                DataColumn(
+                                  label: Text('Actions',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                              ],
+                              rows: List<DataRow>.generate(
+                                  myProducts.length,
+                                  (index) => DataRow(cells: [
+                                        DataCell(
+                                          Text("-----"),
+                                          onTap: () => Navigator.pushNamed(
+                                              context,
+                                              RoutePaths.inventory_entry),
                                         ),
-                                        Icon(Icons.edit)
-                                      ],
-                                    )),
-                                  ]))),
+                                        DataCell(Text(myProducts[index].name!)),
+                                        DataCell(
+                                            Text(myProducts[index].price!)),
+                                        DataCell(Text(myProducts[index]
+                                            .stockQuantity
+                                            .toString())),
+                                        // DataCell(Text(myProducts[index].status!)),
+                                        DataCell(Row(
+                                          children: [
+                                            Icon(Icons.delete_outline),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Icon(Icons.edit)
+                                          ],
+                                        )),
+                                      ]))),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ))),
+                  ))),
     );
   }
 

@@ -2,11 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
+import 'package:retailer_app/models/Category.dart';
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/repo/product_repo.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
+import 'package:retailer_app/widgets/FAB/cart_fab.dart';
 import 'package:retailer_app/widgets/appbar/transsion_appbar.dart';
 import 'package:retailer_app/widgets/sidebar_drawer/CustomDrawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RetailerDashboardScreen extends StatefulWidget {
   const RetailerDashboardScreen({Key? key}) : super(key: key);
@@ -16,17 +19,37 @@ class RetailerDashboardScreen extends StatefulWidget {
 
 class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
   List<Product> myProducts = [];
+  List<Category> categories = [];
+  List<Product> filteredProducts = [];
+  Category? _selectedCategory;
 
   final ProductApi _api = ProductApi();
+
+  late SharedPreferences logindata;
+  late String username;
 
   @override
   void initState() {
     _api.getProducts().then((value) {
+      _api.getCategories().then((value) {
+        setState(() {
+          categories = value;
+        });
+      });
       setState(() {
         myProducts.addAll(value);
+        filteredProducts = myProducts;
       });
     });
+    initial();
     super.initState();
+  }
+
+  void initial() async {
+    logindata = await SharedPreferences.getInstance();
+    setState(() {
+      username = logindata.getString('username')!;
+    });
   }
 
   @override
@@ -43,12 +66,13 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
 
     return Scaffold(
       key: Key('dashboard'),
+      floatingActionButton: CartFAB(),
       drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Welcome'),
         centerTitle: true,
       ),
-      body: myProducts != null
+      body: filteredProducts != null
           ? CustomScrollView(slivers: [
               TransitionAppBar(
                 // extent: 100,
@@ -85,18 +109,30 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
                       border: Border.all(color: Colors.grey.shade300)),
                   height: 56,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text(
-                        'Filter',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w600),
+                      // Text(
+                      //   'Filter',
+                      //   style: TextStyle(
+                      //       fontSize: 14, fontWeight: FontWeight.w600),
+                      // ),
+                      DropdownButton(
+                        // value: _selectedCategory?.name ?? 'All',
+                        value: _selectedCategory,
+                        hint: Text('Filter By Category'),
+                        items: categories.map((Category category) {
+                          return DropdownMenuItem(
+                            child: Text(category.name!),
+                            value: category,
+                          );
+                        }).toList(),
+                        onChanged: (Category? value) {
+                          _selectedCategory = value;
+                          filterByCategory(value!);
+
+                          print('val:' + value.toString());
+                        },
                       ),
-                      Text(
-                        'Category',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w600),
-                      )
                     ],
                   ),
                 ),
@@ -106,14 +142,14 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
                   (context, index) => Column(
                     children: [
                       ProductCard(
-                        product: myProducts[index],
+                        product: filteredProducts[index],
                       ),
                       SizedBox(
                         height: 12,
                       )
                     ],
                   ),
-                  childCount: myProducts.length - 1,
+                  childCount: filteredProducts.length - 1,
                 ),
               ),
             ])
@@ -121,10 +157,11 @@ class RetailerDashboardScreenState extends State<RetailerDashboardScreen> {
     );
   }
 
-  void filterByCategory(int category) {
+  void filterByCategory(Category category) {
     setState(() {
-      myProducts = myProducts
-          .where((product) => product.productType!.categoryId == category)
+      filteredProducts = myProducts
+          .where((product) =>
+              product.productTypeId == category.productTypes!.first.id)
           .toList();
     });
   }

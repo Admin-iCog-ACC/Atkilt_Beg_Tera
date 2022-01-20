@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:retailer_app/models/intities/ProductTypeAttribute.dart';
 
-class OptionsQueastion extends StatelessWidget {
+// class OptionsQueastion extends StatefulWidget {
+//   ProductTypeAttribute? productTypeAttribute;
+//   final onSetAttribut;
+//   OptionsQueastion({@required this.productTypeAttribute, this.onSetAttribut});
+
+//   @override
+//   OptionsQueastionState createState() => OptionsQueastionState();
+// }
+
+class OptionsQueastionState extends StatelessWidget {
   ProductTypeAttribute? productTypeAttribute;
-  final onSetAttribut;
-  OptionsQueastion({@required this.productTypeAttribute, this.onSetAttribut});
+  final onCheckBox;
+  bool isSelected;
+  OptionsQueastionState(
+      {@required this.productTypeAttribute,
+      this.onCheckBox,
+      required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +40,11 @@ class OptionsQueastion extends StatelessWidget {
               ? Column(
                   children: [
                     ...productTypeAttribute!.options!.map((option) {
-                      return RadioListTile(
-                        toggleable: true,
-                        // selected: true,
+                      return CheckboxListTile(
                         title: Text(option.value ?? ""),
-                        value: option.value ?? "",
-                        groupValue: productTypeAttribute?.id ?? "",
-                        onChanged: (value) {
-                          // productTypeAttribute!.id = value!.id;
-                          onSetAttribut(value);
+                        value: isSelected,
+                        onChanged: (bool? value) {
+                          onCheckBox(value, option);
                         },
                       );
                     }).toList()

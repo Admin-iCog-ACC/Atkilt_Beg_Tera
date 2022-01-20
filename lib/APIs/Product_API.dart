@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
+import 'package:retailer_app/services/api_web.dart' as http;
 import 'package:retailer_app/constants/Constants.dart';
+import 'package:retailer_app/models/Category.dart';
 
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/models/ProductType.dart';
@@ -12,12 +13,15 @@ import 'package:retailer_app/models/intities/product_attribute.dart';
 import 'dart:async';
 
 import 'package:retailer_app/services/api_services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductApi extends APIService {
+  ConstVals constVals = ConstVals();
+  late SharedPreferences logindata;
+  Map<String, String>? header = authHeader;
+
   Future<List<Product>> getProducts() => http
-          .get(
-        Uri.parse('$baseURL/products'),
-      )
+          .get(APIService(url: Uri.parse('${constVals.getBaseURL()}/products')))
           .then((response) {
         print(response.body);
         print('this api' +
@@ -25,11 +29,25 @@ class ProductApi extends APIService {
         return Product().fromJsonList(returnResponse(response));
       });
 
+  Future<List<Category>> getCategories() => http
+          .get(
+        APIService(url: Uri.parse('${constVals.getBaseURL()}/categories')),
+      )
+          .then((response) {
+        print(response.body);
+        print('this api' +
+            Category()
+                .fromJsonList(returnResponse(response))
+                .length
+                .toString());
+        return Category().fromJsonList(returnResponse(response));
+      });
+
   Future<List<ProductType>> getProductTypes() {
     return http
-        .get(
-      Uri.parse('$baseURL/productTypes'),
-    )
+        .get(APIService(
+      url: Uri.parse('${constVals.getBaseURL()}/productTypes'),
+    ))
         .then((response) {
       print(response.body);
       print('this api' +
@@ -43,9 +61,10 @@ class ProductApi extends APIService {
 
   Future<List<ProductTypeAttribute>> getAttributesQuestion(int productTypeId) {
     return http
-        .get(
-      Uri.parse('$baseURL/productTypes/$productTypeId/attributes'),
-    )
+        .get(APIService(
+      url: Uri.parse(
+          '${constVals.getBaseURL()}/productTypes/$productTypeId/attributes'),
+    ))
         .then((response) {
       print(response.body);
       print('this api' +
@@ -58,9 +77,9 @@ class ProductApi extends APIService {
   }
 
   Future<List<Product>> getProductsByType(int typeId) => http
-          .get(
-        Uri.parse('$baseURL/products/type/$typeId'),
-      )
+          .get(APIService(
+              url:
+                  Uri.parse('${constVals.getBaseURL()}/products/type/$typeId')))
           .then((response) {
         print(response.body);
         print('this api' +
@@ -71,9 +90,9 @@ class ProductApi extends APIService {
   Future<List<Product>> getProductsByTypeAndAttribute(
           int typeId, int attributeId) =>
       http
-          .get(
-        Uri.parse('$baseURL/products/type/$typeId/attribute/$attributeId'),
-      )
+          .get(APIService(
+              url: Uri.parse(
+                  '${constVals.getBaseURL()}/products/type/$typeId/attribute/$attributeId')))
           .then((response) {
         print(response.body);
         print('this api' +
@@ -84,10 +103,10 @@ class ProductApi extends APIService {
   Future<List<Product>> getProductsByTypeAndAttributeAndValue(
           int typeId, int attributeId, int valueId) =>
       http
-          .get(
-        Uri.parse(
-            '$baseURL/products/type/$typeId/attribute/$attributeId/value/$valueId'),
-      )
+          .get(APIService(
+        url: Uri.parse(
+            '${constVals.getBaseURL()}/products/type/$typeId/attribute/$attributeId/value/$valueId'),
+      ))
           .then((response) {
         print(response.body);
         print('this api' +
@@ -106,7 +125,7 @@ class ProductApi extends APIService {
     });
     String result = await dio
         .post(
-      '$baseURL/upload',
+      '${constVals.getBaseURL()}/upload',
       data: data,
     )
         .then((response) {
@@ -119,11 +138,10 @@ class ProductApi extends APIService {
   Future<Product> addProduct(Product product, int productTypeId) {
     print(product.toJson());
     return http
-        .post(Uri.parse('$baseURL/productTypes/$productTypeId/products'),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode(product.toJson()))
+        .post(APIService(
+            url: Uri.parse(
+                '${constVals.getBaseURL()}/productTypes/$productTypeId/products'),
+            body: jsonEncode(product.toJson())))
         .then((value) {
       return Product.fromJson(returnResponse(value));
     });

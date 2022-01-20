@@ -32,7 +32,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const MerchantDashboardScreen());
       case RoutePaths.signin:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(builder: (_) => LoginScreen());
       case RoutePaths.register_main:
         return MaterialPageRoute(builder: (_) => const RegisterMain());
       case RoutePaths.register_secondary:

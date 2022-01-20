@@ -1,5 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:retailer_app/APIs/Order_API.dart';
 import 'package:retailer_app/models/Order.dart';
 import 'package:retailer_app/routes/route_path.dart';
 import 'package:retailer_app/widgets/Cards/inventory_prodcut_card.dart';
@@ -15,6 +16,8 @@ class OrderDetailScreen extends StatefulWidget {
 
 class OrderDetailScreenState extends State<OrderDetailScreen> {
   final List<String> _dropdownValues = ["One", "Two", "Three", "Four", "Five"];
+  String? _selectedStatus;
+  OrderAPI _orderAPI = OrderAPI();
   Order myOrder = Order();
   @override
   void initState() {
@@ -62,20 +65,31 @@ class OrderDetailScreenState extends State<OrderDetailScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             DropdownButton(
-                              hint: Text('Order Status'),
+                              hint: Text(widget.order.status),
+                              value: _selectedStatus,
                               items: <String>[
-                                'processed',
+                                'Order Processed',
                               ].map((String value) {
                                 return new DropdownMenuItem<String>(
                                   value: value,
                                   child: new Text(value),
                                 );
                               }).toList(),
-                              onChanged: (String? value) {},
+                              onChanged: (String? value) {
+                                setState(() {
+                                  _selectedStatus = value;
+                                });
+                              },
                             ),
                             MaterialButton(
                               height: 40,
-                              onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  _orderAPI
+                                      .updateOrder(myOrder)
+                                      .then((value) => {});
+                                });
+                              },
                               color: Theme.of(context).primaryColor,
                               child: Text(
                                 'Update',

@@ -37,10 +37,10 @@ class Address {
     city = parsedJson['city'] ?? '';
 
     email = parsedJson['email'] ?? '';
-    // final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
-    // if (alphanumeric.hasMatch(firstName!)) {
-    //   phoneNumber = firstName;
-    // }
+    final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
+    if (alphanumeric.hasMatch(firstName!)) {
+      phoneNumber = firstName;
+    }
     phoneNumber = parsedJson['phone'] ?? '';
   }
 

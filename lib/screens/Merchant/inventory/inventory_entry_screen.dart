@@ -691,25 +691,27 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             if (_productTypeAttributes != null)
                               ..._productTypeAttributes
                                   .map((productTypeAttribut) {
-                                return OptionsQueastion(
+                                bool isChecked = false;
+                                return OptionsQueastionState(
+                                  isSelected: isChecked,
                                   productTypeAttribute: productTypeAttribut,
-                                  onSetAttribut: (value) {
-                                    print('object: selected vakl $value');
-                                    print(
-                                        'object: selected vakl ${productTypeAttribut.id}');
-
-                                    myProduct.attributes!.add(ProductAttribute(
-                                        id: productTypeAttribut.id,
-                                        value: value,
-                                        productTypeAttribute:
-                                            productTypeAttribut,
-                                        productTypeAttributeID:
-                                            productTypeAttribut.id));
-
-                                    setState(() {});
+                                  onCheckBox: (value, option) {
+                                    setState(() {
+                                      print(isChecked);
+                                      print(option.value);
+                                      print(value);
+                                      isChecked = value;
+                                    });
                                   },
                                 );
                               }).toList(),
+                            // Checkbox(
+                            //     value: isChecked,
+                            //     onChanged: (val) {
+                            //       setState(() {
+                            //         isChecked = val!;
+                            //       });
+                            //     }),
                             //TODO: Add more fields for product information
                             // if (attributes.isNotEmpty)
                             //   Align(

@@ -9,10 +9,15 @@ class Cart {
   Cart();
 
   Cart.fromJson(json) {
-    id = json["id"];
-    cartItems = CartItem().fromJsonList(json["cartItems"]);
-    totalPrice = json['total'].toString();
-    accountid = json["accountId"] ?? '';
+    try {
+      id = json["id"];
+      cartItems = CartItem().fromJsonList(json["cartItems"]);
+      totalPrice = json['total'].toString();
+      accountid = json["accountId"] ?? '';
+    } catch (e, trace) {
+      print(e.toString());
+      print(trace.toString());
+    }
   }
 
   // Map<String, dynamic> toJson() {

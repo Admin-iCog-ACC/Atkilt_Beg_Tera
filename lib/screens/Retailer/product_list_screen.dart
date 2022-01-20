@@ -3,6 +3,7 @@ import 'package:retailer_app/APIs/Product_API.dart';
 
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/widgets/Cards/prodcut_card.dart';
+import 'package:retailer_app/widgets/FAB/cart_fab.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({Key? key}) : super(key: key);
@@ -31,6 +32,7 @@ class ProductListScreenState extends State<ProductListScreen> {
     return Scaffold(
       key: Key("homePage"),
       // drawer: CustomDrawer(),
+      floatingActionButton: CartFAB(),
       appBar: AppBar(
         title: Text("Products"),
       ),

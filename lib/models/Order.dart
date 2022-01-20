@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:retailer_app/models/Cart.dart';
 import 'intities/address.dart';
 import 'intities/shipping_location.dart';
-import 'intities/store_delivry_date.dart';
 
 import 'intities/Cart_Item.dart';
 import 'intities/delivery_status.dart';
@@ -35,7 +34,7 @@ enum OrderStatus {
 }
 
 class Order {
-  String? id;
+  int? id;
   String? number;
   String? status;
   DateTime? createdAt;
@@ -48,7 +47,7 @@ class Order {
   String? shippingMethodTitle;
   String? customerNote;
   String? customerId;
-  List<ProductItem> lineItems = [];
+  List<ProductItem> items = [];
   Address? billing;
   Address? shipping;
   Cart? cart;
@@ -59,13 +58,13 @@ class Order {
   UserShippingLocation? userShippingLocation;
   String? deliveryDate;
 
-  int get totalQuantity {
-    var quantity = 0;
-    for (var item in lineItems) {
-      quantity += item.quantity ?? 0;
-    }
-    return quantity;
-  }
+  // int get totalQuantity {
+  //   var quantity = 0;
+  //   for (var item in lineItems) {
+  //     quantity += item.quantity ?? 0;
+  //   }
+  //   return quantity;
+  // }
 
   Order({this.id, this.number, this.status, this.createdAt, this.total});
 
@@ -105,71 +104,30 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> parsedJson) {
     try {
-      id = parsedJson['id'].toString();
-      subtotal = double.parse(parsedJson['subTotal'].toString());
-      customerNote = parsedJson['customer_note'];
       cart = Cart.fromJson(parsedJson['Cart']);
+      id = parsedJson['id'];
       number = parsedJson['number'];
       status = parsedJson['status'];
-      createdAt = parsedJson['createdAt'] != null
-          ? DateTime.parse(parsedJson['createdAt'])
-          : DateTime.now();
-      dateModified = parsedJson['updatedAt'] != null
-          ? DateTime.parse(parsedJson['updatedAt'])
-          : DateTime.now();
-      total = parsedJson['total'] != null
-          ? double.parse(parsedJson['total'].toString())
-          : 0.0;
-      totalTax = double.parse(parsedJson['totalTax'].toString());
+      createdAt = DateTime.parse(parsedJson['createdAt']);
+      dateModified = DateTime.parse(parsedJson['updatedAt']);
+      total = parsedJson['total'];
+      totalTax = parsedJson['totalTax'];
       totalShipping = double.parse(parsedJson['totalShipping'].toString());
       paymentMethodTitle = parsedJson['payment_method_title'];
-      paymentMethod = parsedJson['payment_method'];
+      paymentMethod = parsedJson['paymentMethod'];
+      shippingMethodTitle = parsedJson['shipping_method_title'];
+      customerNote = parsedJson['customer_note'];
+      customerId = parsedJson['customer_id'];
+      // items = ProductItem.fromJsonList(parsedJson['lineItems']);
+      billing = Address.fromJson(parsedJson['billingAddress']);
+      shipping = Address.fromJson(parsedJson['shippingAddress']);
 
-      parsedJson['line_items']?.forEach((item) {
-        lineItems.add(ProductItem.fromJson(item));
-        quantity += int.parse("${item["quantity"]}");
-      });
-
-      // billing =
-      //     Address.fromJson(parsedJson['billingAddress'] );
-      // shipping =
-      //     Address.fromJson(parsedJson['shippingAddress']);
-      shippingMethodTitle = parsedJson['shipping_lines'] != null &&
-              parsedJson['shipping_lines'].length > 0
-          ? parsedJson['shipping_lines'][0]['method_title']
-          : null;
-      deliveryStatus =
-          parseDeliveryStatus(parsedJson['delivery_status'] ?? 'pending');
-      if (parsedJson['user_location'] != null) {
-        userShippingLocation =
-            UserShippingLocation.fromJson(parsedJson['user_location']);
-      }
-
-      customerId = parsedJson['customer_id'].toString();
-
-      /// GET AFTERSHIP TRACKING & DELIVERY DATE
-      if (parsedJson['meta_data'] != null) {
-        var providerName = '';
-        var trackingNumber = '';
-        for (var item in parsedJson['meta_data']) {
-          if (item['key'] == '_aftership_tracking_number') {
-            trackingNumber = item['value'];
-          }
-          if (item['key'] == '_aftership_tracking_provider_name') {
-            providerName = item['value'];
-          }
-          if (item['key'] == '_orddd_timestamp') {
-            var format = DateFormat('dd-MM-yyyy');
-            if (item['value'] != null && item['value'].isNotEmpty) {
-              var timeStamp = int.parse(item['value'].toString());
-              timeStamp = timeStamp * 1000;
-              deliveryDate = format.format(
-                DateTime.fromMillisecondsSinceEpoch(timeStamp),
-              );
-            }
-          }
-        }
-      }
+      subtotal = parsedJson['subTotal'];
+      deliveryStatus = parseDeliveryStatus(parsedJson['delivery_status']);
+      quantity = parsedJson['quantity'];
+      userShippingLocation =
+          UserShippingLocation.fromJson(parsedJson['user_shipping_location']);
+      deliveryDate = parsedJson['delivery_date'];
     } catch (e, trace) {
       print(e.toString());
       print(trace.toString());
@@ -190,10 +148,10 @@ class Order {
         : 0.0;
     paymentMethodTitle = parsedJson['payment_method_title'];
 
-    parsedJson['line_items']?.forEach((item) {
-      lineItems.add(ProductItem.fromLocalJson(item));
-      quantity += int.parse("${item["quantity"]}");
-    });
+    // parsedJson['line_items']?.forEach((item) {
+    //   lineItems.add(ProductItem.fromLocalJson(item));
+    //   quantity += int.parse("${item["quantity"]}");
+    // });
 
     billing = Address.fromLocalJson(parsedJson['billing']);
     shipping = Address.fromLocalJson(parsedJson['shipping']);
@@ -204,7 +162,7 @@ class Order {
   }
 
   Map<String, dynamic> toOrderJson(CartItem cartModel, userId) {
-    var items = lineItems.map((index) {
+    var listitems = items.map((index) {
       return index.toJson();
     }).toList();
 
@@ -218,7 +176,7 @@ class Order {
       'number': number,
       'billing': billing?.toJson(),
       'shipping': shipping?.toJson(),
-      'line_items': items,
+      'line_items': listitems,
       'id': id,
       'date_created': createdAt.toString(),
       'payment_method_title': paymentMethodTitle
@@ -228,6 +186,11 @@ class Order {
   List<Order> fromJsonList(jsonlist) {
     var json = jsonlist ?? [];
     return List<Order>.from(json.map((item) => Order.fromJson(item)));
+  }
+
+  @override
+  String toString() {
+    return 'Order{id: $id,items: $items ,total: $total, subtotal: $subtotal, customerNote: $customerNote, cart: $cart, number: $number, status: $status, createdAt: $createdAt, dateModified: $dateModified, totalTax: $totalTax, totalShipping: $totalShipping, paymentMethodTitle: $paymentMethodTitle, paymentMethod: $paymentMethod, billing: $billing, shipping: $shipping, shippingMethodTitle: $shippingMethodTitle, deliveryStatus: $deliveryStatus, userShippingLocation: $userShippingLocation, customerId: $customerId, deliveryDate: $deliveryDate}';
   }
 }
 

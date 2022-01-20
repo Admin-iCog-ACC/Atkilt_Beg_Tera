@@ -37,19 +37,23 @@ class OrderListScreenSate extends State<RetailerOrderListScreen> {
         appBar: AppBar(
           title: Text('My Orders'),
         ),
-        body: Padding(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 40),
-          child: ListView.builder(
-              itemCount: _orders.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    OrderCard(
-                      order: _orders[index],
-                    ),
-                  ],
-                );
-              }),
-        ));
+        body: _orders.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : Padding(
+                padding: EdgeInsets.only(left: 20, right: 20, top: 40),
+                child: ListView.builder(
+                    itemCount: _orders.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          OrderCard(
+                            order: _orders[index],
+                          ),
+                        ],
+                      );
+                    }),
+              ));
   }
 }

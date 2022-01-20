@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:retailer_app/routes/route_path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomDrawer extends StatefulWidget {
   @override
@@ -7,6 +10,20 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class CustomDrawerState extends State<CustomDrawer> {
+  late SharedPreferences logindata;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void logout() async {
+    logindata = await SharedPreferences.getInstance();
+    logindata.clear();
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        RoutePaths.signin, (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -39,19 +56,19 @@ class CustomDrawerState extends State<CustomDrawer> {
             },
           ),
           ListTile(
-            leading: Icon(Icons.shopping_bag_outlined),
-            title: Text('Checkout'),
-            onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_checkut);
-            },
-          ),
-          ListTile(
             leading: Icon(
               Icons.shopping_cart_outlined,
             ),
             title: Text('Cart'),
             onTap: () {
               Navigator.pushNamed(context, RoutePaths.retailer_cart);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.shopping_bag_outlined),
+            title: Text('Checkout'),
+            onTap: () {
+              Navigator.pushNamed(context, RoutePaths.retailer_checkut);
             },
           ),
           Divider(indent: 20.0),
@@ -63,7 +80,7 @@ class CustomDrawerState extends State<CustomDrawer> {
               'Profile',
             ),
             onTap: () {
-              Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
+              // Navigator.pushNamed(context, RoutePaths.retailer_dashboard);
             },
           ),
           ListTile(
@@ -75,8 +92,7 @@ class CustomDrawerState extends State<CustomDrawer> {
             leading: Icon(Icons.logout_outlined),
             title: Text('Logout'),
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  RoutePaths.signin, (Route<dynamic> route) => false);
+              logout();
             },
           ),
           ListTile(

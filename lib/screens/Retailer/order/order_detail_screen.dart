@@ -21,6 +21,8 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
 
   int upperBound = 6;
 
+  Order myOrder = Order();
+
   Color getColor(int index) {
     if (index == _processIndex) {
       return inProgressColor;
@@ -62,7 +64,15 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                       Text(
                         'Order Details',
                         style: TextStyle(fontWeight: FontWeight.w600),
-                      )
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: Text(
+                          ' Status: ' + widget.order.status,
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -286,7 +296,7 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                       Container(
                         height: 200,
                         child: ListView.builder(
-                            itemCount: 5,
+                            itemCount: widget.order.cart.cartItems.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Container(
                                   padding: EdgeInsets.only(
@@ -303,9 +313,14 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                           children: [
                                             SizedBox(
                                               height: 64,
-                                              width: 64,
-                                              child: Image.network(
-                                                  'https://pickbazarlaravel.s3.ap-southeast-1.amazonaws.com/192/steak_okxpjo.jpg'),
+                                              // width: 64,
+                                              // child: Image.network(widget
+                                              //     .order
+                                              //     .cart
+                                              //     .cartItems[index]
+                                              //     .product
+                                              //     .images
+                                              //     .first),
                                             ),
                                             Container(
                                               margin: EdgeInsets.only(left: 16),
@@ -315,13 +330,25 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                                 children: [
                                                   Padding(
                                                     padding: EdgeInsets.only(),
-                                                    child: Text('Tomato'),
+                                                    child: Text(widget
+                                                        .order
+                                                        .cart
+                                                        .cartItems[index]
+                                                        .product
+                                                        .name),
                                                   ),
                                                   Padding(
                                                       padding: EdgeInsets.only(
                                                           bottom: 4),
                                                       child: Text(
-                                                        'Br12',
+                                                        'Br' +
+                                                            widget
+                                                                .order
+                                                                .cart
+                                                                .cartItems[
+                                                                    index]
+                                                                .product
+                                                                .price,
                                                         style: TextStyle(
                                                             color: Theme.of(
                                                                     context)
@@ -335,7 +362,9 @@ class RetailerOrderDetailScreenState extends State<RetailerOrderDetailScreen> {
                                       ),
                                       Container(
                                         padding: EdgeInsets.all(16),
-                                        child: Text('1'),
+                                        child: Text(widget.order.cart
+                                            .cartItems[index].quantity
+                                            .toString()),
                                       )
                                     ],
                                   ));

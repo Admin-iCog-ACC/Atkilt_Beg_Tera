@@ -46,85 +46,94 @@ class OrderListScreenState extends State<OrderListScreen> {
           ),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
+        body: _orders.isEmpty
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Padding(
                   padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.only(bottom: 32),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Column(
                     children: [
-                      Text(
-                        'Orders',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w700),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(20),
+                        margin: EdgeInsets.only(bottom: 32),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Orders',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: DataTable2(
+                            headingRowColor: MaterialStateProperty.all<Color>(
+                                Color(0XFFf7f8f9)),
+                            dataRowColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            columnSpacing: 10,
+                            horizontalMargin: 10,
+                            minWidth: 600,
+                            columns: [
+                              DataColumn2(
+                                label: Text(
+                                  'Order ID',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                size: ColumnSize.L,
+                              ),
+                              DataColumn(
+                                label: Text('Order Date',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                              ),
+                              DataColumn(
+                                label: Text('Status',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                              ),
+                              DataColumn(
+                                label: Text('Action',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600)),
+                              ),
+                            ],
+                            rows: List<DataRow>.generate(
+                                _orders.length,
+                                (index) => DataRow(cells: [
+                                      DataCell(
+                                        Text(
+                                          _orders[index].id.toString(),
+                                        ),
+                                        onTap: () => Navigator.pushNamed(
+                                            context,
+                                            RoutePaths.merchant_order_detail,
+                                            arguments: _orders[index]),
+                                      ),
+                                      DataCell(Text(_orders[index]
+                                          .dateModified
+                                          .toString())),
+                                      DataCell(Text(
+                                          _orders[index].status.toString())),
+                                      DataCell(Icon(Icons.delete_outline)),
+                                    ]))),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: Row(
+                          children: [],
+                        ),
                       )
                     ],
                   ),
                 ),
-                Container(
-                  child: DataTable2(
-                      headingRowColor:
-                          MaterialStateProperty.all<Color>(Color(0XFFf7f8f9)),
-                      dataRowColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      columnSpacing: 10,
-                      horizontalMargin: 10,
-                      minWidth: 600,
-                      columns: [
-                        DataColumn2(
-                          label: Text(
-                            'Order ID',
-                            style: TextStyle(fontWeight: FontWeight.w600),
-                          ),
-                          size: ColumnSize.L,
-                        ),
-                        DataColumn(
-                          label: Text('Order Date',
-                              style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
-                        DataColumn(
-                          label: Text('Status',
-                              style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
-                        DataColumn(
-                          label: Text('Action',
-                              style: TextStyle(fontWeight: FontWeight.w600)),
-                        ),
-                      ],
-                      rows: List<DataRow>.generate(
-                          10,
-                          (index) => DataRow(cells: [
-                                DataCell(
-                                  Text(
-                                    _orders[index].id.toString(),
-                                  ),
-                                  onTap: () => Navigator.pushNamed(
-                                      context, RoutePaths.merchant_order_detail,
-                                      arguments: _orders[index]),
-                                ),
-                                DataCell(Text(
-                                    _orders[index].dateModified.toString())),
-                                DataCell(
-                                    Text(_orders[index].status.toString())),
-                                DataCell(Icon(Icons.delete_outline)),
-                              ]))),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: [],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
+              ));
   }
 }
