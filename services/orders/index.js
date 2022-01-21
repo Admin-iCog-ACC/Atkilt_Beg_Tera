@@ -20,6 +20,8 @@ module.exports = {
         switch(currentStatus.toLowerCase()){
             case 'order received':
                 return 'Order Processed';
+            case 'order processed':
+                return 'Delivery In Progress'
             default:
                 return currentStatus;    
         }
