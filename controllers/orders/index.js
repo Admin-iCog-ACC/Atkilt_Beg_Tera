@@ -1,11 +1,9 @@
 const orderServices = require("../../services/orders")
-
+const requestServices = require("../../services/request")
 const Cart = require('../../models').Cart;
 const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
 const Order = require('../../models').Order;
-const requestServices = require('../../services/request')
-
 const Sequelize =  require("sequelize")
 const orderWebsocket = require("../../websockets/listeners/order")
 const notificationService = require("../../services/notifications")
@@ -37,18 +35,13 @@ module.exports = {
                             model: Product,
                         }
                     }
-                },
-                    // where: {
-                    // cartId: {
-                    //     [Sequelize.Op.in]: carts.map(cart => cart.id)
-                    // }
-                // }
+                }
             })
             .then(orders => res.status(200).send(orders))
             .catch(error => res.status(400).send(error))
         
         })
-        // ).then(orders =>  {
+        // .then(orders =>  {
         //     console.log("ORDERS: ", orders)
         //     res.status(200).send(orders)})
         .catch(error => {
@@ -90,8 +83,7 @@ module.exports = {
                 })
             })
             
-            await notificationService.sendNotification(req.body.message)
-
+            await notificationService.sendNotification("New Order Recieved", order)
             console.log("Notification Sent to Drivers")
             
         }

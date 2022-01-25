@@ -6,5 +6,5 @@ console.log(process.env)
 
 module.exports = {
     oneSignalApp: process.env.ONE_SIGNAL_APP,
-    oneSignalApiKey: process.env.ONE_SIGNAL_API_KEY
+    oneSignalApiKey: process.env.ONE_SIGNAL_KEY
 }

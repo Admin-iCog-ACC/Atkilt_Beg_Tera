@@ -2,9 +2,9 @@ const secrets = require("../../config/secrets")
 const OneSignal = require("onesignal-node");
 const { oneSignalApiKey } = require("../../config/secrets");
 
-const sendNotification = async(message) => {
+const sendNotification = async(message, data) => {
     const client = new OneSignal.Client(secrets.oneSignalApp,oneSignalApiKey);
-    const notification = createNotification(message)
+    const notification = createNotification(message, data)
     console.log("SENDING NOTIFICATION")
     try {
         const response = await client.createNotification(notification);
@@ -20,12 +20,12 @@ const sendNotification = async(message) => {
 }   
 
 
-const createNotification = (message) => {
+const createNotification = (message, data) => {
     const notification = {
         contents: {
             'en': message,
         },
-        
+        data: data,
         included_segments: ['Subscribed Users'],
     };
 
@@ -35,9 +35,4 @@ const createNotification = (message) => {
 module.exports = {
     sendNotification,
     createNotification
-}
-
-
-module.exports = {
-
 }

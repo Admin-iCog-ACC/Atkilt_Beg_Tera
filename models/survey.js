@@ -27,11 +27,10 @@ module.exports = (sequelize, DataTypes) => {
     productType: DataTypes.STRING,
     averageRevenue: DataTypes.STRING,
     customerLocation: DataTypes.STRING,
-
     averageDemandPerWeek: DataTypes.STRING,
     mostOrderedProduct: DataTypes.STRING,
-    AverageDeliveryFee: DataTypes.STRING,
-    usualSuppllier: DataTypes.STRING,
+    averageDeliveryFee: DataTypes.STRING,
+    usualSupplier: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Survey',
