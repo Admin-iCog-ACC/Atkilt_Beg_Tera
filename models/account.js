@@ -26,6 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'vendorId',
         as: "vendor"
       })
+      Account.hasOne(models.Driver, {
+        foreignKey: "accountId",
+        as: "driver"
+      })
     }
   };
   Account.init({

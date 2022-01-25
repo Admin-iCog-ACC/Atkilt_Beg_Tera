@@ -3,6 +3,13 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var app = express();
+// var expressWs = require('express-ws')(app);
+
+// var expressWs = require('express-ws');
+
+// var expressWs = expressWs(express());
+// var app = expressWs.app;
 
 var cartsRouter = require("./routes/carts")
 var ordersRouter = require("./routes/orders")
@@ -17,7 +24,7 @@ var authRouter = require("./routes/auth")
 var surveyRouter = require("./routes/survey")
 
 var authMiddleware = require("./middlewares/authMiddleware")
-var app = express();
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -29,7 +36,8 @@ app.use(cookieParser());
 
 //Defining routes: all middleware should go in the definition logic of these routes
 app.use('/', indexRouter);
-app.use("/carts", authMiddleware.verifyToken, cartsRouter);
+// app.use('/', indexRouter);
+app.use("/carts", cartsRouter);
 app.use("/auth", authRouter)
 app.use("/orders", authMiddleware.verifyToken, ordersRouter);
 app.use("/products", authMiddleware.verifyToken, productsRouter);

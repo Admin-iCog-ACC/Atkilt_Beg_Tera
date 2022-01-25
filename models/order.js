@@ -20,6 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "cartId",
         onDelete: "SET NULL"
       })
+
+      Order.hasMany(models.DeliveryResponse, {
+        foreignKey: "orderId",
+        as: "deliveryResponses"
+      })
     }
   };
   Order.init({

@@ -7,6 +7,9 @@ const Order = require('../../models').Order;
 const requestServices = require('../../services/request')
 
 const Sequelize =  require("sequelize")
+const orderWebsocket = require("../../websockets/listeners/order")
+const notificationService = require("../../services/notifications")
+
 module.exports = {
     getAllOrders: async(req, res, next)=>{
         // res.send({"status": "All Orders"})
@@ -78,12 +81,22 @@ module.exports = {
         }
 
         order.status = orderServices.getNextStatus(order.status)
-        
+
+        if(order.status == 'Order Processed'){
+            
+            orderWebsocket.server.clients.forEach(client => {
+                client.emit("order-delivery-request", {
+                    order: order.dataValues
+                })
+            })
+            
+            await notificationService.sendNotification(req.body.message)
+
+            console.log("Notification Sent to Drivers")
+            
+        }
         return order.save()
         .then( order => res.status(200).send(order))
         .catch(error => res.status(500).send(error))
-        // res.send({
-        //     "status": "progressing Order" + req.params.id
-        // })
     }
 }
