@@ -23,7 +23,15 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     filledBy: DataTypes.STRING,
     addressLatitude: DataTypes.FLOAT,
-    addressLongitude: DataTypes.FLOAT
+    addressLongitude: DataTypes.FLOAT,
+    productType: DataTypes.STRING,
+    averageRevenue: DataTypes.STRING,
+    customerLocation: DataTypes.STRING,
+
+    averageDemandPerWeek: DataTypes.STRING,
+    mostOrderedProduct: DataTypes.STRING,
+    AverageDeliveryFee: DataTypes.STRING,
+    usualSuppllier: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Survey',
