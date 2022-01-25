@@ -51,10 +51,14 @@ module.exports = {
     },
 
     getOrderById: async(req, res, next) => {
-        console.log("Called")
-        res.send({
-            "status" : `Order ${req.params.id}`
-        })
+        return Order
+            .findAll({
+                where: {
+                    id: req.params.id
+                }
+            })
+            .then(order => res.status(200).send(order[0]))
+            .catch(error => res.status(400).send(error));
     },
 
     createOrder: async(req, res, next) => {
