@@ -87,7 +87,7 @@ module.exports = {
                 })
             })
             
-            await notificationService.sendNotification("New Order Recieved", order)
+            await notificationService.sendNotification("New Order Recieved", order, `pos://sample.com/?id=${order.id}`)
             console.log("Notification Sent to Drivers")
             
         }
