@@ -21,7 +21,11 @@ module.exports = {
             case 'order received':
                 return 'Order Processed';
             case 'order processed':
-                return 'Delivery In Progress'
+                return 'Delivery Personnel Assigned';
+            case 'delivery personnel assigned':
+                return "Delivery In Progress"
+            case 'delivery in progress':
+                return 'Delivered'
             default:
                 return currentStatus;    
         }
