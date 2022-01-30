@@ -15,6 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "categoryId",
         as: "productTypes"
       })
+
+      Category.hasOne(models.Category, {
+        foreignKey: "parentCategoryId",
+        as: "ParentCategory"
+      })
+
+      Category.belongsTo(models.Category, {
+        foreignKey: "parentCategoryId",
+        onDelete: "CASCADE"
+      })
     }
   };
   Category.init({
