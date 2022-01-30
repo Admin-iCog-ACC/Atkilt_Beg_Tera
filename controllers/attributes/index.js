@@ -22,7 +22,7 @@ module.exports = {
         }
 
         return attribute.destroy()
-        .then(_ => res.status(204).send())
+        .then(_ => res.status(200).send())
         .catch(error => res.status(400).send(error));
         
     },

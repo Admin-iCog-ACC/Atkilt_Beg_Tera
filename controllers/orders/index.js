@@ -16,7 +16,7 @@ module.exports = {
         var token = getTokenFromRequest(req)
         var details = parseTokenDetails(token)
         var userId = requestServices.getUserId(req)
-        var filter = details?.roles?.vendor || details?.roles?.driver? {} : { accountId: userId} 
+        var filter = details?.roles?.vendor || details?.roles?.delivery? {} : { accountId: userId} 
         Cart.findAll({where: filter}).
             then(carts => {
             return Order.findAll({
@@ -116,10 +116,10 @@ module.exports = {
             })
         }else {
             await DeliveryResponse.rejectDeliveryRequest(orderId, driver.id)
-            return res.status(204).send()
+            return res.status(200).send()
         }
         //check if the user has declined the order before
-        // if not decline the order and send code 204
+        // if not decline the order and send code 200
         // if declined before return 400 with explanation
     },
 
@@ -143,7 +143,7 @@ module.exports = {
         }
 
         DeliveryResponse.acceptDeliveryRequest(orderId, driver.id)
-        .then(() => res.status(204).send())
+        .then(() => res.status(200).send())
         .catch((error) => res.status(500).send())
     
         //check if the order has already been accepted

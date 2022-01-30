@@ -177,7 +177,7 @@ module.exports = {
             console.log("ORDER CREATED")
 
             order.save()
-            .then(order => res.status(201).send({
+            .then(order => res.status(200).send({
                 status: "Cart Checked Out",
                 order: order
             }))

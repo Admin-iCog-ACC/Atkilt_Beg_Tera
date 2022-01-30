@@ -102,7 +102,7 @@ module.exports = {
         }, {transaction})
 
         transaction.commit()
-        .then(success => res.status(204).send())
+        .then(success => res.status(200).send())
         .catch(error => req.status(403).send())
     },
 

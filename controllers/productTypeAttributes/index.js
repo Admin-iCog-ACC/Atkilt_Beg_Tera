@@ -72,7 +72,7 @@ module.exports = {
                         options
                     })
                 }
-                // res.status(201).send(attributeModel)
+                // res.status(200).send(attributeModel)
                 // return transaction.commit()
                 // .then(_ => res.status(200).send(attrs))    
                 // .catch(error => res.status(400).send(error))
