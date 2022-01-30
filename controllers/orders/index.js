@@ -15,26 +15,32 @@ module.exports = {
         // res.send({"status": "All Orders"})
         var token = getTokenFromRequest(req)
         var details = parseTokenDetails(token)
+        var status = req.query.status
         var userId = requestServices.getUserId(req)
         var filter = details?.roles?.vendor || details?.roles?.delivery? {} : { accountId: userId} 
+        
         Cart.findAll({where: filter}).
             then(carts => {
-            return Order.findAll({
-                where: {
+                var filter = {
                     cartId: {
                         [Sequelize.Op.in]: carts.map(cart => cart.id)
                     }
-                },
-                include: {
-                    model: Cart,
+                };
+                if(status){
+                    filter.status = status
+                }
+                return Order.findAll({
+                    where: filter,
                     include: {
-                        model: CartItem,
-                        as: "cartItems",
+                        model: Cart,
                         include: {
-                            model: Product,
+                            model: CartItem,
+                            as: "cartItems",
+                            include: {
+                                model: Product,
+                            }
                         }
                     }
-                }
             })
             .then(orders => res.status(200).send(orders))
             .catch(error => res.status(400).send(error))
