@@ -162,5 +162,48 @@ module.exports = {
         //check if the order has already replied to the order request
             //if the order has been replied to return 400
         //write to delivery responses and send 200
+    },
+
+    cancelDelivery: async(req, res, next)=>{
+        var userId = requestServices.getUserId(req)
+        var driver = await Driver.findOne({
+            where: {
+                accountId: userId
+            }
+        })
+        var orderId = parseInt(req.params.id);
+        var order = await Order.findByPk(orderId);
+
+        console.log(driver)
+
+        var response = await DeliveryResponse.findOne({
+            where: {
+                response: "ACCEPTED",
+                driverId: driver.id
+            }
+        })
+
+        if(!response){
+            res.status(400).send({
+                status: "Bad Request"
+            })
+        }
+
+        if(order == null){
+            return res.status(404).send({
+                error: "Order does not exist"
+            })
+        }else if(order.status != "Delivery Personnel Assigned"){
+            return res.status(400).send({
+                error: "Delivery can not be cancel at current status"
+            })
+        }
+
+        order.status = "Order Processed"
+        // await notificationService.sendNotification("New Order Recieved", order, `pos://sample.com/?id=${order.id}`)
+        await DeliveryResponse.cancelDeliveryRequest(response.id)
+        return order.save()
+        .then( order => res.status(200).send(order))
+        .catch(error => res.status(500).send(error))
     }
 }

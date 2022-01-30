@@ -10,6 +10,7 @@ router.get("/:id", controllers.getOrderById)
 
 router.post("/", controllers.createOrder)
 router.post("/:id/progressOrder", controllers.progressOrder)
+router.post("/:id/cancelDelivery", controllers.cancelDelivery)
 
 router.post("/:orderId/acceptOrder", controllers.acceptOrderRequest)
 router.post("/:orderId/rejectOrder", controllers.declineOrderRequest)

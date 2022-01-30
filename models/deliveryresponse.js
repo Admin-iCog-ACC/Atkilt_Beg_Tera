@@ -1,4 +1,5 @@
 'use strict';
+const { response } = require('express');
 const {
   Model
 } = require('sequelize');
@@ -44,6 +45,13 @@ module.exports = (sequelize, DataTypes) => {
       driverId,
       response: "ACCEPTED"
     })
+  }
+
+  DeliveryResponse.cancelDeliveryRequest = async (responseId) => {
+    var response = await DeliveryResponse.findByPk(responseId)
+    console.log("RESONSEEEEEE: ", response)
+    response.response = "CANCELED"
+    return await response.save()
   }
 
   DeliveryResponse.isRejected = (deliveryResponse) => {
