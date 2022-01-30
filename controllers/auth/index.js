@@ -26,7 +26,7 @@ module.exports = {
         }
         
         var tokenId = uuidV4();
-        var token = jwt.sign({accountId: account.id, tokenId}, authConfig.authSecret, {
+        var token = jwt.sign({accountId: account.id, tokenId, roles: {vendor: account.isVendor, delivery: account.isDelivery }}, authConfig.authSecret, {
             expiresIn: authConfig.accessTokenDuration // 24 hours
         });
         

@@ -4,28 +4,27 @@ const Cart = require('../../models').Cart;
 const CartItem = require('../../models').CartItem;
 const Product = require('../../models').Product;
 const Order = require('../../models').Order;
+const Driver = require('../../models').Driver;
+const DeliveryResponse = require('../../models').DeliveryResponse;
 const Sequelize =  require("sequelize")
 const orderWebsocket = require("../../websockets/listeners/order")
 const notificationService = require("../../services/notifications")
-
+const { parseTokenDetails, getTokenFromRequest } = require('../../middlewares/authMiddleware')
 module.exports = {
     getAllOrders: async(req, res, next)=>{
         // res.send({"status": "All Orders"})
-        var userId = 1
-        Cart.findAll({
-            where: {
-                accountId: requestServices.getUserId(req)
-            }
-        }).then(carts => {
-            // Uncomment once auth is implemented
-            // Order.findAll({
-            //     where: {
-            //         cartId: {
-            //             [Sequelize.Op.in]: carts.map(cart => cart.cartId)
-            //         }
-            //     }
-            // })
+        var token = getTokenFromRequest(req)
+        var details = parseTokenDetails(token)
+        var userId = requestServices.getUserId(req)
+        var filter = details?.roles?.vendor || details?.roles?.driver? {} : { accountId: userId} 
+        Cart.findAll({where: filter}).
+            then(carts => {
             return Order.findAll({
+                where: {
+                    cartId: {
+                        [Sequelize.Op.in]: carts.map(cart => cart.id)
+                    }
+                },
                 include: {
                     model: Cart,
                     include: {
@@ -81,11 +80,11 @@ module.exports = {
 
         if(order.status == 'Order Processed'){
             
-            orderWebsocket.server.clients.forEach(client => {
-                client.emit("order-delivery-request", {
-                    order: order.dataValues
-                })
-            })
+            // orderWebsocket.server.clients.forEach(client => {
+            //     client.emit("order-delivery-request", {
+            //         order: order.dataValues
+            //     })
+            // })
             
             await notificationService.sendNotification("New Order Recieved", order, `pos://sample.com/?id=${order.id}`)
             console.log("Notification Sent to Drivers")
@@ -94,5 +93,63 @@ module.exports = {
         return order.save()
         .then( order => res.status(200).send(order))
         .catch(error => res.status(500).send(error))
+    },
+
+    declineOrderRequest: async(req, res, next) => {
+        var userId = await requestServices.getUserId(req)
+        var driver = await Driver.findOne({ where: { accountId: userId}})
+        var orderId = parseInt(req.params.orderId)
+        var responses = await DeliveryResponse.findAll({
+            driverId: driver.id,
+            orderId: orderId
+        })
+
+        var previousRejection = false;
+
+        if(responses && responses.length){
+            var previousRejection = responses.some(response => DeliveryResponse.isRejected(response))
+        }
+
+        if(previousRejection){
+            return res.status(400).send({
+                status: "Order has been declined before. No need to decline again"
+            })
+        }else {
+            await DeliveryResponse.rejectDeliveryRequest(orderId, driver.id)
+            return res.status(204).send()
+        }
+        //check if the user has declined the order before
+        // if not decline the order and send code 204
+        // if declined before return 400 with explanation
+    },
+
+    acceptOrderRequest: async(req, res, next) => {
+        var userId = await requestServices.getUserId(req)
+        var driver = await Driver.findOne({ where: { accountId: userId}})
+        var orderId = parseInt(req.params.orderId)
+        var allResponses = await DeliveryResponse.findAll({
+            where: {
+                response: "ACCEPTED",
+                orderId: orderId
+            }
+        })
+
+        console.log(allResponses.length)
+
+        if(allResponses.length){
+            return res.status(400).send({
+                status: "Order has already been picked up"
+            })
+        }
+
+        DeliveryResponse.acceptDeliveryRequest(orderId, driver.id)
+        .then(() => res.status(204).send())
+        .catch((error) => res.status(500).send())
+    
+        //check if the order has already been accepted
+            //if accepted return 400
+        //check if the order has already replied to the order request
+            //if the order has been replied to return 400
+        //write to delivery responses and send 200
     }
 }
