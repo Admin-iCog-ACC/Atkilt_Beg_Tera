@@ -22,6 +22,7 @@ var attributesRouter = require('./routes/attributes')
 var uploadsRouter = require('./routes/upload')
 var authRouter = require("./routes/auth")
 var surveyRouter = require("./routes/survey")
+var vendorRouter = require('./routes/vendor')
 
 var authMiddleware = require("./middlewares/authMiddleware")
 
@@ -47,6 +48,8 @@ app.use("/categories", categoriesRouter)
 app.use("/attributes", attributesRouter)
 app.use("/upload", uploadsRouter)
 app.use("/survey", surveyRouter)
+app.use("/vendors", vendorRouter)
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   res.send({
