@@ -127,6 +127,14 @@ module.exports = {
         var userId = await requestServices.getUserId(req)
         var driver = await Driver.findOne({ where: { accountId: userId}})
         var orderId = parseInt(req.params.orderId)
+        var order = await Order.findByPk(orderId)
+
+        if(order.status != "Order Processed"){
+            return res.status(400).send({
+                status: "Order not yet processed"
+            })
+        }
+
         var allResponses = await DeliveryResponse.findAll({
             where: {
                 response: "ACCEPTED",
@@ -142,7 +150,10 @@ module.exports = {
             })
         }
 
-        DeliveryResponse.acceptDeliveryRequest(orderId, driver.id)
+        order.status = orderServices.getNextStatus(order.status)
+
+        await DeliveryResponse.acceptDeliveryRequest(orderId, driver.id)
+        return order.save()
         .then(() => res.status(200).send())
         .catch((error) => res.status(500).send())
     
