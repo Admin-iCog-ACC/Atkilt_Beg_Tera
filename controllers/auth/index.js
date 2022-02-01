@@ -49,6 +49,7 @@ module.exports = {
             lastName,
             username,
             isVendor,
+            isAgent,
             isDelivery
         } = req.body;
         email = email.toLowerCase();
@@ -70,6 +71,7 @@ module.exports = {
             lastName,
             username,
             isVendor,
+            isAgent,
             isDelivery
         })
         .then(newAccount => res.status(200).send({
