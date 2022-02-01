@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Survey.belongsTo(models.Account, {
+        foreignKey: "filledBy",
+        onDelete: "SET NULL"
+      })
     }
   };
   Survey.init({
@@ -21,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
     businessName: DataTypes.STRING,
     description: DataTypes.STRING,
     address: DataTypes.STRING,
-    filledBy: DataTypes.STRING,
     addressLatitude: DataTypes.FLOAT,
     addressLongitude: DataTypes.FLOAT,
     productType: DataTypes.STRING,

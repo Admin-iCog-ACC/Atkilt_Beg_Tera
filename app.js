@@ -47,7 +47,7 @@ app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)
 app.use("/attributes", attributesRouter)
 app.use("/upload", uploadsRouter)
-app.use("/survey", surveyRouter)
+app.use("/survey", authMiddleware.verifyToken, surveyRouter)
 app.use("/vendors", vendorRouter)
 
 // catch 404 and forward to error handler

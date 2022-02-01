@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     isVendor: DataTypes.BOOLEAN,
     isDelivery: DataTypes.BOOLEAN,
+    isAgent: DateTypes.BOOLEAN,
     isDriverAvailable: DataTypes.BOOLEAN
   }, {
     sequelize,
