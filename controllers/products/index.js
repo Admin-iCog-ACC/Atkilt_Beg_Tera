@@ -4,6 +4,8 @@ const ProductImage = require('../../models').ProductImage;
 const ProductItemAttribute = require('../../models').ProductItemAttribute;
 const ProductTypeAttribute = require('../../models').ProductTypeAttribute;
 const Attribute = require('../../models').Attribute;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const sequelize = require("../../models").sequelize;
 
 module.exports = {
@@ -151,6 +153,35 @@ module.exports = {
         }).then(product => res.status(200).send(product))
         })
         .catch(error => res.status(400).send(error));
+    },
+
+    searchProduct: async(req, res, next) => {
+        const search  = req.params.query;
+        // return res.status(200).send("WEEE")
+        Product.findAll({
+            where: {
+              name: {
+                [Op.like]: `%${search}%`
+              }
+            },
+            include: [
+                {
+                model: ProductItemAttribute,
+                as: "attributes",
+                include: {
+                    model: ProductTypeAttribute,
+                    include: {
+                        model: Attribute
+                    }
+                }
+            },
+            {
+                model: ProductImage,
+                as: "images"
+            }]
+        })
+        .then(products => res.status(200).send(products))
+        .catch(error => res.status(500).send())
     },
 
     updateProduct: async(req, res, next) => {

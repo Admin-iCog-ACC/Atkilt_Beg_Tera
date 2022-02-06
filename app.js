@@ -41,7 +41,7 @@ app.use('/', indexRouter);
 app.use("/carts", cartsRouter);
 app.use("/auth", authRouter)
 app.use("/orders", authMiddleware.verifyToken, ordersRouter);
-app.use("/products", authMiddleware.verifyToken, productsRouter);
+app.use("/products", productsRouter);
 app.use("/productTypes", productTypesRouter);
 app.use("/accounts", accountsRouter);
 app.use("/categories", categoriesRouter)

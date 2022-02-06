@@ -2,6 +2,23 @@ const Vendor = require('../../models').Vendor
 const Account = require('../../models').Account
 
 module.exports = {
+    getAllVendors: async(req, res, next) => {
+        return Vendor.findAll({
+            include: Account
+        })
+        .then(
+            vendors => {
+                for(var vendor of vendors){
+                    vendor.dataValues.lastName = vendor.dataValues.Account.dataValues.lastName
+                    vendor.dataValues.firstName = vendor.dataValues.Account.dataValues.firstName
+                    vendor.dataValues.Account = undefined
+                }
+                res.status(200).send(vendors)
+            }
+        )
+        .catch(error => res.status(400).send(error))
+    },
+
     getVendorById: async(req, res, next) => {
         var vendorId = parseInt(req.params.vendorId)
         console.log(Vendor)
