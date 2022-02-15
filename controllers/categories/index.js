@@ -1,6 +1,7 @@
 const Category = require('../../models').Category;
 const Product = require('../../models').Product;
 const ProductType = require('../../models').ProductType;
+const OtherProductType = require('../../models').OtherProductType;
 
 
 module.exports = {
@@ -33,5 +34,47 @@ module.exports = {
             .then(result => res.status(200).send(result))
             .catch(error => res.status(400).send(error));
 
+    },
+
+    createOtherProductType: async(req, res, next) => {
+        var categoryId = req.params.categoryId;
+        var name = req.body.name
+
+        var newProduct = OtherProductType.create({
+            categoryId,
+            name
+        })
+        .then(product => res.status(200).send(product))
+        .catch(error => res.status(400).send())
+    },
+
+    getProductTypesForCategory: async(req, res, next) => {
+        var categoryId = req.params.categoryId;
+        var productTypes = await ProductType.findAll({
+            where: {
+                categoryId
+            }
+        })
+        var otherProductTypes = await OtherProductType.findAll({
+            where: {
+                categoryId
+            }
+        })
+
+        return res.status(200).send({
+            productTypes,
+            otherProductTypes
+        })
+    },
+
+    getAllProductTypes: async(req, res, next) => {
+        var categoryId = req.params.categoryId;
+        var productTypes = await ProductType.findAll({})
+        var otherProductTypes = await OtherProductType.findAll({})
+
+        return res.status(200).send({
+            productTypes,
+            otherProductTypes
+        })
     }
 }
