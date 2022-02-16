@@ -6,6 +6,15 @@ var SurveyControllers = require("../../controllers/survey")
 router.post("/wholesaler", SurveyControllers.wholesalerSurvey)
 router.post("/vegetableRetailer", SurveyControllers.vegetableSurvey)
 router.post("/livestockRetailer", SurveyControllers.livestockSurvey)
+
+router.put("/wholesaler/:id", SurveyControllers.updateWholesalerSurvey)
+router.put("/vegetableRetailer/:id", SurveyControllers.updateVegetableSurvey)
+router.put("/livestockRetailer/:id", SurveyControllers.updateLivestockSurvey)
+
+router.delete("/wholesaler/:id", SurveyControllers.deleteWholesalerSurvey)
+router.delete("/vegetableRetailer/:id", SurveyControllers.deleteVegetableSurvey)
+router.delete("/livestockRetailer/:id", SurveyControllers.deleteLivestockSurvey)
+
 router.get("/", SurveyControllers.getAllSurveys)
 
 module.exports = router
