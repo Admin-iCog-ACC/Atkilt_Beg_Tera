@@ -6,9 +6,9 @@ var controllers = require("../../controllers/categories")
 
 //GET METHODS
 router.get("/", controllers.getAllCategories)
+router.get("/allProducts", controllers.getAllProductTypes)
 router.get("/:id", controllers.getCategoryById)
 router.get("/:categoryId/allProducts", controllers.getProductTypesForCategory)
-router.get("/allProducts", controllers.getAllProductTypes)
 
 router.post("/:categoryId/otherProductType", controllers.createOtherProductType)
 
