@@ -15,6 +15,10 @@ router.delete("/wholesaler/:id", SurveyControllers.deleteWholesalerSurvey)
 router.delete("/vegetableRetailer/:id", SurveyControllers.deleteVegetableSurvey)
 router.delete("/livestockRetailer/:id", SurveyControllers.deleteLivestockSurvey)
 
+
+router.get("/wholesaler", SurveyControllers.readWholesalerSurvey)
+router.get("/vegetableRetailer", SurveyControllers.readVegetableSurvey)
+router.get("/livestockRetailer", SurveyControllers.readLivestockSurvey)
 router.get("/", SurveyControllers.getAllSurveys)
 
 module.exports = router

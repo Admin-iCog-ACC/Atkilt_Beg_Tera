@@ -23,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   VegetableRetailerSurvey.init({
+    name: DataTypes.STRING,
+    email: DataTypes.STRING,
+    phone: DataTypes.STRING,
+    jobTitle: DataTypes.STRING,
     weeklyPurchase: DataTypes.FLOAT,
     distanceOfSupplier: DataTypes.INTEGER,
     MethodsToAcquireGoods: DataTypes.STRING,

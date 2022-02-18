@@ -181,4 +181,29 @@ module.exports = {
 
     updateLivestockSurvey: async(req, res, next) => {
     },
+
+    readWholesalerSurvey: async(req, res, next) => {
+        WholesaleSurvey.findAll({
+            include: SurveyProduct
+        })
+        .then(result => res.status(200).send(result))
+        .catch(error => res.status(401).send(error))
+    },
+
+    readVegetableSurvey: async(req, res, next) => {
+        VegetableRetailerSurvey.findAll({
+            include: {
+                model: SurveyProduct,
+                as: "Products"
+            }
+        })
+        .then(result => res.status(200).send(result))
+        .catch(error => res.status(401).send())
+    },
+
+    readLivestockSurvey: async(req, res, next) => {
+        VegetableRetailerSurvey.findAll()
+        .then(result => res.status(200).send(result))
+        .catch(error => res.status(401).send())
+    },
 }
