@@ -84,22 +84,26 @@ module.exports = {
     },
 
     livestockSurvey: async(req, res, next) => {
+        console.log(req.body)
         const transaction = await Sequelize.transaction()
         var userId = await requestServices.getUserId(req)
         var survey = await LivestockRetailerSurvey.create({...req.body, filledBy: userId}, {transaction})
-        var products = req.body.products
+        var products = req.body.products ?? []
 
-        var surveyProducts = products.map(product => {
+        if(products.length){
+            var surveyProducts = products.map(product => {
+    
+                var productModel = {
+                    ...product,
+                    livestockRetailerSurveyId: survey.id
+                }
+                console.log(productModel)
+                return productModel
+            })
+            
+            await SurveyProduct.bulkCreate( surveyProducts, {transaction})
+        }
 
-            var productModel = {
-                ...product,
-                livestockRetailerSurveyId: survey.id
-            }
-            console.log(productModel)
-            return productModel
-        })
-
-        await SurveyProduct.bulkCreate( surveyProducts, {transaction})
 
         return transaction.commit()
         .then( result => res.status(200).send({
