@@ -25,7 +25,7 @@ module.exports = {
         if(currentCart == null){
             console.log("--> Creating new cart")
             currentCart = await Cart.create({
-                accountId: accountId,
+                accountId,
                 checkedOut: false
             })
             await currentCart.save()

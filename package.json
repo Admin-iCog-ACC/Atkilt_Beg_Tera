@@ -23,7 +23,7 @@
     "nodemon": "^2.0.15",
     "onesignal-node": "^3.3.0",
     "path": "^0.12.7",
-    "pg": "^8.7.1",
+    "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.12.0-beta.3",
     "sequelize-cli": "^6.3.0",

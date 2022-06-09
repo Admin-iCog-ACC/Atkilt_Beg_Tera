@@ -7,8 +7,9 @@ var controllers = require("../../controllers/products")
 router.get("/search", controllers.searchProduct)
 router.get("/", controllers.getAllProducts)
 router.get("/:id", controllers.getProductById)
+router.post("/:id/update",controllers.updateProduct)
 
-// router.post("/", controllers.createProduct)
+router.post("/", controllers.createProduct)
 
 
 module.exports = router
