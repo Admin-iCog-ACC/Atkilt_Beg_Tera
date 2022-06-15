@@ -7,6 +7,7 @@ var parseUserDetails = (req) => {
     // var decoded = jwt.verify(token, authConfig.authSecret)
         var userId = decoded.accountId  
         console.log('USER ID ' ,userId)  
+        console.log('Decoded ' ,decoded)
     return userId
 }
 

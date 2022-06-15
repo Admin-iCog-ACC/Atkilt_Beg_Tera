@@ -84,16 +84,20 @@ module.exports = {
         // var product = await Product.create({...req.body, id: undefined})
         var productTypeId = req.params.productTypeId;
         var transaction =  await sequelize.transaction();
-
-        if(!req.userDetails.isVendor){
+       var isVendor=req.userDetails.isVendor
+        console.log("productType id",productTypeId);
+        if(!isVendor){
             return res.status(401).send({
+                
                 "status": "unauthorized"
             })
         }
 
-        var productTypeAttributes = await ProductTypeAttribute.findAll({
+        // var productTypeAttributes =
+         await ProductTypeAttribute.findAll({
             where: {
-                productTypeId: productTypeId
+                productTypeId:productTypeId
+                //  
             }
         })
         
@@ -101,8 +105,12 @@ module.exports = {
             ...req.body,
             id: undefined,
             productTypeId: productTypeId,
-            vendorId: req.userDetails.id
+            // id: req.userDetails.id
+            // req.userDetails.id
         }, {transaction})
+        .catch(error => res.status(400).send(error));
+    
+
 
         if(req.body.attributes){
             var attrs = req.body.attributes
