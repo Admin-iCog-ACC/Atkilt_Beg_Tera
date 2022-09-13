@@ -161,7 +161,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                       Padding(
                         padding: EdgeInsets.only(bottom: 20),
                         child: Text(
-                          'Upload your prodcut featured image here',
+                          'Upload your product featured image here',
                           style: TextStyle(
                               fontSize: 14,
                               color: Color.fromARGB(0XFF, 75, 85, 99)),

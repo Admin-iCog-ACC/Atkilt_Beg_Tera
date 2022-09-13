@@ -146,4 +146,17 @@ class ProductApi extends APIService {
       return Product.fromJson(returnResponse(value));
     });
   }
+
+  Future<List<Product>> getLivestockProducts() => http
+          .get(APIService(url: Uri.parse('${constVals.getBaseURL()}/products')))
+          .then((response) {
+        List<Product> livestockProduct = [];
+
+        // if(repons)
+        print(response.body);
+
+        print('this api' +
+            Product().fromJsonList(returnResponse(response)).length.toString());
+        return Product().fromJsonList(returnResponse(response));
+      });
 }

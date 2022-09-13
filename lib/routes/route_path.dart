@@ -16,5 +16,6 @@ class RoutePaths {
   static const String merchant_order_detail = '/merchant_order_detail';
   static const String retailer_order_list = '/order_list';
   static const String retailer_order_detail_screen = '/order_detail';
+  static const String livestock_filter_screen = "/livestock_filter";
   static const String myShop = 'myShop';
 }

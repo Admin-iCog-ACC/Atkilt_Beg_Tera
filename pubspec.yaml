@@ -44,11 +44,16 @@ dependencies:
   http_parser: ^4.0.0
   flutter_bloc: ^8.0.0
   equatable: ^2.0.3
+  # dropdown_search: ^5.0.2
 
+  # dropdown_button2: ^1.7.2
   file_picker: ^4.3.1
   image_picker: ^0.8.4+4
   shared_preferences: ^2.0.12
   flutter_secure_storage: ^5.0.2
+  get_it: ^7.2.0
+  dropdown_search: ^3.0.1
+  dropdown_button2: ^1.4.0
 localstorage: ^4.0.0+1
 provider: ^6.0.1
 

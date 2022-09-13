@@ -12,6 +12,7 @@ import 'package:retailer_app/screens/Merchant/shop/my_shop.dart';
 import 'package:retailer_app/screens/Retailer/cart_screen.dart';
 import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
 import 'package:retailer_app/screens/Retailer/dashboard.dart';
+import 'package:retailer_app/screens/Retailer/order/livestock_filter.dart';
 import 'package:retailer_app/screens/Retailer/order/order_detail_screen.dart';
 import 'package:retailer_app/screens/Retailer/order/order_screen.dart';
 import 'package:retailer_app/screens/Retailer/product_details_screen.dart';
@@ -72,6 +73,8 @@ class AppRouter {
             builder: (_) => RetailerOrderDetailScreen(order: arg));
       case RoutePaths.myShop:
         return MaterialPageRoute(builder: (_) => const MyShop());
+      case RoutePaths.livestock_filter_screen:
+        return MaterialPageRoute(builder: (_) => const LiveStockFilter());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

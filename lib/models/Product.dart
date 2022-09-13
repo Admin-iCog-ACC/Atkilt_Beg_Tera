@@ -148,7 +148,7 @@ class Product {
       'sku': sku ?? '',
       'name': name ?? '',
       'description': description ?? '',
-      'price': double.parse(price!) ?? '',
+      'price': double.parse(price!),
       'inStock': inStock ?? false,
       'total_sales': totalSales ?? 0,
       'images': images,
