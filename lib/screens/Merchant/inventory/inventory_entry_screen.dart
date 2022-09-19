@@ -42,6 +42,8 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
   bool _isLoading = false;
 
   TextEditingController _productNameController = TextEditingController();
+  TextEditingController _productAgeController = TextEditingController();
+  TextEditingController _productWeightController = TextEditingController();
   TextEditingController _productPriceController = TextEditingController();
   TextEditingController _productQuantityController = TextEditingController();
   TextEditingController _productDescriptionController = TextEditingController();
@@ -99,6 +101,8 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
     if (isValid()) {
       myProduct.name = _productNameController.text;
       myProduct.price = _productPriceController.text;
+      myProduct.age = _productAgeController.text;
+      myProduct.weight = _productWeightController.text;
       myProduct.stockQuantity = int.parse(_productQuantityController.text);
       myProduct.description = _productDescriptionController.text;
       myProduct.productTypeId = _selectedProductType.id;
@@ -357,7 +361,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 20),
                               child: Text(
-                                'Product Type*',
+                                'Product Type *',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -490,7 +494,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 20),
                               child: Text(
-                                'Name*',
+                                'Name *',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -528,7 +532,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             Padding(
                               padding: EdgeInsets.only(bottom: 20, top: 20),
                               child: Text(
-                                'Short Description*',
+                                'Short Description *',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -616,7 +620,63 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 8),
                                     child: Text(
-                                      'Price*',
+                                      'Age',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color:
+                                              Color.fromARGB(0XFF, 75, 85, 99)),
+                                    ),
+                                  ),
+                                  TextField(
+                                    controller: _productAgeController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5.0))),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Container(
+                              margin: EdgeInsets.only(bottom: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8),
+                                    child: Text(
+                                      'Weight',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color:
+                                              Color.fromARGB(0XFF, 75, 85, 99)),
+                                    ),
+                                  ),
+                                  TextField(
+                                    controller: _productWeightController,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5.0))),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                            Container(
+                              margin: EdgeInsets.only(bottom: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 8),
+                                    child: Text(
+                                      'Price *',
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
@@ -643,7 +703,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 8),
                                     child: Text(
-                                      'Quantity*',
+                                      'Quantity *',
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,

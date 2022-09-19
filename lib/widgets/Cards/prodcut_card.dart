@@ -72,7 +72,7 @@ class _ProdcutCardState extends State<ProductCard> {
                     Padding(
                         padding: EdgeInsets.only(bottom: 8),
                         child: Text(
-                          'Br' + widget.product.price.toString(),
+                          'Br ' + widget.product.price.toString(),
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w600),
                         )),
