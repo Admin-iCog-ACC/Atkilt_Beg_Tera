@@ -55,6 +55,8 @@ module.exports = (sequelize, DataTypes) => {
     shortDescription: DataTypes.STRING,
     permaLink: DataTypes.STRING,
     price: DataTypes.FLOAT,
+    age: DataTypes.FLOAT,
+    weight: DataTypes.FLOAT,
     inStock: DataTypes.BOOLEAN,
     totalSales: DataTypes.FLOAT,
     stockQuantity: DataTypes.FLOAT
