@@ -226,17 +226,8 @@ class ProductListScreenState extends State<ProductListScreen> {
         products = products
             .where((element) => [10, 11].contains(element.productTypeId))
             .toList();
-        for (var i = 0; i < products.length; i++) {
-          // templivestock.add(TempLivestock(
-          //     products[i],
-          //     generatePrice(products[i].price!.toString()),
-          //     generateAge(products[i].price!.toString()),
-          //     generateWeight(products[i].price!.toString())));
-          products[i].age =
-              generateAge(products[i].price!.toString()).toString();
-          products[i].weight =
-              generateWeight(products[i].price!.toString()).toString();
-        }
+
+        templivestock.clear();
         templivestock.addAll(products);
         print(templivestock.length);
         return products;
@@ -343,13 +334,13 @@ class ProductListScreenState extends State<ProductListScreen> {
 
   List<Product> filterLivestockList(List<FilterValue> filterlist) {
     List<Product> result = [];
-    // for (var element in templivestock) {
-    //   result.add(element);
-    // }
-    print(templivestock.length);
-    // print(result.length);
+    for (var element in templivestock) {
+      result.add(element);
+    }
+    // print(templivestock.length);
+    print(result.length);
     if (filterlist.length == 0) {
-      result.addAll(templivestock);
+      // result.addAll(templivestock);
       return result;
     }
     for (var i = 0; i < filterlist.length; i++) {
@@ -370,40 +361,38 @@ class ProductListScreenState extends State<ProductListScreen> {
     // print(result.length);
     switch (value.condition) {
       case 'isLessThan':
+        // print(result.length);
+
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.age!) <
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.age!) >=
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
+          print(result.length);
         }
         break;
       case 'isBetween':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if ((double.parse(element.age!) >=
+          if (!result.contains(element)) continue;
+          if (!(double.parse(element.age!) >=
                   double.parse(value.filterLowerBound!.toString()) &&
               double.parse(element.age!) <=
                   double.parse(value.filterUpperBound!.toString())))
-            result.add(element);
+            result.remove(element);
         }
         break;
       case 'isGreaterThan':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.age!) >
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.age!) <=
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
         }
         break;
       default:
         return result;
     }
-    // if (value.isGreaterOrEqual!) {
-    // } else {
-    //   for (var element in temp) {
-    //     if (result.contains(element.product)) continue;
-    //     if (element.lage! >= value.filterValue!) result.add(element.product);
-    //   }
-    // }
-    print(result.length);
+
     return result;
   }
 
@@ -412,26 +401,28 @@ class ProductListScreenState extends State<ProductListScreen> {
     switch (value.condition) {
       case 'isLessThan':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.weight!) <
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.weight!) >=
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
         }
         break;
       case 'isBetween':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if ((double.parse(element.weight!) >=
+          if (!result.contains(element)) continue;
+          if (!(double.parse(element.weight!) >=
                   double.parse(value.filterLowerBound!.toString()) &&
               double.parse(element.weight!) <=
                   double.parse(value.filterUpperBound!.toString())))
-            result.add(element);
+            result.remove(element);
         }
         break;
       case 'isGreaterThan':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.weight!) >
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.weight!) <=
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
         }
         break;
       default:
@@ -445,26 +436,28 @@ class ProductListScreenState extends State<ProductListScreen> {
     switch (value.condition) {
       case 'isLessThan':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.price!) <
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.price!) >
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
         }
         break;
       case 'isBetween':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if ((double.parse(element.price!) >=
+          if (!result.contains(element)) continue;
+          if (!(double.parse(element.price!) >=
                   double.parse(value.filterLowerBound!.toString()) &&
               double.parse(element.price!) <=
                   double.parse(value.filterUpperBound!.toString())))
-            result.add(element);
+            result.remove(element);
         }
         break;
       case 'isGreaterThan':
         for (var element in temp) {
-          if (result.contains(element)) continue;
-          if (double.parse(element.price!) >
-              double.parse(value.filterValue!.toString())) result.add(element);
+          if (!result.contains(element)) continue;
+          if (double.parse(element.price!) <=
+              double.parse(value.filterValue!.toString()))
+            result.remove(element);
         }
         break;
       default:
