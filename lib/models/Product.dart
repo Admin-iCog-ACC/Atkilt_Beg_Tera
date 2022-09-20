@@ -12,6 +12,8 @@ class Product {
   String? description;
   String? shortDescription;
   String? price;
+  String? age;
+  String? weight;
   bool? inStock;
   int? totalSales;
   List<String> images = [];
@@ -40,6 +42,8 @@ class Product {
     description = p.description;
     productTypeId = p.productTypeId;
     price = p.price;
+    weight = p.weight;
+    age = p.age;
 
     inStock = p.inStock;
 
@@ -68,6 +72,8 @@ class Product {
       shortDescription = parsedJson['shortDescription'];
 
       price = parsedJson['price'].toString();
+      weight = parsedJson['weight'].toString();
+      age = parsedJson['age'].toString();
 
       inStock =
           parsedJson['inStock'] ?? parsedJson['stock_status'] == 'instock';
@@ -149,6 +155,8 @@ class Product {
       'name': name ?? '',
       'description': description ?? '',
       'price': double.parse(price!),
+      'weight': double.parse(weight!),
+      'age': double.parse(age!),
       'inStock': inStock ?? false,
       'total_sales': totalSales ?? 0,
       'images': images,
@@ -166,6 +174,8 @@ class Product {
       description = json['description'];
 
       price = json['price'];
+      weight = json['weight'];
+      age = json['age'];
 
       inStock = json['inStock'];
 
@@ -199,6 +209,6 @@ class Product {
 
   @override
   String toString() {
-    return 'Product{id: $id, sku: $sku, name: $name, description: $description, price: $price, inStock: $inStock, totalSales: $totalSales, images: $images, attributes: $attributes, categoryId: $categoryId, stockQuantity: $stockQuantity}';
+    return 'Product{id: $id, sku: $sku, name: $name, description: $description, price: $price, weight: $weight, age: $age, inStock: $inStock, totalSales: $totalSales, images: $images, attributes: $attributes, categoryId: $categoryId, stockQuantity: $stockQuantity}';
   }
 }

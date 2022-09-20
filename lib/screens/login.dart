@@ -41,7 +41,7 @@ class LoginScreenState extends State<LoginScreen> {
           ? Navigator.pushReplacementNamed(
               context, RoutePaths.merchant_dashboard)
           : Navigator.pushReplacementNamed(
-              context, RoutePaths.livestock_filter_screen);
+              context, RoutePaths.retailer_product_list);
     }
   }
 
@@ -165,7 +165,7 @@ class LoginScreenState extends State<LoginScreen> {
                               ? Navigator.pushReplacementNamed(
                                   context, RoutePaths.merchant_dashboard)
                               : Navigator.pushReplacementNamed(
-                                  context, RoutePaths.livestock_filter_screen);
+                                  context, RoutePaths.retailer_product_list);
                         });
                         // Navigator.pushNamed(
                         //     context, RoutePaths.retailer_dashboard);
