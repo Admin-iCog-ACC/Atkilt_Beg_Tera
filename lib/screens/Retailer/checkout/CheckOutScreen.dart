@@ -17,6 +17,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
   static String selected = 'EXPRESS';
   Cart? cart;
   bool isLoading = true;
+  String deliveryLocation = "Addis Ababa, Bole, Ring Road, St.1012";
 
   @override
   void initState() {
@@ -55,7 +56,15 @@ class CheckOutScreenState extends State<CheckOutScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                final result =
+                    await Navigator.pushNamed(context, RoutePaths.map_screen);
+                setState(() {
+                  if (result.toString() != "" ||
+                      result.toString() != "Your Current Location")
+                    deliveryLocation = result.toString();
+                });
+              },
               icon: Icon(
                 Icons.edit,
                 color: Colors.black,
@@ -207,7 +216,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   padding: EdgeInsets.all(16),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Addis Ababa, Bole, Ring Road, St.1012',
+                                    deliveryLocation,
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 )
@@ -268,7 +277,7 @@ class CheckOutScreenState extends State<CheckOutScreen> {
                                   padding: EdgeInsets.all(16),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    'Addis Ababa, Bole, Ring Road, St.1012',
+                                    deliveryLocation,
                                     style: TextStyle(fontSize: 14),
                                   ),
                                 )

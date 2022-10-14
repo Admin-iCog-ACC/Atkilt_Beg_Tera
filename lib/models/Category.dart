@@ -12,6 +12,9 @@ class Category {
   List<ProductType>? productTypes;
 
   Category();
+  Category.addAllCategory() {
+    name = "All";
+  }
 
   Category.fromJson(Map<String, dynamic> parsedJson) {
     if (parsedJson['slug'] == 'uncategorized') {

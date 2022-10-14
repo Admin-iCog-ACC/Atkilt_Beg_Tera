@@ -18,4 +18,5 @@ class RoutePaths {
   static const String retailer_order_detail_screen = '/order_detail';
   static const String livestock_filter_screen = "/livestock_filter";
   static const String myShop = 'myShop';
+  static const String map_screen = 'map_screen';
 }

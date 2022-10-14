@@ -2,11 +2,13 @@ class AttributeOption {
   int? id;
   String? value;
   int? productTypeAttributeId;
+  bool? isChecked;
 
   AttributeOption({
     this.id,
     this.value,
     this.productTypeAttributeId,
+    this.isChecked = false,
   });
 
   AttributeOption.fromJson(Map<String, dynamic> json) {

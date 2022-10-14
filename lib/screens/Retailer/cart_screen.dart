@@ -126,7 +126,9 @@ class CartScreenState extends State<CartScreen> {
                 ],
               )
             : Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
               ));
   }
 }

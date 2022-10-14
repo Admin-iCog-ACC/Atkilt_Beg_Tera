@@ -58,7 +58,7 @@ class _ProdcutCardState extends State<ProductCard> {
         child: Container(
             width: 341,
             height: 306,
-            padding: EdgeInsets.all(12),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
             child: Column(
               children: [
                 SizedBox(

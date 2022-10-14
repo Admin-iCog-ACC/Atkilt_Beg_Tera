@@ -149,14 +149,16 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
+    print(weight!);
+    print(age!);
     return {
       'id': id ?? '',
       'sku': sku ?? '',
       'name': name ?? '',
       'description': description ?? '',
       'price': double.parse(price!),
-      'weight': double.parse(weight!),
-      'age': double.parse(age!),
+      'weight': double.tryParse(weight!),
+      'age': double.tryParse(age!),
       'inStock': inStock ?? false,
       'total_sales': totalSales ?? 0,
       'images': images,

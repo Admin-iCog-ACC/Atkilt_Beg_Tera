@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:retailer_app/APIs/Product_API.dart';
 import 'package:retailer_app/models/Product.dart';
 import 'package:retailer_app/models/ProductType.dart';
+import 'package:retailer_app/models/intities/AttributeOption.dart';
 import 'package:retailer_app/models/intities/ProductTypeAttribute.dart';
 import 'package:retailer_app/models/intities/product_attribute.dart';
 
@@ -31,7 +32,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
   Product myProduct = Product();
 
   final ProductApi _apiProduct = ProductApi();
-
+  String? selectedAttributeOption;
   List<ProductType> _productTypes = [];
   List<ProductTypeAttribute> _productTypeAttributes = [];
   ProductType _selectedProductType = ProductType();
@@ -40,6 +41,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
 
   double containerHeight = 0;
   bool _isLoading = false;
+  bool _showAgeAndWeight = false;
 
   TextEditingController _productNameController = TextEditingController();
   TextEditingController _productAgeController = TextEditingController();
@@ -63,6 +65,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
       setState(() {
         _productTypes.addAll(value);
         _isLoading = false;
+        print(_productTypes[0]);
       });
 
       print('productTypes: ' + _productTypes.length.toString());
@@ -83,13 +86,25 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
 
   void getAttributesQuestion(selectedId) {
     _isLoading = true;
+    _productTypeAttributes.clear();
     _apiProduct.getAttributesQuestion(selectedId).then((value) {
       setState(() {
         _productTypeAttributes.addAll(value);
+        for (var i = 0; i < value.length; i++) {
+          // if (value[i].type == "option") {
+          //   _productTypeAttributesWithSelections[value[i]] = false;
+          // }
+          for (var j = 0; j < value[i].options!.length; j++) {
+            // _productTypeAttributesWithSelections[value[i].options![j].value!] =
+            //     false;
+            value[i].options![j].isChecked = false;
+          }
+        }
+        // print(_productTypeAttributes[1]);
         _isLoading = false;
       });
 
-      print('AttributeQuestions: ' + litems.length.toString());
+      print('AttributeQuestions: ' + value.length.toString());
     });
   }
 
@@ -133,7 +148,9 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
         ),
         body: _isLoading
             ? Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).primaryColor,
+                ),
               )
             : Container(
                 padding: EdgeInsets.only(left: 15, right: 15),
@@ -389,6 +406,10 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                     getAttributesQuestion(
                                         _selectedProductType.id);
                                   }
+                                  _selectedProductType.category!.name ==
+                                          'Livestock'
+                                      ? _showAgeAndWeight = true
+                                      : _showAgeAndWeight = false;
                                 });
                               },
                               selectedItemBuilder: (context) {
@@ -612,61 +633,69 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              margin: EdgeInsets.only(bottom: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 8),
-                                    child: Text(
-                                      'Age',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color:
-                                              Color.fromARGB(0XFF, 75, 85, 99)),
+                            _showAgeAndWeight
+                                ? Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(bottom: 8),
+                                          child: Text(
+                                            'Age',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    0XFF, 75, 85, 99)),
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: _productAgeController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0))),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  TextField(
-                                    controller: _productAgeController,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  )
+                                : SizedBox.shrink(),
 
-                            Container(
-                              margin: EdgeInsets.only(bottom: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 8),
-                                    child: Text(
-                                      'Weight',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color:
-                                              Color.fromARGB(0XFF, 75, 85, 99)),
+                            _showAgeAndWeight
+                                ? Container(
+                                    margin: EdgeInsets.only(bottom: 20),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.only(bottom: 8),
+                                          child: Text(
+                                            'Weight',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color.fromARGB(
+                                                    0XFF, 75, 85, 99)),
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: _productWeightController,
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5.0))),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  TextField(
-                                    controller: _productWeightController,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                  )
+                                : SizedBox.shrink(),
 
                             Container(
                               margin: EdgeInsets.only(bottom: 20),
@@ -686,6 +715,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                   ),
                                   TextField(
                                     controller: _productPriceController,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -713,6 +743,7 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                   ),
                                   TextField(
                                     controller: _productQuantityController,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius: BorderRadius.all(
@@ -751,16 +782,38 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                             if (_productTypeAttributes != null)
                               ..._productTypeAttributes
                                   .map((productTypeAttribut) {
-                                bool isChecked = false;
+                                // bool? isChecked = false;
+                                // for (var i = 0;
+                                //     i < productTypeAttribut.options!.length;
+                                //     i++) {
+                                //   if (_productTypeAttributesWithSelections
+                                //       .containsKey(productTypeAttribut
+                                //           .options![i].value)) {
+                                //     print('found it');
+                                //     isChecked =
+                                //         _productTypeAttributesWithSelections[
+                                //             productTypeAttribut
+                                //                 .options![i].value];
+                                //   }
+                                // }
                                 return OptionsQueastionState(
-                                  isSelected: isChecked,
+                                  // isSelected: checkAttributeSelection(
+                                  //     productTypeAttribut.options,
+                                  //     selectedAttributeOption),
                                   productTypeAttribute: productTypeAttribut,
                                   onCheckBox: (value, option) {
                                     setState(() {
-                                      print(isChecked);
+                                      print(
+                                          'isChecked ${productTypeAttribut.options}');
                                       print(option.value);
-                                      print(value);
-                                      isChecked = value;
+                                      print(option.isChecked);
+                                      print(option);
+                                      option.isChecked = !option.isChecked;
+                                      // print(value);
+                                      // isChecked = value;
+                                      // _productTypeAttributesWithSelections[
+                                      //     option.value] = value;
+                                      // selectedAttributeOption = option.value;
                                     });
                                   },
                                 );
@@ -848,9 +901,11 @@ class InventoryEntryScreenState extends State<InventoryEntryScreen> {
                                   : Theme.of(context).primaryColor,
                               child: Text('Save'),
                               textColor: Colors.white,
-                              onPressed: () {
-                                createProduct();
-                              },
+                              onPressed: !isValid()
+                                  ? () {}
+                                  : () {
+                                      createProduct();
+                                    },
                             ),
                           ],
                         ),

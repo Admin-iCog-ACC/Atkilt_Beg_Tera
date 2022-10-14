@@ -90,7 +90,7 @@ class CartCard extends StatelessWidget {
               width: 40,
               child: Image.network(item.product!.images.length > 0
                   ? item.product!.images.first
-                  : ""),
+                  : "https://t3.ftcdn.net/jpg/03/35/74/56/240_F_335745675_MaxYxSsadrviZdThITuHB2oCohYOiwEu.jpg"),
             ),
             Container(
               alignment: Alignment.centerLeft,

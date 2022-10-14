@@ -29,6 +29,7 @@ class InventoryListState extends State<InventoryList> {
     _api.getProducts().then((value) {
       setState(() {
         myProducts.addAll(value);
+        print(myProducts.length);
       });
     });
     super.initState();
@@ -54,12 +55,15 @@ class InventoryListState extends State<InventoryList> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () =>
             Navigator.pushNamed(context, RoutePaths.inventory_entry),
-        label: Text('Add Product'),
-        icon: Icon(Icons.add),
+        label: Text('Add Product', style: TextStyle(color: Colors.white)),
+        icon: Icon(Icons.add, color: Colors.white),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: myProducts.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? Center(
+              child: CircularProgressIndicator(
+              color: Theme.of(context).primaryColor,
+            ))
           : SingleChildScrollView(
               child: Padding(
                   padding: EdgeInsets.all(20),
@@ -151,10 +155,11 @@ class InventoryListState extends State<InventoryList> {
                                   myProducts.length,
                                   (index) => DataRow(cells: [
                                         DataCell(
-                                          Text("-----"),
+                                          Text((index + 1).toString()),
                                           onTap: () => Navigator.pushNamed(
                                               context,
-                                              RoutePaths.inventory_entry),
+                                              RoutePaths
+                                                  .merchant_product_detail),
                                         ),
                                         DataCell(Text(myProducts[index].name!)),
                                         DataCell(

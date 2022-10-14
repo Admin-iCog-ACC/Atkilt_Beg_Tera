@@ -172,7 +172,7 @@ class ProductDetailScreenState extends State<ProductDetailScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(top: 20, bottom: 20),
-                    child: Text("Br" + myProduct.price!,
+                    child: Text("Br " + myProduct.price!,
                         style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.w600,

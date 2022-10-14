@@ -13,11 +13,12 @@ import 'package:retailer_app/models/intities/ProductTypeAttribute.dart';
 class OptionsQueastionState extends StatelessWidget {
   ProductTypeAttribute? productTypeAttribute;
   final onCheckBox;
-  bool isSelected;
-  OptionsQueastionState(
-      {@required this.productTypeAttribute,
-      this.onCheckBox,
-      required this.isSelected});
+  // bool isSelected;
+  OptionsQueastionState({
+    @required this.productTypeAttribute,
+    this.onCheckBox,
+    // required this.isSelected
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,8 @@ class OptionsQueastionState extends StatelessWidget {
                     ...productTypeAttribute!.options!.map((option) {
                       return CheckboxListTile(
                         title: Text(option.value ?? ""),
-                        value: isSelected,
+                        value: option.isChecked ?? false,
+                        selected: option.isChecked ?? false,
                         onChanged: (bool? value) {
                           onCheckBox(value, option);
                         },

@@ -23,6 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
 
   late SharedPreferences logindata;
   late bool newuser;
+  bool obscureText = true;
 
   ConstVals _constVals = ConstVals();
   @override
@@ -41,7 +42,7 @@ class LoginScreenState extends State<LoginScreen> {
           ? Navigator.pushReplacementNamed(
               context, RoutePaths.merchant_dashboard)
           : Navigator.pushReplacementNamed(
-              context, RoutePaths.retailer_product_list);
+              context, RoutePaths.retailer_dashboard);
     }
   }
 
@@ -123,13 +124,18 @@ class LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: password_controller,
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
-                        decoration: const InputDecoration(
+                        obscureText: obscureText,
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(5.0)),
                           ),
-                          suffixIcon: Icon(Icons.remove_red_eye),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.remove_red_eye),
+                            onPressed: () => setState(() {
+                              obscureText = !obscureText;
+                            }),
+                          ),
                         ),
                       ),
                     ],
@@ -165,7 +171,7 @@ class LoginScreenState extends State<LoginScreen> {
                               ? Navigator.pushReplacementNamed(
                                   context, RoutePaths.merchant_dashboard)
                               : Navigator.pushReplacementNamed(
-                                  context, RoutePaths.retailer_product_list);
+                                  context, RoutePaths.retailer_dashboard);
                         });
                         // Navigator.pushNamed(
                         //     context, RoutePaths.retailer_dashboard);

@@ -6,8 +6,10 @@ import 'package:retailer_app/routes/router.dart';
 import 'package:retailer_app/screens/Retailer/checkout/CheckOutScreen.dart';
 import 'package:retailer_app/screens/Retailer/dashboard.dart';
 import 'package:retailer_app/screens/login.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "assets/.env");
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => ProductRepository())
