@@ -122,8 +122,8 @@ class _RegisterMainState extends State<RegisterMain> {
                   controller: _fullNameController,
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Full name is required"),
-                    PatternValidator('(?!/\s/)',
-                        errorText: "Please enter first and last name")
+                    PatternValidator(r'(\b \b)',
+                        errorText: "Please enter first and last name"),
                   ]),
                   keyboardType: TextInputType.name,
                   style: TextStyle(fontSize: 14),

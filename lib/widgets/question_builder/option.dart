@@ -45,6 +45,7 @@ class OptionsQueastionState extends StatelessWidget {
                         title: Text(option.value ?? ""),
                         value: option.isChecked ?? false,
                         selected: option.isChecked ?? false,
+                        activeColor: Theme.of(context).primaryColor,
                         onChanged: (bool? value) {
                           onCheckBox(value, option);
                         },
